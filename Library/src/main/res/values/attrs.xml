@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ClipViewLayout">
+        <attr name="clipType" format="enum">
+            <enum name="circle" value="1" />
+            <enum name="rectangle" value="2" />
+        </attr>
+        <attr name="mHorizontalPadding" format="dimension" />
+        <attr name="clipBorderWidth" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_fill_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="LottieAnimationView">
+        <attr name="lottie_fileName" format="string" />
+        <attr name="lottie_rawRes" format="reference" />
+        <attr name="lottie_url" format="string" />
+        <attr name="lottie_autoPlay" format="boolean" />
+        <attr name="lottie_loop" format="boolean" />
+        <attr name="lottie_repeatMode" format="enum">
+            <enum name="restart" value="1" />
+            <enum name="reverse" value="2" />
+        </attr>
+        <attr name="lottie_repeatCount" format="integer" />
+        <attr name="lottie_imageAssetsFolder" format="string" />
+        <attr name="lottie_progress" format="float" />
+        <attr name="lottie_enableMergePathsForKitKatAndAbove" format="boolean" />
+        <attr name="lottie_colorFilter" format="color" />
+        <attr name="lottie_scale" format="float" />
+        <attr name="lottie_speed" format="float" />
+        <!-- These values must be kept in sync with the RenderMode enum -->
+        <attr name="lottie_renderMode" format="enum">
+            <enum name="automatic" value="0" />
+            <enum name="hardware" value="1" />
+            <enum name="software" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPaddingTopBottom" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <!--该属性表示里面的TAB是否均分整个PagerSlidingTabStrip控件的宽,true是,false不均分,从左到右排列,默认false-->
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+        <attr name="pstsTextSelectedColor" format="color"/>
+        <!--缩放的最大值,0.3表示放大后最大是原来的0.3倍,默认未0.3-->
+        <attr name="pstsScaleZoomMax" format="float"/>
+        <attr name="pstsSmoothScrollWhenClickTab" format="boolean"/>
+        <!-- 宽为match_parent ，指示器的宽需手动计算的问题,这个属性设置为true,则指示器的位置和字体的宽一样-->
+        <!--    <attr name="pstsIndicatorWrap" format="boolean" />-->
+    </declare-styleable>
+
+    <declare-styleable name="SelectableRoundedImageView">
+        <attr name="riv_corner_radius" format="dimension" />
+        <attr name="sriv_left_top_corner_radius" format="dimension" />
+        <attr name="sriv_right_top_corner_radius" format="dimension" />
+        <attr name="sriv_left_bottom_corner_radius" format="dimension" />
+        <attr name="sriv_right_bottom_corner_radius" format="dimension" />
+        <attr name="sriv_border_width" format="dimension" />
+        <attr name="sriv_border_color" format="color" />
+        <attr name="riv_mutate_background" format="boolean" />
+        <attr name="sriv_oval" format="boolean" />
+        <attr name="android:scaleType" />
+        <attr name="riv_tile_mode">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+        <attr name="riv_tile_mode_x">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+        <attr name="riv_tile_mode_y">
+            <enum name="clamp" value="0" />
+            <enum name="repeat" value="1" />
+            <enum name="mirror" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CustomEditText">
+        <attr name="digits" format="string|reference" /> <!--定义可输入字符属性，与EditText的属性使用相同-->
+        <attr name="drawableLeft" format="reference" />  <!--与EditText的drawableLeft属性使用相同-->
+        <attr name="hint" format="string|reference" />  <!--与EditText的hint属性使用相同-->
+        <attr name="hintTextColor" format="color" />    <!--与EditText的hintTextColor属性使用相同-->
+        <attr name="srcClearButton" format="reference" />  <!--设置清除内容按钮的图片资源,与ImageView的src属性使用相同-->
+        <attr name="srcPasswordDisplay" format="reference" /> <!--设置密码显示状态的图片资源,与ImageView的src属性使用相同-->
+        <attr name="srcPasswordHidden" format="reference" /> <!--设置密码隐藏状态的图片资源,与ImageView的src属性使用相同-->
+        <attr name="authCodeHint" format="string|reference" /> <!--设置获取验证码按钮显示的文字-->
+        <attr name="inputTextColor" format="color" /> <!--设置输入文字的颜色-->
+        <attr name="inputTextSize" format="dimension" /> <!--设置输入文字的大小,与EditText的textSize属性使用相同-->
+        <attr name="authCodeTextColor" format="color" /> <!--设置获取验证码按钮文字颜色-->
+        <attr name="authCodeTextSize" format="dimension" /> <!--设置获取验证码按钮文字大小-->
+        <attr name="maxLength" format="integer" />  <!--设置可输入最大字符数-->
+    </declare-styleable>
+
+</resources>
