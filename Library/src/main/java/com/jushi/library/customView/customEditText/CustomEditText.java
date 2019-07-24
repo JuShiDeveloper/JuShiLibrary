@@ -20,7 +20,11 @@ import android.widget.TextView;
 
 import com.jushi.library.R;
 
-
+/**
+ * 用于登录或注册页面使用的输入框,
+ * 包含清空内容按钮，获取验证码按钮，控制密码显示或隐藏的按钮等操作
+ * create time 2019/7/24
+ */
 public class CustomEditText extends RelativeLayout implements View.OnClickListener, TextWatcher {
     /**
      * 输入框
