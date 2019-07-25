@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.jushi.library.systemBarUtils.SystemBarUtil
-import com.jushi.library.utils.ToastUtils
+import com.jushi.library.utils.ToastUtil
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -131,10 +131,10 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun showToast(msg: Any) {
-        ToastUtils.showToast(this, msg.toString())
+        ToastUtil.showToast(this, msg.toString())
     }
 
     fun showToastAtLocation(msg: Any, gravity: Int) {
-        ToastUtils.showToastAtLocation(this, msg.toString(), gravity)
+//        ToastUtil.showToastAtLocation(this, msg.toString(), gravity)
     }
 }
