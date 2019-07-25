@@ -20,11 +20,7 @@ import android.widget.TextView;
 
 import com.jushi.library.R;
 
-/**
- * 用于登录或注册页面使用的输入框,
- * 包含清空内容按钮，获取验证码按钮，控制密码显示或隐藏的按钮等操作
- * create time 2019/7/24
- */
+
 public class CustomEditText extends RelativeLayout implements View.OnClickListener, TextWatcher {
     /**
      * 输入框
@@ -43,7 +39,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
      */
     private TextView authCodeBtn;
 
-    private OnAuthCodeButtomClickListener authCodeButtomClickListener;
+    private OnAuthCodeButtonClickListener authCodeButtomClickListener;
     private OnTextChangedListener onTextChangedListener;
     private int customEditTextType = -1;
 
@@ -103,6 +99,8 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         setHintTextColor(typedArray.getColor(R.styleable.CustomEditText_hintTextColor, Color.LTGRAY));
         setInputTextSize(typedArray.getDimensionPixelSize(R.styleable.CustomEditText_inputTextSize, defaultTextSize));
         setMaxLength(typedArray.getInt(R.styleable.CustomEditText_maxLength, 20));
+        setAuthCodeButtonBackgroundColor(typedArray.getColor(R.styleable.CustomEditText_authCodeBackgroundColor, Color.WHITE));
+        setAuthCodeButtonBackgroundResource(typedArray.getResourceId(R.styleable.CustomEditText_authCodeBackgroundResource, 0));
     }
 
     private void setListener() {
@@ -278,6 +276,26 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
     }
 
+    /**
+     * 设置获取验证码按钮背景颜色
+     *
+     * @param color
+     */
+    private void setAuthCodeButtonBackgroundColor(int color) {
+        if (color == 0) return;
+        authCodeBtn.setBackgroundColor(color);
+    }
+
+    /**
+     * 设置获取验证码按钮背景资源
+     *
+     * @param resId 资源id
+     */
+    private void setAuthCodeButtonBackgroundResource(int resId) {
+        if (resId == 0) return;
+        authCodeBtn.setBackgroundResource(resId);
+    }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
@@ -327,7 +345,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
      *
      * @param authCodeButtomClickListener
      */
-    public void setAuthCodeButtonClickListener(OnAuthCodeButtomClickListener authCodeButtomClickListener) {
+    public void setAuthCodeButtonClickListener(OnAuthCodeButtonClickListener authCodeButtomClickListener) {
         this.authCodeButtomClickListener = authCodeButtomClickListener;
         setAuthCodeButtonVisible(true);
     }
@@ -346,7 +364,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
     /**
      * 获取验证码按钮点击接口
      */
-    public interface OnAuthCodeButtomClickListener {
+    public interface OnAuthCodeButtonClickListener {
         void onAuthCodeButtonClick(View view);
     }
 
