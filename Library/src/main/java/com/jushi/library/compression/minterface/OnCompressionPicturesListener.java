@@ -13,4 +13,5 @@ public interface OnCompressionPicturesListener {
      * @param pictures 装有压缩成功后的图片文件的集合
      */
     void onPictureFiles(List<File> pictures);
+    void onError(String msg);
 }
