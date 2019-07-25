@@ -16,6 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * 图片压缩工具类
+ */
 public class PictureCompression {
 
     private static File temPictureFile = new File(PATH.getImageSaveDir());
