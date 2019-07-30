@@ -1,4 +1,4 @@
-package com.jushi.library.compression.utils;
+package com.jushi.library.utils;
 
 import android.annotation.SuppressLint;
 import android.text.format.DateFormat;
