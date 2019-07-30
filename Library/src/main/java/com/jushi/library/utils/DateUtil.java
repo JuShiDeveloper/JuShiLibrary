@@ -422,4 +422,48 @@ public class DateUtil {
         return date.toGMTString();
     }
 
+    /**
+     * 根据活动结束日期获得活动剩余时间
+     *
+     * @param endTime 结束日期时间戳
+     * @return 距离活动结束的剩余时间 （单位：秒）
+     */
+    public static Long getLeadTime(String endTime) {
+        long nd = 1000 * 24 * 60 * 60;//一天的毫秒数
+        long nh = 1000 * 60 * 60;//一小时的毫秒数
+        long nm = 1000 * 60;//一分钟的毫秒数
+        long ns = 1000;//一秒钟的毫秒数
+        long diff = 0L;
+        diff = Long.parseLong(endTime) - System.currentTimeMillis();
+        long day = diff / nd;//计算差多少天
+        long hour = diff % nd / nh;//计算差多少小时
+        long min = diff % nd % nh / nm;//计算差多少分钟
+        long sec = diff % nd % nh % nm / ns;//计算差多少
+//        Log.v("yufei", day + "天" + hour + "小时" + min + "分钟" + sec + "秒");
+        diff = diff / 1000;
+        return diff;
+    }
+
+    /**
+     * 根据活动结束日期获得活动剩余时间
+     *
+     * @param endTime 结束日期时间戳
+     * @return 剩余时间 HH:mm:ss
+     */
+    public static String getLeadHMS(long endTime) {
+        long nd = 1000 * 24 * 60 * 60;//一天的毫秒数
+        long nh = 1000 * 60 * 60;//一小时的毫秒数
+        long nm = 1000 * 60;//一分钟的毫秒数
+        long ns = 1000;//一秒钟的毫秒数
+        long diff = endTime - System.currentTimeMillis();
+        long day = diff / nd;//计算差多少天
+        long hour = diff % nd / nh;//计算差多少小时
+        long min = diff % nd % nh / nm;//计算差多少分钟
+        long sec = diff % nd % nh % nm / ns;//计算差多少
+        String h = hour < 10 ? "0" + hour : hour + "";
+        String m = min < 10 ? "0" + min : min + "";
+        String s = sec < 10 ? "0" + sec : sec + "";
+        return h + ":" + m + ":" + s;
+    }
+
 }
