@@ -2,13 +2,15 @@ package com.jushi.library.utils;
 
 import android.text.TextUtils;
 
+import java.util.regex.Pattern;
+
 /**
- * 电话号码工具类
+ * 校验器工具类
  * create time 2019/8/5
  *
  * @author JuShi
  */
-public class PhoneNoUtil {
+public class CalibratorUtil {
     /**
      * 判断字符串是否符合手机号码格式
      * 移动号段: 134,135,136,137,138,139,147,150,151,152,157,158,159,170,178,182,183,184,187,188,198
@@ -27,6 +29,21 @@ public class PhoneNoUtil {
             return false;
         }
         return phoneNo.matches(regex);
+    }
+
+    /**
+     * 密码校验
+     * 数字、字母（区分大小写）、特殊字符两种及以上的组合
+     *
+     * @param password
+     * @return
+     */
+    public static boolean isPassword(String password) {
+        if (TextUtils.isEmpty(password)) {
+            return false;
+        }
+        Pattern p = Pattern.compile("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S+$");
+        return p.matcher(password).find();
     }
 
 }
