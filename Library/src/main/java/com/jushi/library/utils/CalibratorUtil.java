@@ -17,8 +17,8 @@ public class CalibratorUtil {
      * 联通号段: 130,131,132,145,155,156,170,171,175,176,185,186,166
      * 电信号段: 133,149,153,170,173,177,180,181,189
      *
-     * @param phoneNo
-     * @return 待检测的字符串
+     * @param phoneNo  待检测的字符串
+     * @return
      */
 
     public static boolean isMobileNO(String phoneNo) {
@@ -32,10 +32,24 @@ public class CalibratorUtil {
     }
 
     /**
+     * 手机号验证，除了10、11、12开头的，其他都开放通过验证
+     *
+     * @param phoneNo 待检测的字符串
+     * @return true-表示验证通过 , false-表示不通过
+     */
+    public static boolean isPhoneNo(String phoneNo) {
+        if (TextUtils.isEmpty(phoneNo)) {
+            return false;
+        }
+        String regex = "^(1[^[0,1,2]])\\d{9}$";
+        return phoneNo.matches(regex);
+    }
+
+    /**
      * 密码校验
      * 数字、字母（区分大小写）、特殊字符两种及以上的组合
      *
-     * @param password
+     * @param password 待检测的字符串
      * @return
      */
     public static boolean isPassword(String password) {
