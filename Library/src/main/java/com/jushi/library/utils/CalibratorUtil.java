@@ -17,7 +17,7 @@ public class CalibratorUtil {
      * 联通号段: 130,131,132,145,155,156,170,171,175,176,185,186,166
      * 电信号段: 133,149,153,170,173,177,180,181,189
      *
-     * @param phoneNo  待检测的字符串
+     * @param phoneNo 待检测的字符串
      * @return
      */
 
@@ -46,18 +46,34 @@ public class CalibratorUtil {
     }
 
     /**
-     * 密码校验
-     * 数字、字母（区分大小写）、特殊字符两种及以上的组合
+     * 密码校验规则校验 （大小写敏感，即把A和a看作两个不同的字符）
+     * 数字、字母、特殊字符两种及以上的组合 （大小写算不同种类）
      *
      * @param password 待检测的字符串
      * @return
      */
-    public static boolean isPassword(String password) {
+    public static boolean passwordRuleJudgeCaseSensitive(String password) {
         if (TextUtils.isEmpty(password)) {
             return false;
         }
         Pattern p = Pattern.compile("^(?![A-Z]*$)(?![a-z]*$)(?![0-9]*$)(?![^a-zA-Z0-9]*$)\\S+$");
         return p.matcher(password).find();
+    }
+
+    /**
+     * 密码校验 （大小写不敏感，即把A和a看作两个相同的字符）
+     * 数字、字母、特殊字符两种及以上的组合 （大小写算同一种类）
+     *
+     * @param password 待检测的字符串
+     * @return
+     */
+    public static boolean passwordRuleJudgeCaseInsensitive(String password) {
+        String singleRegex = "[a-zA-Z]{6,20}|[0-9]{6,20}|[\\x21-\\x2F\\x3A-\\x40\\x5B-\\x60\\x7A-\\x7E]{6,20}";
+        boolean isSingle = password.matches(singleRegex);
+        if (isSingle) return false;
+        String regex = "[a-zA-Z0-9\\x21-\\x2F\\x3A-\\x40\\x5B-\\x60\\x7A-\\x7E]{6,20}";
+        boolean matches = password.matches(regex);
+        return matches;
     }
 
 }
