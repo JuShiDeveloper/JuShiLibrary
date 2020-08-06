@@ -63,7 +63,7 @@ class MainActivity : BaseFragmentActivity() {
                     Log.v("yufei", "$progress%")
                 }
 
-                override fun onSucess() {
+                override fun onSuccess() {
                     Log.v("yufei", "onSucess")
                 }
 

@@ -1,9 +1,7 @@
 package com.jushi.library.http;
 
-import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
@@ -75,7 +73,6 @@ public class UploadFileRequester implements Callback {
                 //这个根据上传文件的后缀变化，要是不知道用application/octet-stream
             }
 
-            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
                 //方式一：
@@ -157,7 +154,7 @@ public class UploadFileRequester implements Callback {
 
     @Override
     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-        onUploadListener.onSucess();
+        onUploadListener.onSuccess();
     }
 
     public interface OnUploadListener {
@@ -165,7 +162,7 @@ public class UploadFileRequester implements Callback {
 
         void onProgress(int progress);
 
-        void onSucess();
+        void onSuccess();
     }
 
 }
