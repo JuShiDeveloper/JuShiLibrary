@@ -89,15 +89,19 @@ class WSMamager implements WSClientCallBack {
             Logger.i(TAG, "wsclient is null:");
             return;
         }
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Logger.i(TAG, "send:" + message);
-                if (wsClient != null) {
-                    wsClient.send(message);
+        try {
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Logger.i(TAG, "send:" + message);
+                    if (wsClient != null) {
+                        wsClient.send(message);
+                    }
                 }
-            }
-        });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
