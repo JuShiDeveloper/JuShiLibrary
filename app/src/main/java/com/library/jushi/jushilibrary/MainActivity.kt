@@ -2,6 +2,7 @@ package com.library.jushi.jushilibrary
 
 import android.util.Log
 import com.jushi.library.base.BaseFragmentActivity
+import com.jushi.library.http.DownloadFileRequester
 import com.jushi.library.http.UploadFileRequester
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONException
@@ -53,7 +54,7 @@ class MainActivity : BaseFragmentActivity() {
         list.add(fileName)
         btn.setOnClickListener {
             tv_progress.text = "0%"
-            UploadFileRequester().uploadFile(url, fileName, object : UploadFileRequester.OnUploadListener {
+            UploadFileRequester().uploadFile(url, fileName, object : UploadFileRequester.OnUploadListener { //文件上传
                 override fun onProgress(progress: Int) {
                     runOnUiThread { tv_progress.text = "$progress%" }
                     Log.v("yufei", "$progress%")
@@ -68,6 +69,28 @@ class MainActivity : BaseFragmentActivity() {
                 }
             })
         }
+
+        downLoadFile()
+    }
+
+    private fun downLoadFile() { //文件下载
+        Log.v("yufei", "文件下载")
+        var url = "http://test.guijk.com/hfs/3015/5/1598580272286732/jpg/2/1008930/o"
+        var savePath = externalCacheDir.path + "/download"
+        var fileName = "testDownload.jpg"
+        DownloadFileRequester().download(url, savePath, fileName, object : DownloadFileRequester.OnDownloadListener {
+            override fun onProgress(progress: Int) {
+                Log.v("yufei", "$progress%")
+            }
+
+            override fun onSuccess() {
+                Log.v("yufei", "onSucess")
+            }
+
+            override fun onError(msg: String?) {
+                Log.v("yufei", "onError  $msg")
+            }
+        })
     }
 
     override fun setListener() {

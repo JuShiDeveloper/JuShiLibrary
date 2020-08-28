@@ -35,15 +35,12 @@ public class DownloadFileRequester implements Callback {
                 .build();
     }
 
-    private Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            if (downloadListener != null)
-                downloadListener.onProgress(msg.arg1);
-            return false;
-        }
-    });
-
+    /**
+     * @param url              文件下载地址
+     * @param savePath         文件保存路径
+     * @param fileName         保存的文件名
+     * @param downloadListener
+     */
     public void download(String url, String savePath, String fileName, OnDownloadListener downloadListener) {
         this.downloadListener = downloadListener;
         this.downloadPath = savePath;
@@ -71,6 +68,10 @@ public class DownloadFileRequester implements Callback {
             is = response.body().byteStream();
             long total = response.body().contentLength();
             File file = new File(downloadPath, fileName);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
             fos = new FileOutputStream(file);
             long sum = 0;
             while ((length = is.read(buf)) != -1) {
@@ -101,10 +102,10 @@ public class DownloadFileRequester implements Callback {
     }
 
     public interface OnDownloadListener {
-        void onError(String msg);
-
         void onProgress(int progress);
 
         void onSuccess();
+
+        void onError(String msg);
     }
 }
