@@ -24,6 +24,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        BaseApplication.getInstance().injectManager(this);
         initViewWidget();
         initData();
         setListener();

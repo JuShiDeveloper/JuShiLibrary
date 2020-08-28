@@ -1,9 +1,7 @@
 package com.jushi.library.utils;
 
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
@@ -12,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+
 
 import com.jushi.library.base.BaseApplication;
 
@@ -122,7 +121,7 @@ public class FileUtil {
 //        values.put(MediaStore.Images.Media.CONTENT_TYPE, "image/jpeg");
 //        Uri uri = BaseApplication.context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 //        BaseApplication.context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri));
-        MediaScannerConnection.scanFile(BaseApplication.context,
+        MediaScannerConnection.scanFile(BaseApplication.getInstance(),
                 new String[]{new File(imagePath).getAbsolutePath()},
                 new String[]{"image/jpeg"}, new MediaScannerConnection.OnScanCompletedListener() {
                     @Override

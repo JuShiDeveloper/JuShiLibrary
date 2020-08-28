@@ -8,6 +8,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 
+import com.jushi.library.base.BaseApplication;
+import com.jushi.library.base.BaseManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,7 @@ import java.util.List;
  * 网络变化管理器，负责管理网络变化的通知，如果需要知道当前手机的网络连接类型，调用getNetWorkType函数
  * 如果需要时刻监听网络的断开与连接，请调用：addOnNetworkChangeListener
  */
-public class NetworkManager {
+public class NetworkManager extends BaseManager {
     private final String TAG = NetworkManager.class.getSimpleName();
     /**
      * 上一次的网络连接类型
@@ -24,17 +27,10 @@ public class NetworkManager {
     private Context context;
     private List<OnNetworkChangeListener> onNetworkChangeListeners = new ArrayList<>();
 
-    private static NetworkManager networkManager;
 
-    public static NetworkManager getInstance(Context context) {
-        if (networkManager == null) {
-            networkManager = new NetworkManager(context);
-        }
-        return networkManager;
-    }
-
-    private NetworkManager(Context pcontext) {
-        this.context = pcontext;
+    @Override
+    public void onManagerCreate(BaseApplication application) {
+        this.context = application;
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         context.registerReceiver(broadcastReceiver, intentFilter);
@@ -91,9 +87,12 @@ public class NetworkManager {
         return lastConnectType != -1;
     }
 
+
     public interface OnNetworkChangeListener {
         /**
          * 网络变化的回调
+         *
+         * @param networkType != -1 为有网
          */
         void onNetworkChange(int networkType);
     }

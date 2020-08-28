@@ -25,6 +25,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     private void initialize() {
         setContentView(getLayoutResId());
         ViewInjecter.inject(this);
+        BaseApplication.getInstance().injectManager(this);
         initView();
         initData();
         setListener();

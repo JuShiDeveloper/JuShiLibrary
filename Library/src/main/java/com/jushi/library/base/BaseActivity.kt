@@ -18,6 +18,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     private fun initialize() {
         setPageLayout()
+        BaseApplication.getInstance().injectManager(this)
         initData()
         initWidget()
         initAnimator()

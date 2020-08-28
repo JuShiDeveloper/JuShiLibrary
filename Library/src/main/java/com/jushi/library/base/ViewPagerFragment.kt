@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jushi.library.base.BaseApplication
 import com.jushi.library.viewinject.ViewInjecter
 
 /**
@@ -34,6 +35,7 @@ abstract class ViewPagerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView =  initRootView(inflater, container, savedInstanceState)
         ViewInjecter.inject(this, rootView)
+        BaseApplication.getInstance().injectManager(this)
         return rootView;
     }
 
