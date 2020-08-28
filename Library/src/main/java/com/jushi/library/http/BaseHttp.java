@@ -32,6 +32,8 @@ import okhttp3.Response;
 abstract class BaseHttp implements Callback {
     private final String TAG = BaseHttp.class.getSimpleName();
     private static final OkHttpClient httpClient;
+    private Call call;
+    private boolean isResponse = false;
 
     static {
         httpClient = new OkHttpClient().newBuilder()
@@ -41,26 +43,38 @@ abstract class BaseHttp implements Callback {
                 .build();
     }
 
-    public void doGet() {
+    public void get() {
         Request request = new Request.Builder()
                 .url(onHttpUrl() + getMethodParams())
                 .headers(Headers.of(getHeaders()))
                 .get()
                 .build();
-        httpClient.newCall(request).enqueue(this);
+        call = httpClient.newCall(request);
+        call.enqueue(this);
         if (BuildConfig.DEBUG)
             Log.v(TAG, "request url = " + onHttpUrl() + getMethodParams());
     }
 
-    public void doPost() {
+    public void post() {
         Request request = new Request.Builder()
                 .url(onHttpUrl())
                 .headers(Headers.of(getHeaders()))
                 .post(RequestBody.create(postMethodParams(), MediaType.parse("application/json; charset=utf-8")))
                 .build();
-        httpClient.newCall(request).enqueue(this);
+        call = httpClient.newCall(request);
+        call.enqueue(this);
         if (BuildConfig.DEBUG)
             Log.v(TAG, "request url = " + onHttpUrl() + " " + postMethodParams());
+    }
+
+    /**
+     * 取消请求
+     */
+    public void cancel() {
+        if (isResponse) return;
+        call.cancel();
+        if (BuildConfig.DEBUG)
+            Log.v(TAG, "cancel request url = " + onHttpUrl() + " " + postMethodParams());
     }
 
     private String getMethodParams() {
@@ -168,31 +182,25 @@ abstract class BaseHttp implements Callback {
     @Override
     public void onFailure(@NotNull Call call, @NotNull IOException e) {
         onError(-1, e.getMessage());
+        isResponse = true;
     }
 
     @Override
     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+        isResponse = true;
         int code = -1;
         String message = "";
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(response.body().string());
+            if (BuildConfig.DEBUG) {
+                Log.v(TAG, "response url = " + onHttpUrl() + " result = " + jsonObject.toString());
+            }
             code = jsonObject.getInt("code");
             message = jsonObject.getString("message");
-            if (BuildConfig.DEBUG)
-                Log.v(TAG, "response url = " + onHttpUrl() + " result = " + jsonObject.toString());
-            onRequestSuccess(code, message, jsonObject.getJSONObject("data"));
+            onRequestSuccess(code, message, jsonObject);
         } catch (JSONException e) {
-            if (code == 0) {
-                try {
-                    onRequestSuccess(code, message, jsonObject);
-                } catch (JSONException e1) {
-                    e1.printStackTrace();
-                    onError(code, message);
-                }
-            } else {
-                onError(code, message);
-            }
+            onError(code, e.getMessage());
         }
     }
 

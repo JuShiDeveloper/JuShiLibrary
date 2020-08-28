@@ -24,12 +24,12 @@ public class TestGETRequester extends BaseHttpRequester<String> {
 
     @Override
     protected String onDumpData(JSONObject jsonObject) throws JSONException {
-        return jsonObject.toString();
+        return jsonObject.getString("data");
     }
 
     @Override
     protected String onDumpDataError(JSONObject jsonObject) throws JSONException {
-        return null;
+        return jsonObject.toString();
     }
 
     @Override

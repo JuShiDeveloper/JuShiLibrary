@@ -17,7 +17,7 @@ class MainActivity : BaseFragmentActivity() {
     }
 
     override fun initView() {
-        setSystemBarViewLayoutParamsL(v_system_bar)
+//        setSystemBarViewLayoutParamsL(v_system_bar)
         Log.v("yufei", "activity initView()")
     }
 
