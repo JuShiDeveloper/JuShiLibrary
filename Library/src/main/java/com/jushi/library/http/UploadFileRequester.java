@@ -158,11 +158,11 @@ public class UploadFileRequester implements Callback {
     }
 
     public interface OnUploadListener {
-        void onError(String msg);
-
         void onProgress(int progress);
 
         void onSuccess();
+
+        void onError(String msg);
     }
 
 }

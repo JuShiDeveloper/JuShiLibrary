@@ -54,10 +54,6 @@ class MainActivity : BaseFragmentActivity() {
         btn.setOnClickListener {
             tv_progress.text = "0%"
             UploadFileRequester().uploadFile(url, fileName, object : UploadFileRequester.OnUploadListener {
-                override fun onError(msg: String?) {
-                    Log.v("yufei", "onError  $msg")
-                }
-
                 override fun onProgress(progress: Int) {
                     runOnUiThread { tv_progress.text = "$progress%" }
                     Log.v("yufei", "$progress%")
@@ -67,6 +63,9 @@ class MainActivity : BaseFragmentActivity() {
                     Log.v("yufei", "onSucess")
                 }
 
+                override fun onError(msg: String?) {
+                    Log.v("yufei", "onError  $msg")
+                }
             })
         }
     }
