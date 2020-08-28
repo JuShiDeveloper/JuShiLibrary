@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.jushi.library.systemBarUtils.SystemBarUtil;
 import com.jushi.library.utils.ToastUtil;
+import com.jushi.library.viewinject.ViewInjecter;
 
 /**
  * 基类activity
@@ -23,6 +24,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     private void initialize() {
         setContentView(getLayoutResId());
+        ViewInjecter.inject(this);
         initView();
         initData();
         setListener();

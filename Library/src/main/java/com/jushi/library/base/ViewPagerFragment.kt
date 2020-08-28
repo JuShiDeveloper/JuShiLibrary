@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.jushi.library.viewinject.ViewInjecter
 
 /**
  * Fragment与ViewPager搭配时，Fragment在可见时才加载数据
@@ -31,7 +32,9 @@ abstract class ViewPagerFragment : Fragment() {
     var isInitDataSuccess = false  //数据是否加载成功
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return initRootView(inflater, container, savedInstanceState)
+        rootView =  initRootView(inflater, container, savedInstanceState)
+        ViewInjecter.inject(this, rootView)
+        return rootView;
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {

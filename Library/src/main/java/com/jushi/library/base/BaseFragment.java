@@ -8,12 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jushi.library.viewinject.ViewInjecter;
+
 public abstract class BaseFragment extends Fragment {
+    private View rootView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return initRootView(inflater, container, savedInstanceState);
+        rootView = initRootView(inflater, container, savedInstanceState);
+        ViewInjecter.inject(this, rootView);
+        return rootView;
     }
 
     @Override

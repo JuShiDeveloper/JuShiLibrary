@@ -6,10 +6,14 @@ import android.widget.Button;
 
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.http.OnHttpResponseListener;
+import com.jushi.library.viewinject.FindViewById;
+import com.jushi.library.viewinject.ViewInjecter;
 
 public class TestActivity extends BaseFragmentActivity implements OnHttpResponseListener<String> {
     private TestGETRequester t;
+    @FindViewById(R.id.btn_start)
     private Button btnStart;
+    @FindViewById(R.id.btn_cancel)
     private Button btnCancel;
 
     @Override
@@ -19,14 +23,12 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 
     @Override
     protected void initView() {
-        btnStart = findViewById(R.id.btn_start);
-        btnCancel = findViewById(R.id.btn_cancel);
+
     }
 
     @Override
     protected void initData() {
         t = new TestGETRequester(this);
-
         new TestPOSTRequester(this).post();
     }
 

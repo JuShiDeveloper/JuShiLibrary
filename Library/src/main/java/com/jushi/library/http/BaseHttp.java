@@ -51,6 +51,7 @@ abstract class BaseHttp implements Callback {
                 .build();
         call = httpClient.newCall(request);
         call.enqueue(this);
+        isResponse = false;
         if (BuildConfig.DEBUG)
             Log.v(TAG, "request url = " + onHttpUrl() + getMethodParams());
     }
@@ -63,6 +64,7 @@ abstract class BaseHttp implements Callback {
                 .build();
         call = httpClient.newCall(request);
         call.enqueue(this);
+        isResponse = false;
         if (BuildConfig.DEBUG)
             Log.v(TAG, "request url = " + onHttpUrl() + " " + postMethodParams());
     }
