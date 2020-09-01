@@ -53,10 +53,10 @@
         <!--该属性表示里面的TAB是否均分整个PagerSlidingTabStrip控件的宽,true是,false不均分,从左到右排列,默认false-->
         <attr name="pstsShouldExpand" format="boolean" />
         <attr name="pstsTextAllCaps" format="boolean" />
-        <attr name="pstsTextSelectedColor" format="color"/>
+        <attr name="pstsTextSelectedColor" format="color" />
         <!--缩放的最大值,0.3表示放大后最大是原来的0.3倍,默认未0.3-->
-        <attr name="pstsScaleZoomMax" format="float"/>
-        <attr name="pstsSmoothScrollWhenClickTab" format="boolean"/>
+        <attr name="pstsScaleZoomMax" format="float" />
+        <attr name="pstsSmoothScrollWhenClickTab" format="boolean" />
         <!-- 宽为match_parent ，指示器的宽需手动计算的问题,这个属性设置为true,则指示器的位置和字体的宽一样-->
         <!--    <attr name="pstsIndicatorWrap" format="boolean" />-->
     </declare-styleable>
@@ -105,6 +105,12 @@
         <attr name="maxLength" format="integer" />  <!--设置可输入最大字符数-->
         <attr name="authCodeBackgroundColor" format="color" /> <!--获取验证码按钮背景色-->
         <attr name="authCodeBackgroundResource" format="reference" /> <!--获取验证码按钮背景资源文件-->
+    </declare-styleable>
+
+    <declare-styleable name="FloatViewLayout">
+        <attr name="cacheXY" format="boolean" /> <!--是否缓存拖动贴边之后的位置，默认值为true-->
+        <attr name="autoCalculateWelt" format="boolean" /> <!--是否自动贴边，默认值为true-->
+        <attr name="animatorDuration" format="integer" /> <!--贴边动画时长，默认值250，单位毫秒-->
     </declare-styleable>
 
 </resources>

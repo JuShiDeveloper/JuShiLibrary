@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
+import com.jushi.library.customView.floatview.FloatViewLayout;
 import com.jushi.library.database.DatabaseManager;
 import com.jushi.library.http.OnHttpResponseListener;
 import com.jushi.library.utils.NetworkManager;
@@ -19,6 +20,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button btnStart;
     @FindViewById(R.id.btn_cancel)
     private Button btnCancel;
+    @FindViewById(R.id.test_float)
+    private FloatViewLayout floatViewLayout;
     @Manager
     private NetworkManager networkManager;
     @Manager
@@ -46,6 +49,9 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         btnStart.setOnClickListener(v -> t.get());
         btnCancel.setOnClickListener(v -> t.cancel());
         networkManager.addOnNetworkChangeListener(this);
+        floatViewLayout.setOnClickListener(v -> {
+            showToast("点击");
+        });
     }
 
     @Override
