@@ -104,6 +104,21 @@
             android:layout_height="200dp"
             android:src="@mipmap/ic_launcher" />
 
+        <!--轮播图-->
+        <com.jushi.library.customView.mzbanner.MZBannerView
+            android:id="@+id/MZBannerView"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="@android:color/black"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
+            app:canLoop="true"
+            app:indicatorAlign="center"
+            app:indicatorPaddingLeft="10dp"
+            app:open_mz_mode="true"
+            app:middle_page_cover="true"/>
+
     </LinearLayout>
 
 
