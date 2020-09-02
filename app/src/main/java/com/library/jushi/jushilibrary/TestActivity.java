@@ -1,5 +1,6 @@
 package com.library.jushi.jushilibrary;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -10,12 +11,17 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
 import com.jushi.library.customView.floatview.FloatViewLayout;
+import com.jushi.library.customView.mzbanner.MZBannerView;
+import com.jushi.library.customView.mzbanner.holder.MZHolderCreator;
+import com.jushi.library.customView.mzbanner.holder.MZViewHolder;
 import com.jushi.library.customView.slideTabStrip.PagerSlidingTabStrip;
 import com.jushi.library.customView.wheelview.WheelAdapter;
 import com.jushi.library.customView.wheelview.WheelView;
@@ -75,6 +81,10 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private String[] titles = {"图文问诊", "视频问诊", "电话问诊"};
     private List<Fragment> pages = new ArrayList<>();
 
+    @FindViewById(R.id.MZBannerView)
+    private MZBannerView mzBannerView;
+    private List<Integer> bannerPages = new ArrayList<>();
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
@@ -89,6 +99,32 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         pagerSlidingTabStrip.setViewPager(mViewPager);
         pagerSlidingTabStrip.setTextColor(Color.parseColor("#333333"));
         pagerSlidingTabStrip.setTextSize(16);
+
+
+        mzBannerView.setBannerPageClickListener((view, position) -> {
+            showToast("点击 " + position);
+        });
+        bannerPages.add(R.mipmap.ic_launcher);
+        bannerPages.add(R.mipmap.ic_launcher_round);
+        mzBannerView.setIndicatorVisible(false);
+        mzBannerView.setDuration(1500);
+        mzBannerView.setPages(bannerPages, () -> new MZViewHolder() {
+            ImageView imageView = null;
+
+            @Override
+            public View createView(Context context) {
+                LinearLayout view = new LinearLayout(TestActivity.this);
+                imageView = new ImageView(TestActivity.this);
+                view.addView(imageView);
+                return view;
+            }
+
+            @Override
+            public void onBind(Context context, int position, Object data) {
+                imageView.setImageResource(bannerPages.get(position));
+            }
+        });
+        mzBannerView.start();
     }
 
     @Override
@@ -210,6 +246,12 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
             return pages.get(position);
         }
     };
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mzBannerView.pause();
+    }
 
     @Override
     protected void onDestroy() {
