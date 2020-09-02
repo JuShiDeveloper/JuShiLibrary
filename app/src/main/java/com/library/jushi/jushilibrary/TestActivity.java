@@ -5,15 +5,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
 import com.jushi.library.customView.floatview.FloatViewLayout;
+import com.jushi.library.customView.wheelview.WheelAdapter;
+import com.jushi.library.customView.wheelview.WheelView;
 import com.jushi.library.database.DatabaseManager;
 import com.jushi.library.http.OnHttpResponseListener;
 import com.jushi.library.utils.NetworkManager;
 import com.jushi.library.viewinject.FindViewById;
 import com.jushi.library.viewinject.ViewInjecter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestActivity extends BaseFragmentActivity implements OnHttpResponseListener<String>, NetworkManager.OnNetworkChangeListener {
     private TestGETRequester t;
@@ -27,6 +34,33 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private NetworkManager networkManager;
     @Manager
     private DatabaseManager databaseManager;
+
+    @FindViewById(R.id.rl_select_time_view)
+    private RelativeLayout rlDialogView;
+    @FindViewById(R.id.rl_select_time_dialog_layout)
+    private RelativeLayout llLayoutView;
+    @FindViewById(R.id.wv_select_start_hour)
+    private WheelView wvSelectStartHour;
+    @FindViewById(R.id.wv_select_start_minute)
+    private WheelView wvSelectStartMinute;
+    @FindViewById(R.id.wv_select_end_hour)
+    private WheelView wvSelectEndHour;
+    @FindViewById(R.id.wv_select_end_minute)
+    private WheelView wvSelectEndMinute;
+    private List<String> hourList = new ArrayList<>();
+    private List<String> minuteList = new ArrayList<>();
+    private String startHour;
+    private String startMinute;
+    private String endHour;
+    private String endMinute;
+
+    private String[] startArr;
+    private String[] endArr;
+
+    private int curStartHour;
+    private int curStartMinute;
+    private int curEndHour;
+    private int curEndMintue;
 
     @Override
     protected int getLayoutResId() {
@@ -44,6 +78,24 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         t = new TestGETRequester(this);
         new TestPOSTRequester(this).post();
         testUseDataBase();
+        initWheelView();
+    }
+
+    private void initWheelView() {
+        hourList.addAll(getListData(24));
+        minuteList.addAll(getListData(60));
+        startArr = "12:00".split(":");
+        endArr = "23:59".split(":");
+
+        curStartHour = hourList.indexOf(startArr[0].equals("24") ? "00" : startArr[0]);
+        curStartMinute = minuteList.indexOf(startArr.length > 1 ? startArr[1] : "00");
+        curEndHour = hourList.indexOf(endArr[0].equals("24") ? "00" : endArr[0]);
+        curEndMintue = minuteList.indexOf(endArr.length > 1 ? endArr[1] : "00");
+
+        wvSelectStartHour.setAdapter(new MyAdapter(hourList));
+        wvSelectStartMinute.setAdapter(new MyAdapter(minuteList));
+        wvSelectEndHour.setAdapter(new MyAdapter(hourList));
+        wvSelectEndMinute.setAdapter(new MyAdapter(minuteList));
     }
 
     @Override
@@ -54,6 +106,59 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         floatViewLayout.setOnClickListener(v -> {
             showToast("点击");
         });
+
+        wvSelectStartHour.setOnItemSelectedListener(index -> {
+            startHour = hourList.get(index);
+            curStartHour = index;
+        });
+        wvSelectStartMinute.setOnItemSelectedListener(index -> {
+            startMinute = minuteList.get(index);
+            curStartMinute = index;
+        });
+        wvSelectEndHour.setOnItemSelectedListener(index -> {
+            endHour = hourList.get(index);
+            curEndHour = index;
+        });
+        wvSelectEndMinute.setOnItemSelectedListener(index -> {
+            endMinute = minuteList.get(index);
+            curEndMintue = index;
+        });
+    }
+
+    private List<String> getListData(int max) {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < max; i++) {
+            if (i < 10) {
+                list.add("0" + i);
+            } else {
+                list.add("" + i);
+            }
+        }
+        return list;
+    }
+
+    private class MyAdapter implements WheelAdapter {
+
+        private List<String> list;
+
+        public MyAdapter(List<String> list) {
+            this.list = list;
+        }
+
+        @Override
+        public int getItemsCount() {
+            return list.size();
+        }
+
+        @Override
+        public Object getItem(int index) {
+            return list.get(index);
+        }
+
+        @Override
+        public int indexOf(Object o) {
+            return list.indexOf(o);
+        }
     }
 
     @Override
