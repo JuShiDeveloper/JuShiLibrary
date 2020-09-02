@@ -28,7 +28,7 @@ class MainActivity : BaseFragmentActivity() {
 //        Log.v("yufei", DateUtil.getDateYMDHM(DateUtil.dateCurrentLong()))
 //        Log.v("yufei", DateUtil.getDateLong(Date()).toString())
 //        Log.v("yufei", DateUtil.getDateLong("2012-12-01 12:12:12").toString())
-        Log.v("yufei", "activity initData()")
+        Log.v("yufei", "activity initialize()")
         //
         val fileName = "/storage/emulated/0/MagazineUnlock/magazine-unlock-03-2.3.5162-6273E3E4F9C121EBE427369BC2A3434F.jpg"
         val jsonObject = JSONObject()

@@ -1,5 +1,6 @@
 package com.library.jushi.jushilibrary;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     @Override
     protected void initView() {
 //        App.getInstance().getManager(DatabaseManager.class);
+        startService(new Intent(this, TestFloatWindowService.class));
     }
 
     @Override

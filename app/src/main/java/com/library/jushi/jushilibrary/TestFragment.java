@@ -21,7 +21,7 @@ public class TestFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        Log.v("yufei","fragment initData()");
+        Log.v("yufei","fragment initialize()");
     }
 
     @Override
