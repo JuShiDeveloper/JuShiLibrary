@@ -24,6 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <provider
             android:name="com.jushi.library.takingPhoto.util.ImageProvider"
             android:authorities="${applicationId}.provider"

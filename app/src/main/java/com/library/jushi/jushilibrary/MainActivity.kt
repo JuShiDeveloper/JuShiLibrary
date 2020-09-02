@@ -13,7 +13,7 @@ class MainActivity : BaseFragmentActivity() {
 
     override fun getLayoutResId(): Int {
         setSystemBarStatus(true, true)
-        return R.layout.activity_main
+        return R.layout.activity_main1
     }
 
     override fun initView() {

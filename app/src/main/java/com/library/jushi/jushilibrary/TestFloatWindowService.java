@@ -46,5 +46,8 @@ public class TestFloatWindowService extends BaseFloatWindowService {
     @Override
     protected void onWindowClickEvent() {
         ToastUtil.showToast(getApplicationContext(), "点击悬浮窗");
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

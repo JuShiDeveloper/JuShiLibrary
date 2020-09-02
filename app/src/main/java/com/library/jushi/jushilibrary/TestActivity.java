@@ -123,6 +123,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         networkManager.addOnNetworkChangeListener(this);
         floatViewLayout.setOnClickListener(v -> {
             showToast("点击");
+            startActivity(new Intent(this, MainActivity.class));
         });
 
         wvSelectStartHour.setOnItemSelectedListener(index -> {
