@@ -1,4 +1,4 @@
-package com.jushi.library.systemBarUtils.utils;
+package com.jushi.library.systemBarUtils;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -26,7 +26,7 @@ import java.lang.reflect.Method;
  * translucent system UI modes.
  *
  */
-public class SystemBarTintManager {
+ class SystemBarTintManager {
 
     static {
         // Android allows a system property to override the presence of the navigation bar.

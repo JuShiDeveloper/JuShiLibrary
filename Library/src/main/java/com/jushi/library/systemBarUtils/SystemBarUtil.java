@@ -12,11 +12,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-
-
-import com.jushi.library.systemBarUtils.utils.OSUtils;
-import com.jushi.library.systemBarUtils.utils.SystemBarTintManager;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
@@ -28,9 +23,7 @@ public class SystemBarUtil {
     public final static int TYPE_M = 3;//6.0
     private static final String TAG_MARGIN_ADDED = "marginAdded";
 
-    @IntDef({TYPE_MIUI,
-            TYPE_FLYME,
-            TYPE_M})
+    @IntDef({TYPE_MIUI, TYPE_FLYME, TYPE_M})
     @Retention(RetentionPolicy.SOURCE)
     @interface ViewType {
     }

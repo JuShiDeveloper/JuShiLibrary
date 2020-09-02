@@ -1,4 +1,4 @@
-package com.jushi.library.systemBarUtils.utils;
+package com.jushi.library.systemBarUtils;
 import android.os.Environment;
 
 import java.io.File;
@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
-public class BuildProperties {
+ class BuildProperties {
     private final Properties properties;
 
     private BuildProperties() throws IOException {
