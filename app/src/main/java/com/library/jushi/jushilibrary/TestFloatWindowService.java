@@ -13,8 +13,8 @@ public class TestFloatWindowService extends BaseFloatWindowService {
 
 
     @Override
-    protected View onWindowView() { //返回悬浮窗视图
-        return LayoutInflater.from(getApplicationContext()).inflate(R.layout.test_float_window_layout, null);
+    protected View onWindowView(LayoutInflater inflater) { //返回悬浮窗视图
+        return inflater.inflate(R.layout.test_float_window_layout, null);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.IBinder;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -41,7 +42,6 @@ public abstract class BaseFloatWindowService extends Service implements View.OnT
 
     @Override
     public IBinder onBind(Intent intent) {
-        initialize();
         return onIBinder(intent);
     }
 
@@ -50,7 +50,7 @@ public abstract class BaseFloatWindowService extends Service implements View.OnT
         initWindowManagerLayoutParams();
         rootLayout = new FrameLayout(getApplicationContext());
         rootLayout.removeAllViews();
-        rootLayout.addView(onWindowView());
+        rootLayout.addView(onWindowView(LayoutInflater.from(getApplicationContext())));
         rootLayout.setOnTouchListener(this);
         windowManager.addView(rootLayout, wmParams);
         screenWidth = getResources().getDisplayMetrics().widthPixels;
@@ -115,7 +115,7 @@ public abstract class BaseFloatWindowService extends Service implements View.OnT
      */
     private void toCalculateWelt() {
         if (!autoSuctionSide()) return;
-        int endX = wmParams.x < (screenWidth / 2) ? 0 : screenWidth;
+        int endX = wmParams.x < ((screenWidth / 2) - 100) ? 0 : screenWidth;
         float dx = endX - wmParams.x;
         float sx = wmParams.x;
         ValueAnimator animator = ValueAnimator.ofFloat(0, 1);
@@ -155,9 +155,10 @@ public abstract class BaseFloatWindowService extends Service implements View.OnT
     /**
      * 继承该类的子类需要显示的悬浮窗view
      *
+     * @param inflater
      * @return
      */
-    protected abstract View onWindowView();
+    protected abstract View onWindowView(LayoutInflater inflater);
 
     protected abstract IBinder onIBinder(Intent intent);
 
