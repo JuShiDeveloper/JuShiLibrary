@@ -12,10 +12,11 @@
         android:src="@mipmap/ic_launcher" />
 
     <com.jushi.library.customView.dragScaleView.DragScaleView
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="10dp"
-        android:background="@mipmap/ic_launcher" />
+        android:background="@mipmap/ic_launcher"
+        android:clickable="true"/>
 
     <fragment
         android:id="@+id/fragment"
