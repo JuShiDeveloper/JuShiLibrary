@@ -2,6 +2,11 @@ package com.library.jushi.jushilibrary;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +16,7 @@ import android.widget.TextView;
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
 import com.jushi.library.customView.floatview.FloatViewLayout;
+import com.jushi.library.customView.slideTabStrip.PagerSlidingTabStrip;
 import com.jushi.library.customView.wheelview.WheelAdapter;
 import com.jushi.library.customView.wheelview.WheelView;
 import com.jushi.library.database.DatabaseManager;
@@ -62,6 +68,13 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private int curEndHour;
     private int curEndMintue;
 
+    @FindViewById(R.id.PagerSlidingTabStrip)
+    private PagerSlidingTabStrip pagerSlidingTabStrip;
+    @FindViewById(R.id.inquiry_list_ViewPager)
+    private ViewPager mViewPager;
+    private String[] titles = {"图文问诊", "视频问诊", "电话问诊"};
+    private List<Fragment> pages = new ArrayList<>();
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
@@ -71,6 +84,11 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     protected void initView() {
 //        App.getInstance().getManager(DatabaseManager.class);
         startService(new Intent(this, TestFloatWindowService.class));
+
+        mViewPager.setAdapter(pagerAdapter);
+        pagerSlidingTabStrip.setViewPager(mViewPager);
+        pagerSlidingTabStrip.setTextColor(Color.parseColor("#333333"));
+        pagerSlidingTabStrip.setTextSize(16);
     }
 
     @Override
@@ -160,6 +178,37 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
             return list.indexOf(o);
         }
     }
+
+    private FragmentPagerAdapter pagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+        @Override
+        public Fragment getItem(int position) {
+            return getFragment(position);
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+
+        private Fragment getFragment(int position) {
+            if (position == 0 && pages.size() == 0) {
+                pages.add(new TestFragment());
+            }
+            if (position == 1 && pages.size() == 1) {
+                pages.add(new TestFragment());
+            }
+            if (position == 2 && pages.size() == 2) {
+                pages.add(new TestFragment());
+            }
+            return pages.get(position);
+        }
+    };
 
     @Override
     protected void onDestroy() {

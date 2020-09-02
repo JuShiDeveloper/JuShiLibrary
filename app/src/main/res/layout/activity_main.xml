@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,6 +73,25 @@
 
         <include layout="@layout/dialog_select_timg_layout" />
 
+        <com.jushi.library.customView.slideTabStrip.PagerSlidingTabStrip
+            android:id="@+id/PagerSlidingTabStrip"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:pstsDividerColor="#f7f7f7"
+            app:pstsIndicatorColor="#09cc9f"
+            app:pstsIndicatorHeight="2dp"
+            app:pstsIndicatorWrap="true"
+            app:pstsScaleZoomMax="0.1"
+            app:pstsShouldExpand="true"
+            app:pstsTextSelectedColor="#09CC9F"
+            app:pstsUnderlineColor="#ebebeb" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/inquiry_list_ViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation" />
 
     </LinearLayout>
 

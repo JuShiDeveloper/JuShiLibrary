@@ -58,7 +58,7 @@
         <attr name="pstsScaleZoomMax" format="float" />
         <attr name="pstsSmoothScrollWhenClickTab" format="boolean" />
         <!-- 宽为match_parent ，指示器的宽需手动计算的问题,这个属性设置为true,则指示器的位置和字体的宽一样-->
-        <!--    <attr name="pstsIndicatorWrap" format="boolean" />-->
+            <attr name="pstsIndicatorWrap" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SelectableRoundedImageView">
