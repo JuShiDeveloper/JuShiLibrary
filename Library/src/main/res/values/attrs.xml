@@ -113,4 +113,17 @@
         <attr name="animatorDuration" format="integer" /> <!--贴边动画时长，默认值250，单位毫秒-->
     </declare-styleable>
 
+    <declare-styleable name="pickerview">
+        <attr name="pickerview_gravity">
+            <enum name="center" value="17" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
+        </attr>
+        <attr name="pickerview_textSize" format="dimension" />
+        <attr name="pickerview_textColorOut" format="color" />
+        <attr name="pickerview_textColorCenter" format="color" />
+        <attr name="pickerview_dividerColor" format="color" />
+        <attr name="pickerview_lineSpacingMultiplier" format="float" />
+    </declare-styleable>
+
 </resources>
