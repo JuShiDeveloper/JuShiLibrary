@@ -48,6 +48,7 @@
 >  \
 >   \
 > onError(String msg)  压缩失败，参数为失败信息；
+
 #### 三、customView目录，存放自定义及封装的view，方便在某些场景下直接使用。
 * 1、dragScaleView目录，使用ImageView自定义实现双指缩放图片、单指触摸中心位置可拖动控件到父控件任意位置、单指点击上下左右四角并拖动可缩放图片等功能。
 ```
@@ -282,6 +283,7 @@ gravity|输入内容对齐方式value = (left、right、top、bottom、center、
         pagerSlidingTabStrip.setTextSize(16);
      ```
  * 8、wheelview目录，自定义3D滚轮控件WheelView，该控件从[日期选择器](https://github.com/Bigkoo/Android-PickerView)中抽离出来单独使用，具体说明[请点击跳转](https://github.com/Bigkoo/Android-PickerView)，xml布局使用示例[请点击跳转](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/res/layout/dialog_select_timg_layout.xml)查看，Java代码中调用示例[请点击跳转](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/java/com/library/jushi/jushilibrary/TestActivity.java)查看WheelView相关代码。
+
 #### 四、database目录，数据库创建与管理简单封装。
 > 1、在DoctorSQLiteOpenHelper类中做数据库创建、升级、建表等操作；
 > 2、通过DatabaseManager类中submitDBTask(final DBTask<Data> dbTask)方法操作数据库表（增、删、改、查）
@@ -303,4 +305,5 @@ private void testUseDataBase() {
         });
     }
 ```
+
 #### 五、
