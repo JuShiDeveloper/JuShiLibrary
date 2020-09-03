@@ -152,6 +152,9 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         inputPassword.setOnTextChangedListener(this, TYPE_INPUT_PASSWORD);
         inputPassword.setShowPasswordButtonVisible(true);
         inputPassword.setEditTextInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        inputAuthCode.setAuthCodeButtonClickListener(v -> {
+            showToast("获取验证码");
+        });
     }
 
     @Override
