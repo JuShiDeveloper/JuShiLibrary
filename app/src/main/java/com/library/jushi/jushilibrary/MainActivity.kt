@@ -1,13 +1,13 @@
 package com.library.jushi.jushilibrary
 
+import android.content.Intent
 import android.util.Log
 import com.jushi.library.base.BaseFragmentActivity
 import com.jushi.library.http.DownloadFileRequester
 import com.jushi.library.http.UploadFileRequester
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main1.*
 import org.json.JSONException
 import org.json.JSONObject
-import java.io.File
 
 class MainActivity : BaseFragmentActivity() {
 
@@ -94,7 +94,10 @@ class MainActivity : BaseFragmentActivity() {
     }
 
     override fun setListener() {
-
+        test_float.setOnClickListener { v ->
+            showToast("点击")
+            startActivity(Intent(this, MainActivity::class.java))
+        }
     }
 
 }

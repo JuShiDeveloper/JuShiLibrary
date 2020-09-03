@@ -11,31 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.jushi.library.customView.floatview.FloatViewLayout
-            android:id="@+id/test_float"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_bright"
-            app:animatorDuration="1000"
-            app:autoCalculateWelt="true"
-            app:cacheXY="true">
-
-            <ImageView
-                android:id="@+id/iv_test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@mipmap/ic_launcher" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/iv_test"
-                android:layout_marginTop="5dp"
-                android:text="拖我点击我"
-                android:textColor="#000000" />
-        </com.jushi.library.customView.floatview.FloatViewLayout>
-
         <Button
             android:id="@+id/btn_start"
             android:layout_width="wrap_content"
@@ -52,26 +27,6 @@
             android:text="CANCEL REQUEST"
             android:textSize="16sp" />
 
-        <fragment
-            android:id="@+id/fragment"
-            android:name="com.library.jushi.jushilibrary.TestFragment"
-            android:layout_width="match_parent"
-            android:layout_height="100dp">
-
-            <Button
-                android:id="@+id/btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BUTTON" />
-
-            <TextView
-                android:id="@+id/tv_progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textColor="#000000"
-                android:textSize="20sp" />
-        </fragment>
         <!--3D滚轮-->
         <include layout="@layout/dialog_select_timg_layout" />
 
@@ -95,16 +50,6 @@
             android:flipInterval="30"
             android:persistentDrawingCache="animation" />
 
-        <com.jushi.library.customView.scaleImageView.ScaleImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@mipmap/ic_launcher" />
-
-        <com.jushi.library.customView.dragScaleView.DragScaleView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@mipmap/ic_launcher" />
-
         <!--轮播图-->
         <com.jushi.library.customView.mzbanner.MZBannerView
             android:id="@+id/MZBannerView"
@@ -122,7 +67,7 @@
 
 
         <!--输入手机号-->
-        <com.jushi.library.customView.customEditText.CustomEditText
+        <com.jushi.library.customView.editText.CustomEditText
             android:id="@+id/register_input_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -141,7 +86,7 @@
             app:srcClearButton="@mipmap/ic_login_clear_content" />
 
         <!--输入验证码-->
-        <com.jushi.library.customView.customEditText.CustomEditText
+        <com.jushi.library.customView.editText.CustomEditText
             android:id="@+id/register_input_auth_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -164,7 +109,7 @@
             app:srcClearButton="@mipmap/ic_login_clear_content" />
 
         <!--设置6~20位密码-->
-        <com.jushi.library.customView.customEditText.CustomEditText
+        <com.jushi.library.customView.editText.CustomEditText
             android:id="@+id/register_input_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -183,6 +128,7 @@
             app:srcClearButton="@mipmap/ic_login_clear_content"
             app:srcPasswordDisplay="@mipmap/ic_password_seeable"
             app:srcPasswordHidden="@mipmap/ic_password_unseeable" />
+
 
     </LinearLayout>
 

@@ -15,14 +15,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
-import com.jushi.library.customView.customEditText.CustomEditText;
+import com.jushi.library.customView.editText.CustomEditText;
 import com.jushi.library.customView.floatview.FloatViewLayout;
 import com.jushi.library.customView.mzbanner.MZBannerView;
-import com.jushi.library.customView.mzbanner.holder.MZHolderCreator;
 import com.jushi.library.customView.mzbanner.holder.MZViewHolder;
 import com.jushi.library.customView.slideTabStrip.PagerSlidingTabStrip;
 import com.jushi.library.customView.wheelview.WheelAdapter;
@@ -31,7 +29,6 @@ import com.jushi.library.database.DatabaseManager;
 import com.jushi.library.http.OnHttpResponseListener;
 import com.jushi.library.utils.NetworkManager;
 import com.jushi.library.viewinject.FindViewById;
-import com.jushi.library.viewinject.ViewInjecter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +39,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button btnStart;
     @FindViewById(R.id.btn_cancel)
     private Button btnCancel;
-    @FindViewById(R.id.test_float)
-    private FloatViewLayout floatViewLayout;
+
     @Manager
     private NetworkManager networkManager;
     @Manager
@@ -204,10 +200,6 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         btnStart.setOnClickListener(v -> t.get());
         btnCancel.setOnClickListener(v -> t.cancel());
         networkManager.addOnNetworkChangeListener(this);
-        floatViewLayout.setOnClickListener(v -> {
-            showToast("点击");
-            startActivity(new Intent(this, MainActivity.class));
-        });
 
         wvSelectStartHour.setOnItemSelectedListener(index -> {
             startHour = hourList.get(index);
