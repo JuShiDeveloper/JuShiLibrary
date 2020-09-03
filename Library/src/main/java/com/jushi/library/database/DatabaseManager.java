@@ -22,7 +22,6 @@ public class DatabaseManager extends BaseManager {
     @Override
     public void onManagerCreate(BaseApplication application) {
         initDataBase();
-        initDataBase();
     }
 
     private void initDataBase() {
