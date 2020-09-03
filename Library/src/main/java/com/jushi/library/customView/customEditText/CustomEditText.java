@@ -20,7 +20,13 @@ import android.widget.TextView;
 
 import com.jushi.library.R;
 
-
+/**
+ * 自定义输入框
+ * 适用于注册、登录、密码找回等账号相关的页面，
+ * 包含清除按钮、获取验证码按钮、密码显示与隐藏按钮
+ * <p>
+ * create by wyf on 2019/08/15
+ */
 public class CustomEditText extends RelativeLayout implements View.OnClickListener, TextWatcher {
     /**
      * 输入框
