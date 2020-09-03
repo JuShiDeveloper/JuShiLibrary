@@ -58,7 +58,7 @@
         <attr name="pstsScaleZoomMax" format="float" />
         <attr name="pstsSmoothScrollWhenClickTab" format="boolean" />
         <!-- 宽为match_parent ，指示器的宽需手动计算的问题,这个属性设置为true,则指示器的位置和字体的宽一样-->
-            <attr name="pstsIndicatorWrap" format="boolean" />
+        <attr name="pstsIndicatorWrap" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="SelectableRoundedImageView">
@@ -142,6 +142,27 @@
             <enum name="right" value="2" />
         </attr>
         <attr name="middle_page_cover" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="DragEditText">
+        <attr name="textSize" format="dimension" />  <!--设置输入文字的大小,与EditText的textSize属性使用相同-->
+        <attr name="text" format="string" />
+        <attr name="textColor" format="color" />
+        <attr name="hintText" format="string" /> <!--提示文字-->
+        <attr name="hintColor" format="color" />
+        <attr name="editDigits" format="string|reference" /> <!--定义可输入字符属性，与EditText的属性使用相同-->
+        <attr name="backgroundResource" format="reference" />
+        <attr name="editMaxLength" format="integer" />
+        <attr name="lines" format="integer" />
+        <attr name="gravity">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="top" value="2" />
+            <enum name="bottom" value="3" />
+            <enum name="center" value="4" />
+            <enum name="center_horizontal" value="5" />
+            <enum name="center_vertical" value="6" />
+        </attr>
     </declare-styleable>
 
 </resources>
