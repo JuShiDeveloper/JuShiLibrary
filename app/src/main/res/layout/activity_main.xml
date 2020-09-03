@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f9f9f9"
     android:orientation="vertical">
 
     <LinearLayout
@@ -109,15 +110,79 @@
             android:id="@+id/MZBannerView"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:background="@android:color/black"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="20dp"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:background="@android:color/black"
             app:canLoop="true"
             app:indicatorAlign="center"
             app:indicatorPaddingLeft="10dp"
-            app:open_mz_mode="true"
-            app:middle_page_cover="true"/>
+            app:middle_page_cover="true"
+            app:open_mz_mode="true" />
+
+
+        <!--输入手机号-->
+        <com.jushi.library.customView.customEditText.CustomEditText
+            android:id="@+id/register_input_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:padding="5dp"
+            app:digits="1234567890"
+            app:drawableLeft="@mipmap/ic_user_phonenum"
+            app:editTextBackgroundResource="@drawable/bg_only_bottom_line_selector"
+            app:hint="请输入手机号码"
+            app:hintTextColor="#cccccc"
+            app:inputTextColor="#000000"
+            app:inputTextSize="16sp"
+            app:maxLength="11"
+            app:srcClearButton="@mipmap/ic_login_clear_content" />
+
+        <!--输入验证码-->
+        <com.jushi.library.customView.customEditText.CustomEditText
+            android:id="@+id/register_input_auth_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:padding="5dp"
+            app:authCodeBackgroundColor="#f7f7f7"
+            app:authCodeHint="获取验证码"
+            app:authCodeTextColor="#64c990"
+            app:authCodeTextSize="16sp"
+            app:digits="1234567890"
+            app:drawableLeft="@mipmap/ic_user_auth_code"
+            app:editTextBackgroundResource="@drawable/bg_only_bottom_line_selector"
+            app:hint="请输入验证码"
+            app:hintTextColor="#cccccc"
+            app:inputTextColor="#000000"
+            app:inputTextSize="16sp"
+            app:maxLength="4"
+            app:srcClearButton="@mipmap/ic_login_clear_content" />
+
+        <!--设置6~20位密码-->
+        <com.jushi.library.customView.customEditText.CustomEditText
+            android:id="@+id/register_input_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:padding="5dp"
+            app:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            app:drawableLeft="@mipmap/ic_user_password"
+            app:editTextBackgroundResource="@drawable/bg_only_bottom_line_selector"
+            app:hint="设置6~20位密码"
+            app:hintTextColor="#cccccc"
+            app:inputTextColor="#000000"
+            app:inputTextSize="16sp"
+            app:maxLength="20"
+            app:srcClearButton="@mipmap/ic_login_clear_content"
+            app:srcPasswordDisplay="@mipmap/ic_password_seeable"
+            app:srcPasswordHidden="@mipmap/ic_password_unseeable" />
 
     </LinearLayout>
 

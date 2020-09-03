@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
+import com.jushi.library.customView.customEditText.CustomEditText;
 import com.jushi.library.customView.floatview.FloatViewLayout;
 import com.jushi.library.customView.mzbanner.MZBannerView;
 import com.jushi.library.customView.mzbanner.holder.MZHolderCreator;
@@ -34,7 +36,7 @@ import com.jushi.library.viewinject.ViewInjecter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestActivity extends BaseFragmentActivity implements OnHttpResponseListener<String>, NetworkManager.OnNetworkChangeListener {
+public class TestActivity extends BaseFragmentActivity implements OnHttpResponseListener<String>, NetworkManager.OnNetworkChangeListener, CustomEditText.OnTextChangedListener {
     private TestGETRequester t;
     @FindViewById(R.id.btn_start)
     private Button btnStart;
@@ -85,6 +87,18 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private MZBannerView mzBannerView;
     private List<Integer> bannerPages = new ArrayList<>();
 
+    @FindViewById(R.id.register_input_phone_number)
+    private CustomEditText inputPhoneNumber;
+    @FindViewById(R.id.register_input_auth_code)
+    private CustomEditText inputAuthCode;
+    @FindViewById(R.id.register_input_password)
+    private CustomEditText inputPassword;
+    private final int TYPE_INPUT_PHONE = 0;
+    private final int TYPE_INPUT_AUTH_CODE = 1;
+    private final int TYPE_INPUT_PASSWORD = 2;
+    //保存手机号/验证码输入正确时的状态，默认false,输入正确时修改位true
+    private boolean[] inputState = {false, false, false};
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
@@ -101,6 +115,11 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         pagerSlidingTabStrip.setTextSize(16);
 
 
+        initBannerView();
+        initCustomEditText();
+    }
+
+    private void initBannerView() {
         mzBannerView.setBannerPageClickListener((view, position) -> {
             showToast("点击 " + position);
         });
@@ -126,6 +145,31 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         });
         mzBannerView.start();
     }
+
+    private void initCustomEditText() {
+        inputPhoneNumber.setOnTextChangedListener(this, TYPE_INPUT_PHONE);
+        inputAuthCode.setOnTextChangedListener(this, TYPE_INPUT_AUTH_CODE);
+        inputPassword.setOnTextChangedListener(this, TYPE_INPUT_PASSWORD);
+        inputPassword.setShowPasswordButtonVisible(true);
+        inputPassword.setEditTextInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+    }
+
+    @Override
+    public void onTextChanged(String s, int type) {
+        switch (type) {
+            case TYPE_INPUT_PHONE:  //电话号码输入框
+                inputState[0] = s.length() == 11;
+                inputAuthCode.setAuthCodeButtonEnabled(s.length() == 11);
+                break;
+            case TYPE_INPUT_AUTH_CODE: //验证码输入框
+                inputState[1] = s.length() == 4;
+                break;
+            case TYPE_INPUT_PASSWORD: //密码输入框
+                inputState[2] = s.length() >= 6;
+                break;
+        }
+    }
+
 
     @Override
     protected void initData() {
@@ -191,6 +235,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         }
         return list;
     }
+
 
     private class MyAdapter implements WheelAdapter {
 
