@@ -4,24 +4,31 @@
 #### 二、compression目录，图片压缩功能，基于luban图片压缩基础库封装，使用PictureCompression类名直接调用静态方法。
 * 1、单张图片压缩
 
-> 方法一：参数 path ---> 要压缩的图片文件路径
-> compressionPicture(Context context, String path, final OnPictureCompressionListener listener)
->方法二：参数 file ---> 要压缩的图片文件
->compressionPicture(Context context, File file, final OnPictureCompressionListener listener)
-> 方法三：参数 uri ---> 要压缩的图片的uri
-> compressionPicture(Context context, Uri uri, final OnPictureCompressionListener listener)
+ 单张图片压缩方法|参数说明
+:--|:--|
+compressionPicture(Context context, String path, final OnPictureCompressionListener listener)|参数 path ---> 要压缩的图片文件路径
+compressionPicture(Context context, File file, final OnPictureCompressionListener listener)|参数 file ---> 要压缩的图片文件
+compressionPicture(Context context, Uri uri, final OnPictureCompressionListener listener)|参数 uri ---> 要压缩的图片的uri
+
 > 回调接口 OnPictureCompressionListener 说明：
-> onCompressStart()  开始压缩；
-> onCompressSuccess(File file)  压缩成功，参数为压缩后的图片文件；
-> onCompressError(String msg)  压缩失败，参数为失败信息；
+
+回调方法|说明
+:--|:--|
+ onCompressStart() | 开始压缩；
+onCompressSuccess(File file) | 压缩成功，参数为压缩后的图片文件；
+ onCompressError(String msg) | 压缩失败，参数为失败信息；
 * 2、多张图片压缩
-> 方法：参数 photos ---> 图片列表，列表类型可以是  File、String和Uri
-> compressPictures(Context context, List<Object> photos, final
-> OnCompressionPicturesListener listener)
+
+多张图片压缩方法|说明
+:--|:--|
+ compressPictures(Context context, List<Object> photos, final OnCompressionPicturesListener listener)|参数 photos ---> 图片列表，列表类型可以是  File、String和Uri
+
 > 回调接口 OnCompressionPicturesListener 说明：
-> onPictureFiles(List<File> pictures)  压缩成功，参数为压缩后的图片文件列表；
-> onError(String msg)  压缩失败，参数为失败信息；
-* 3、
+
+回调方法|说明
+:--|:--|
+ onPictureFiles(List<File> pictures)|  压缩成功，参数为压缩后的图片文件列表；
+ onError(String msg) | 压缩失败，参数为失败信息；
 
 #### 三、customView目录，存放自定义及封装的view，方便在某些场景下直接使用。
 * 1、dragScaleView目录，使用ImageView自定义实现双指缩放图片、单指触摸中心位置可拖动控件到父控件任意位置、单指点击上下左右四角并拖动可缩放图片等功能。
