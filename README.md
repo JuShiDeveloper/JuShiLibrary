@@ -158,6 +158,7 @@ OnTextChangedListener回调：
         }
     }
 ```
+
 > 2、DragEditText ：可拖动的文本输入框
 
 属性|说明
@@ -287,4 +288,69 @@ private void testUseDataBase() {
     }
 ```
 
-#### 五、
+#### 五、http目录，基于okhttp的网络请求封装。
+* 1、http请求使用，自定义类继承BaseHttpRequester
+```
+代码示例:
+get请求使用：
+public class TestGETRequester extends BaseHttpRequester<String> {
+
+    public TestGETRequester(@NonNull OnHttpResponseListener<String> listener) {
+        super(listener);
+    }
+
+    @Override
+    protected String onRequestRouter() {
+        return "doctor/app/get_info_auth";
+    }
+
+    @Override
+    protected String onDumpData(JSONObject jsonObject) throws JSONException {
+        return jsonObject.getString("data");
+    }
+
+    @Override
+    protected String onDumpDataError(JSONObject jsonObject) throws JSONException {
+        return jsonObject.toString();
+    }
+
+    @Override
+    protected void onParams(Map<String, Object> params){
+        params.put("doc_id", 1008930);
+    }
+}
+
+具体调用：
+public class TestUseRequester implements OnHttpResponseListener<String>{
+	public TestUseRequester(){
+		new TestGETRequester(this).get();
+		//post请求使用方式与TestGETRequester类一致，区别在于new出来的对象调用的是get()还是    	post()方法
+		new TestPOSTRequester(this).post();
+	}
+
+	@Override //请求成功回调
+    public void onHttpRequesterResponse(int code, String router, String s) {
+        switch (router) {
+            case "doctor/app/get_info_auth":
+                Log.v(MainActivity.class.getSimpleName(), "测试GET请求成功！ code = " + code + "  result = " + s);
+                break;
+            case "doctor/app/password_verify":
+                Log.v(MainActivity.class.getSimpleName(), "测试POST请求成功！code = " + code + "  result = " + s);
+                break;
+        }
+    }
+
+    @Override //请求失败回调
+    public void onHttpRequesterError(int code, String router, String message) {
+        switch (router) {
+            case "doctor/app/get_info_auth":
+                Log.v(MainActivity.class.getSimpleName(), "测试GET请求失败! code = " + code + "  message = " + message);
+                break;
+            case "doctor/app/password_verify":
+                Log.v(MainActivity.class.getSimpleName(), "测试POST请求失败! code = " + code + "  message = " + message);
+                break;
+        }
+    }
+}
+
+```
