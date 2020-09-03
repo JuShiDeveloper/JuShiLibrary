@@ -1,4 +1,4 @@
-package com.jushi.library.customView.customEditText;
+package com.jushi.library.customView.editText;
 
 import android.content.Context;
 import android.content.res.TypedArray;
