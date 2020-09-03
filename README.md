@@ -14,7 +14,7 @@
 > onCompressSuccess(File file)  压缩成功，参数为压缩后的图片文件；
 > onCompressError(String msg)  压缩失败，参数为失败信息；
 * 2、多张图片压缩
-> 方法：参数 photos ---> 图片列表，列表类型可以是  File、String和Uri 
+> 方法：参数 photos ---> 图片列表，列表类型可以是  File、String和Uri
 > compressPictures(Context context, List<Object> photos, final OnCompressionPicturesListener listener)
 > 回调接口 OnCompressionPicturesListener 说明：
 > onPictureFiles(List<File> pictures)  压缩成功，参数为压缩后的图片文件列表；
@@ -211,7 +211,7 @@ gravity|输入内容对齐方式value = (left、right、top、bottom、center、
    ```
    * 4、mzbanner目录，轮播图控件封装，具体说明[请点击跳转](https://github.com/pinguo-zhouwei/MZBannerView)
    * 5、roundimage目录，基于ImageView自定义的圆角图片控件SelectableRoundedImageView，可单独设置上下左右四个圆角等。
-   
+
    属性|说明
    :--|:--|
    riv_corner_radius|圆角半径
@@ -230,7 +230,7 @@ gravity|输入内容对齐方式value = (left、right、top、bottom、center、
         android:layout_marginTop="10dp"
         android:src="@mipmap/ic_launcher" />
    ```
-   
+
 * 7、slideTabStrip目录，导航栏特效，主要是导航栏字体大小和颜色的渐变特效，详细说明[请点击跳转](https://github.com/ta893115871/PagerSlidingTabStrip)
      ```
      布局文件中使用
@@ -246,7 +246,7 @@ gravity|输入内容对齐方式value = (left、right、top、bottom、center、
             app:pstsShouldExpand="true"
             app:pstsTextSelectedColor="#09CC9F"
             app:pstsUnderlineColor="#ebebeb" />
-            
+
 	JAVA代码中获取到控件后设置
 	    pagerSlidingTabStrip.setViewPager(mViewPager);
         pagerSlidingTabStrip.setTextColor(Color.parseColor("#333333"));
