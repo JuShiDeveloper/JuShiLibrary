@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.text.method.HideReturnsTransformationMethod;
@@ -77,8 +78,6 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         initAttrs(attrs);
         setListener();
         setClearButtonVisible(false);
-        setAuthCodeButtonVisible(false);
-        setShowPasswordButtonVisible(false);
     }
 
     private void initView() {
@@ -105,8 +104,11 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         setHintTextColor(typedArray.getColor(R.styleable.CustomEditText_hintTextColor, Color.LTGRAY));
         setInputTextSize(typedArray.getDimensionPixelSize(R.styleable.CustomEditText_inputTextSize, defaultTextSize));
         setMaxLength(typedArray.getInt(R.styleable.CustomEditText_maxLength, 20));
-        setAuthCodeButtonBackgroundColor(typedArray.getColor(R.styleable.CustomEditText_authCodeBackgroundColor, Color.WHITE));
+        setAuthCodeButtonBackgroundColor(typedArray.getColor(R.styleable.CustomEditText_authCodeBackgroundColor, Color.TRANSPARENT));
         setAuthCodeButtonBackgroundResource(typedArray.getResourceId(R.styleable.CustomEditText_authCodeBackgroundResource, 0));
+        setShowPasswordButtonVisible(typedArray.getBoolean(R.styleable.CustomEditText_isShowAuthCodeBtn, false));
+        setEditTextBackgroundClor(typedArray.getColor(R.styleable.CustomEditText_editTextBackgroundColor, Color.parseColor("#bebebe")));
+        setEditTextBackgroundResource(typedArray.getResourceId(R.styleable.CustomEditText_editTextBackgroundResource, 0));
     }
 
     private void setListener() {
@@ -220,6 +222,29 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
     }
 
     /**
+     * 设置获取验证码按钮的提示文字
+     *
+     * @param text
+     */
+    public void setAuthCodeButtonText(Spanned text) {
+        if (text == null || text.equals("")) return;
+        authCodeBtn.setText(text);
+    }
+
+    /**
+     * 设置获取验证码按钮的使用状态
+     *
+     * @param enabled
+     */
+    public void setAuthCodeButtonEnabled(boolean enabled) {
+        authCodeBtn.setEnabled(enabled);
+    }
+
+    public boolean isAuthCodeButtonEnabled(){
+        return authCodeBtn.isEnabled();
+    }
+
+    /**
      * 设置获取验证码按钮文字颜色
      *
      * @param color
@@ -302,13 +327,31 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         authCodeBtn.setBackgroundResource(resId);
     }
 
+    public void setEditTextBackgroundClor(int color) {
+        if (color == 0) return;
+        editText.setBackgroundColor(color);
+    }
+
+    public void setEditTextBackgroundResource(int resId) {
+        if (resId == 0) return;
+        editText.setBackgroundResource(resId);
+    }
+
+
+    public TextView getAuthCodeBtn() {
+        return authCodeBtn;
+    }
+
     @Override
     public void onClick(View v) {
-        int i = v.getId();
+        int i = v.getId();//清除按钮点击
+//控制密码显示或隐藏的按钮点击
+//获取验证码按钮点击
         if (i == R.id.iv_clear_btn) {
             editText.setText("");
         } else if (i == R.id.iv_is_show_view) {
             showPswBtnClickEvent();
+
         } else if (i == R.id.tv_auth_code_btn) {
             if (authCodeButtomClickListener != null)
                 authCodeButtomClickListener.onAuthCodeButtonClick(v);
