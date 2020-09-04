@@ -401,3 +401,10 @@ private fun downLoadFile() { //文件下载
 2、上传多个文件
         UploadFileRequester().uploadFiles(url,fileNames) // fileNames---存有文件路径的list
 ```
+
+#### 六、lottie目录，Lottie动画功能。
+* 实现代码均由[lottie-android](https://github.com/airbnb/lottie-android)中抽离出来，为避免直接依赖（implementation 'com.airbnb.android:lottie:$lottieVersion'）可能出现的包冲突，具体使用说明[请点击跳转](https://github.com/airbnb/lottie-android)查看。
+#### 七、router目录，Activity、Fragment路由器功能，多人开发同一项目时方便页面之间跳转使用。
+* 1、[ActivityRouter](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/router/ActivityRouter.java) ：使用ActivityRouter.startActivity()的多个重载方法跳转页面。
+* 2、[FragmentRouter](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/router/FragmentRouter.java) ：使用FragmentRouter.getFragment()方法获取Fragment对象。
+* 3、[RouterList](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/router/RouterList.java) ：路由器注册数据，以静态常量形式存放Activity、Fragment路径。
