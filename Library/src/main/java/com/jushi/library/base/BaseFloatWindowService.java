@@ -101,7 +101,7 @@ public abstract class BaseFloatWindowService extends Service implements View.OnT
                 if (needCallOnClick) {
                     onWindowClickEvent();
                 } else {
-                    toCalculateWelt();
+                    rootLayout.postDelayed(() -> toCalculateWelt(), 200);
                 }
                 return false;
         }
