@@ -416,3 +416,50 @@ private fun downLoadFile() { //文件下载
 * 3、使用[PictureHelper](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/takingPhoto/PictureHelper.java)类中gotoClipActivity(Activity activity, Uri uri, int requestCode)方法打开图片裁剪界面；
 #### 十、utils目录，常用工具类。
 * 包含：手机号、密码校验工具([CalibratorUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/CalibratorUtil.java))，身份证号校验工具([IdCardUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/IdCardUtil.java))，root权限检测工具([CheckRoot](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/CheckRoot.java))，日期、时间工具([DateUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/DateUtil.java))，设备工具([DeviceUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/DeviceUtils.java))，MD5、SHA1加密工具([Encoder](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/Encoder.java))，文件工具类([FileUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/FileUtil.java))，高斯模糊工具类([GaussUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/GaussUtils.java))，网络变化管理器([NetworkManager](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/NetworkManager.java))，手机系统判断工具类([OSUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/OSUtils.java))，执行周期性任务(定时器)工具类([PeriodicTask](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/PeriodicTask.java))，屏幕相关尺寸工具类([ScreenUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/ScreenUtils.java))，SHA1签名检测工具类([SHA1SignCheck](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/SHA1SignCheck.java))等。
+#### 十一、viewinject目录，IOC 注解,支持findViewById使用方法，通过注解的方式获取控件。
+* 使用[ViewInjecter](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/viewinject/ViewInjecter.java)类中的inject(Activity activity)方法，该方法有多个重载的方法。
+```
+Activity中使用示例：
+public class TestActivity extends AppCompatActivity{
+   @FindViewById(R.id.rl_select_time_view)
+    private RelativeLayout rlDialogView;
+    @FindViewById(R.id.rl_select_time_dialog_layout)
+    private RelativeLayout llLayoutView;
+    @FindViewById(R.id.wv_select_start_hour)
+    private WheelView wvSelectStartHour;
+    @FindViewById(R.id.wv_select_start_minute)
+    private WheelView wvSelectStartMinute;
+    @FindViewById(R.id.wv_select_end_hour)
+    private WheelView wvSelectEndHour;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ViewInjecter.inject(this);
+    }
+}
+
+Fragment中使用示例：
+public abstract class BaseFragment extends Fragment {
+    private View rootView;
+   @FindViewById(R.id.rl_select_time_view)
+    private RelativeLayout rlDialogView;
+    @FindViewById(R.id.rl_select_time_dialog_layout)
+    private RelativeLayout llLayoutView;
+    @FindViewById(R.id.wv_select_start_hour)
+    private WheelView wvSelectStartHour;
+    @FindViewById(R.id.wv_select_start_minute)
+    private WheelView wvSelectStartMinute;
+    @FindViewById(R.id.wv_select_end_hour)
+    private WheelView wvSelectEndHour;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        rootView = xxxxx；
+        ViewInjecter.inject(this, rootView);
+        return rootView;
+    }
+  }
+```
