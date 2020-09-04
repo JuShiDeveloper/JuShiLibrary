@@ -463,3 +463,51 @@ public abstract class BaseFragment extends Fragment {
     }
   }
 ```
+#### 十二、watermark目录，给图片添加水印功能。
+* [Watermark](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/watermark/Watermark.java)为添加水印的主要实现，可添加的水印类型包括：文字水印、图片水印，具体使用方法是[请点击跳转](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/watermark/Watermark.java)查看注释详解。
+
+#### 十三、websocket目录，WebSocket封装。
+* 自定义类继承WSBaseManager，重写onMessage(String message)、onError(String error)、onHeartbeatTime()、onHearbeatContent()四个方法，调用sendStringMessage(msg)方法发送消息。
+```
+使用示例：
+public class TestWebSocketManager extends WSBaseManager {
+
+    @Override
+    protected void onMessage(String message) {
+        //接收到消息
+    }
+
+    @Override
+    protected void onError(String error) {
+        // 出错
+    }
+
+    @Override
+    protected long onHeartbeatTime() {
+        return 500; //发送心跳包时间，单位毫秒
+    }
+
+    @Override
+    protected JSONObject onHearbeatContent() { //发送的心跳包内容
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("key","value");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+
+    public void connectWS(String url){
+        //初始化并连接WebSocket
+        initWs(url);
+    }
+
+    public void sendMsg(String msg){
+        //发送消息
+        sendStringMessage(msg);
+    }
+}
+```
+
