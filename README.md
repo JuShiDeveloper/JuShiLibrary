@@ -1,7 +1,7 @@
 ### JuShiLibrary功能说明
 
 #### 一、base目录，包含application、activity、fragment、FloatWindowService等主要视图界面层基类。
-#### 二、compression目录，图片压缩功能，基于luban图片压缩基础库封装，使用PictureCompression类名直接调用静态方法。
+#### 二、compression目录，图片压缩功能，基于luban图片压缩基础库封装，使用[PictureCompression](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/compression/PictureCompression.java)类名直接调用静态方法。
 * 1、单张图片压缩
 
  单张图片压缩方法|参数说明
