@@ -408,3 +408,10 @@ private fun downLoadFile() { //文件下载
 * 1、[ActivityRouter](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/router/ActivityRouter.java) ：使用ActivityRouter.startActivity()的多个重载方法跳转页面。
 * 2、[FragmentRouter](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/router/FragmentRouter.java) ：使用FragmentRouter.getFragment()方法获取Fragment对象。
 * 3、[RouterList](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/router/RouterList.java) ：路由器注册数据，以静态常量形式存放Activity、Fragment路径。
+#### 八、systemBarUtils目录，状态栏设置工具类。
+* 具体实现可查看[SystemBarUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/systemBarUtils/SystemBarUtil.java)
+#### 九、takingPhoto目录，获取本地图片帮助功能。
+* 1、使用[PictureHelper](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/takingPhoto/PictureHelper.java)类中gotoCamera(Activity activity, int requestCode)方法调用相机拍照获取图片；
+* 2、使用[PictureHelper](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/takingPhoto/PictureHelper.java)类中gotoPhotoAlbum(Activity activity, int requestCode)方法打开相册选择图片；
+* 3、使用[PictureHelper](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/takingPhoto/PictureHelper.java)类中gotoClipActivity(Activity activity, Uri uri, int requestCode)方法打开图片裁剪界面；
+#### 十、utils目录，常用工具类。
