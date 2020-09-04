@@ -121,7 +121,7 @@ public class FloatViewLayout extends RelativeLayout implements View.OnTouchListe
                 if (needCallOnClick) {
                     notifyOnClick();
                 } else {
-                    toCalculateWelt();
+                    postDelayed(() -> toCalculateWelt(), 200);
                 }
                 return true;
         }
