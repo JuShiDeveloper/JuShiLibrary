@@ -11,7 +11,7 @@ import android.view.View;
  * View查找器
  *
  */
-public abstract class ViewFinder {
+ abstract class ViewFinder {
     public static ViewFinder create(Activity activity) {
         return new ActivityViewFinder(activity);
     }

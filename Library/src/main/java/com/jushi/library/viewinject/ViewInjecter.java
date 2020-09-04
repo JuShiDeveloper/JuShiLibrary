@@ -8,18 +8,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * IOC 注解,支持findViewById和setOnClickListener，使用方法
+ * IOC 注解,支持findViewById使用方法
  * <p/>
  * <pre>
  * // 控件注解
  * &#064;FindViewById(R.id.view_inject_textview)
  * private TextView textView;
- *
- * // setOnClickListener注解
- * &#064;OnClick({ R.id.view_inject_textview, R.id.button1 })
- * private void onClick(View view) {
- * 	Toast.makeText(this, &quot;我被点击了！&quot;, Toast.LENGTH_SHORT).show();
- * }
  *
  * // 别忘了加上如下语句,有多种重载方法
  * ViewInjecter.inject(activity);
