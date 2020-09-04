@@ -268,6 +268,7 @@ gravity|输入内容对齐方式value = (left、right、top、bottom、center、
 
 #### 四、database目录，数据库创建与管理简单封装。
 > 1、在DoctorSQLiteOpenHelper类中做数据库创建、升级、建表等操作；
+>  \
 > 2、通过DatabaseManager类中submitDBTask(final DBTask<Data> dbTask)方法操作数据库表（增、删、改、查）
 ```
 示例代码
@@ -324,7 +325,7 @@ public class TestGETRequester extends BaseHttpRequester<String> {
 public class TestUseRequester implements OnHttpResponseListener<String>{
 	public TestUseRequester(){
 		new TestGETRequester(this).get();
-		//post请求使用方式与TestGETRequester类一致，区别在于new出来的对象调用的是get()还是    	post()方法
+		//post请求使用方式与TestGETRequester类一致，区别在于new出来的对象调用的是get()还是post()方法
 		new TestPOSTRequester(this).post();
 	}
 
@@ -352,5 +353,51 @@ public class TestUseRequester implements OnHttpResponseListener<String>{
         }
     }
 }
+```
 
+* 2、文件下载封装 DownloadFileRequester。
+```
+使用示例：
+private fun downLoadFile() { //文件下载
+        Log.v("yufei", "文件下载")
+        var url = "http://test.guijk.com/hfs/3015/5/1598580272286732/jpg/2/1008930/o"
+        var savePath = externalCacheDir.path + "/download"
+        var fileName = "testDownload.jpg"
+        DownloadFileRequester().download(url, savePath, fileName, object : 	   DownloadFileRequester.OnDownloadListener {
+            override fun onProgress(progress: Int) {
+                Log.v("yufei", "$progress%")
+            }
+
+            override fun onSuccess() {
+                Log.v("yufei", "onSucess")
+            }
+
+            override fun onError(msg: String?) {
+                Log.v("yufei", "onError  $msg")
+            }
+        })
+    }
+```
+
+* 3、文件上传封装 UploadFileRequester。
+```
+使用示例：
+1、单文件上传
+      UploadFileRequester().uploadFile(url, fileName, object : UploadFileRequester.OnUploadListener { //文件上传
+                override fun onProgress(progress: Int) {
+                    runOnUiThread { tv_progress.text = "$progress%" }
+                    Log.v("yufei", "$progress%")
+                }
+
+                override fun onSuccess() {
+                    Log.v("yufei", "onSucess")
+                }
+
+                override fun onError(msg: String?) {
+                    Log.v("yufei", "onError  $msg")
+                }
+            })
+
+2、上传多个文件
+        UploadFileRequester().uploadFiles(url,fileNames) // fileNames---存有文件路径的list
 ```
