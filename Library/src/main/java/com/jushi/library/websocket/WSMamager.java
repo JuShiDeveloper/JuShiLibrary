@@ -27,7 +27,6 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * WebSocket管理类
- * Created by lichengqing on 2020-04-27.
  */
 class WSMamager implements WSClientCallBack {
     private final String TAG = WSMamager.class.getSimpleName();
@@ -90,13 +89,10 @@ class WSMamager implements WSClientCallBack {
             return;
         }
         try {
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Logger.i(TAG, "send:" + message);
-                    if (wsClient != null) {
-                        wsClient.send(message);
-                    }
+            executor.execute(() -> {
+                Logger.i(TAG, "send:" + message);
+                if (wsClient != null && wsClient.isOpen()) {
+                    wsClient.send(message);
                 }
             });
         } catch (Exception e) {

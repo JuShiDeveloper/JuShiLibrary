@@ -11,7 +11,6 @@ import java.net.URI;
 
 /**
  * WebSocket客户端实例
- * Created by yangyong on 2020-02-27.
  */
 class WSClient extends WebSocketClient {
     private final String TAG = WebSocketClient.class.getSimpleName();
