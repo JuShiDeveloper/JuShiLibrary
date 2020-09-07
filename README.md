@@ -32,6 +32,11 @@ onCompressSuccess(File file) | 压缩成功，参数为压缩后的图片文件�
 
 #### 三、customView目录，存放自定义及封装的view，方便在某些场景下直接使用。
 * 1、dragScaleView目录，使用ImageView自定义实现双指缩放图片、单指触摸中心位置可拖动控件到父控件任意位置、单指点击上下左右四角并拖动可缩放图片等功能。
+
+属性|说明
+:--|:--|
+enabled_stroke|是否启用描边，默认为false，手指按下时显示
+stroke_color|描边颜色，只有在启用描边的时候才生效
 ```
 布局文件中使用
 <com.jushi.library.customView.dragScaleView.DragScaleView
