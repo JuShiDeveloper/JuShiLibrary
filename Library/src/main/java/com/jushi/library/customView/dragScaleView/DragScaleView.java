@@ -1,12 +1,14 @@
 package com.jushi.library.customView.dragScaleView;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -18,12 +20,11 @@ import com.jushi.library.R;
 
 /**
  * changed by jushi
- *
+ * <p>
  * 功能：
  * 1、双指缩放图片
  * 2、单指触摸中心位置可拖动控件到父控件的任意位置
  * 3、单指点击left top right bottom 四个角并拖动可缩放图片
- *
  */
 public class DragScaleView extends AppCompatImageView implements View.OnTouchListener {
     protected int screenWidth;
@@ -57,6 +58,9 @@ public class DragScaleView extends AppCompatImageView implements View.OnTouchLis
 
     private int parentWidth;
     private int parentHeight;
+    private boolean enabledStroke = false; //启用描边
+    private int strokeColor = Color.RED;
+
 
     /**
      * 初始化获取屏幕宽高
@@ -66,22 +70,30 @@ public class DragScaleView extends AppCompatImageView implements View.OnTouchLis
         screenWidth = getResources().getDisplayMetrics().widthPixels;
     }
 
-    public DragScaleView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        setOnTouchListener(this);
-        initScreenW_H();
+    public DragScaleView(Context context) {
+        this(context, null);
     }
 
     public DragScaleView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        setOnTouchListener(this);
-        initScreenW_H();
+        this(context, attrs, 0);
     }
 
-    public DragScaleView(Context context) {
-        super(context);
+    public DragScaleView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        init(attrs);
+    }
+
+    private void init(AttributeSet attrs) {
         setOnTouchListener(this);
         initScreenW_H();
+        initAttribute(attrs);
+        setClickable(true);
+    }
+
+    private void initAttribute(AttributeSet attrs) {
+        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.DragScaleView);
+        enabledStroke = array.getBoolean(R.styleable.DragScaleView_enabled_stroke, false);
+        strokeColor = array.getColor(R.styleable.DragScaleView_stroke_color, Color.RED);
     }
 
     @Override
@@ -90,13 +102,12 @@ public class DragScaleView extends AppCompatImageView implements View.OnTouchLis
         paint.setColor(Color.GRAY);
         paint.setStrokeWidth(4.0f);
         paint.setStyle(Paint.Style.STROKE);
-
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         int action = event.getAction() & MotionEvent.ACTION_MASK;
-//        setBackgroundResource(R.drawable.bg_dashgap); //设置描边
+        setStrokeResource();//设置描边
         if (action == MotionEvent.ACTION_DOWN) {
             oriLeft = v.getLeft();
             oriRight = v.getRight();
@@ -124,6 +135,25 @@ public class DragScaleView extends AppCompatImageView implements View.OnTouchLis
     }
 
     /**
+     * 设置按下时的描边
+     */
+    private void setStrokeResource() {
+        if (!enabledStroke) return;
+        GradientDrawable drawable = (GradientDrawable) getContext().getResources().getDrawable(R.drawable.bg_dashgap);
+        drawable.setStroke(1, strokeColor, 8, 8);
+        setBackgroundDrawable(drawable);
+    }
+
+    /**
+     * 取消描边
+     */
+    private void unSetStrokeResource() {
+        if (!enabledStroke) return;
+        GradientDrawable drawable = (GradientDrawable) getContext().getResources().getDrawable(R.drawable.bg_undashgap);
+        setBackgroundDrawable(drawable);
+    }
+
+    /**
      * 处理拖动事件
      *
      * @param v
@@ -135,7 +165,7 @@ public class DragScaleView extends AppCompatImageView implements View.OnTouchLis
             case MotionEvent.ACTION_MOVE:
                 int dx = (int) event.getRawX() - lastX;
                 int dy = (int) event.getRawY() - lastY;
-                if (parentWidth == 0){
+                if (parentWidth == 0) {
                     ViewGroup parent = (ViewGroup) getParent();
                     parentWidth = parent.getWidth();
                     parentHeight = parent.getHeight();
@@ -196,6 +226,7 @@ public class DragScaleView extends AppCompatImageView implements View.OnTouchLis
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
                 dragDirection = 0;
+                unSetStrokeResource();
                 break;
         }
     }

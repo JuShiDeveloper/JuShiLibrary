@@ -165,4 +165,9 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="DragScaleView">
+        <attr name="enabled_stroke" format="boolean" /> <!--是否启用描边，默认为false-->
+        <attr name="stroke_color" format="color" /> <!--描边颜色，只有在启用描边的时候才生效-->
+    </declare-styleable>
+
 </resources>
