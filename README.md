@@ -43,8 +43,9 @@ stroke_color|描边颜色，只有在启用描边的时候才生效
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="10dp"
-        android:background="@mipmap/ic_launcher"
-        android:clickable="true" />
+        android:src="@mipmap/ic_launcher"
+        app:enabled_stroke="true"
+        app:stroke_color="@android:color/holo_blue_light"/>
 ```
 * 2、editText目录，自定义文本输入框，包含适用于注册、登录、密码找回等账号相关的输入框CustomEditText以及可拖动的文本输入框DragEditText。
 > 1、 CustomEditText：适用于注册、登录、密码找回、短信验证码输入等账号相关的页面；
