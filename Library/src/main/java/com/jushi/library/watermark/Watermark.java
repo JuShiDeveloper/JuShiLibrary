@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
 /**
@@ -67,6 +69,23 @@ public class Watermark {
     }
 
     /**
+     * 给图片添加文字水印
+     *
+     * @param targetImageResource 需要添加水印的图片资源
+     * @param text                水印文字
+     * @param color               水印文字的颜色
+     * @param gravity             水印显示的位置
+     * @param textSize            水印文字的大小
+     * @param alpha               水印透明度值（0 - 255），值越小越透明
+     */
+    public Bitmap createTextWatermark(Context context, int targetImageResource, String text, int color, String gravity, float textSize, int alpha) {
+        this.gravity = gravity;
+        this.alpha = alpha;
+        this.isRecycle = false;
+        return getWatermarkBitmap(getBitmap(context, targetImageResource), null, text, color, textSize);
+    }
+
+    /**
      * 给图片添加图片水印
      *
      * @param targetBitmap    需要添加水印的图片的bitmap
@@ -79,6 +98,21 @@ public class Watermark {
         this.alpha = alpha;
         this.isRecycle = false;
         return getWatermarkBitmap(targetBitmap, watermarkBitmap, "", 0, 0f);
+    }
+
+    /**
+     * 给图片添加图片水印
+     *
+     * @param targetImageResource 需要添加水印的图片资源
+     * @param watermarkBitmap     作为水印的图片的bitmap
+     * @param gravity             水印显示的位置
+     * @param alpha               水印透明度值（0 - 255） ，值越小越透明
+     */
+    public Bitmap createPictureWatermark(Context context, int targetImageResource, Bitmap watermarkBitmap, String gravity, int alpha) {
+        this.gravity = gravity;
+        this.alpha = alpha;
+        this.isRecycle = false;
+        return getWatermarkBitmap(getBitmap(context, targetImageResource), watermarkBitmap, "", 0, 0f);
     }
 
 
@@ -96,6 +130,22 @@ public class Watermark {
         this.alpha = alpha;
         this.isRecycle = true;
         return getWatermarkBitmap(targetBitmap, BitmapFactory.decodeResource(context.getResources(), resourceId), "", 0, 0f);
+    }
+
+    /**
+     * 给图片添加图片水印
+     *
+     * @param context
+     * @param targetImageResource 需要添加水印的图片资源
+     * @param resourceId          作为水印的图片资源id
+     * @param gravity             水印显示的位置
+     * @param alpha               水印透明度值（0 - 255） ，值越小越透明
+     */
+    public Bitmap createPictureWatermark(Context context, int targetImageResource, int resourceId, String gravity, int alpha) {
+        this.gravity = gravity;
+        this.alpha = alpha;
+        this.isRecycle = true;
+        return getWatermarkBitmap(getBitmap(context, targetImageResource), BitmapFactory.decodeResource(context.getResources(), resourceId), "", 0, 0f);
     }
 
     /**
@@ -239,5 +289,15 @@ public class Watermark {
                 height = (targetBitmap.getHeight() - 15);
                 break;
         }
+    }
+
+    private Bitmap getBitmap(Context context, int targetImageResource) {
+        Drawable drawable = context.getResources().getDrawable(targetImageResource);
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 }
