@@ -28,6 +28,8 @@
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
+        <activity android:name=".NavigationBarActivity" />
+
         <provider
             android:name="com.jushi.library.takingPhoto.util.ImageProvider"
             android:authorities="${applicationId}.provider"

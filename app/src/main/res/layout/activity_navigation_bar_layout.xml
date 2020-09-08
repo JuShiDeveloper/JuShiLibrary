@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f7f7"
+    android:orientation="vertical">
+
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:function="BACK_BUTTON|TITLE"
+        app:titleText="自定义导航栏示例1"
+        app:titleTextColor="#333333"
+        app:titleTextSize="16sp" />
+
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_blue_light"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_TITLE"
+        app:titleText="自定义导航栏示例2"
+        app:titleTextColor="#333333"
+        app:titleTextSize="16sp" />
+
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_red_dark"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonIconResource="@drawable/ic_close_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_ICON"
+        app:titleText="自定义导航栏示例3"
+        app:titleTextColor="#333333"
+        app:titleTextSize="16sp" />
+
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_blue_dark"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonIconResource="@drawable/ic_close_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_ICON|RIGHT_TEXT_BUTTON"
+        app:rightButtonText="提交"
+        app:rightButtonTextColor="#f9f9f9"
+        app:rightButtonTextSize="15sp"
+        app:titleText="自定义导航栏示例4"
+        app:titleTextColor="#333333"
+        app:titleTextSize="16sp" />
+
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:id="@+id/NavigationBar_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_orange_dark"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_TITLE|RIGHT_TEXT_BUTTON"
+        app:rightButtonText="提交"
+        app:rightButtonTextColor="#f9f9f9"
+        app:rightButtonTextSize="15sp"
+        app:titleText="自定义导航栏示例5"
+        app:titleTextColor="#333333"
+        app:titleTextSize="16sp" />
+
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:id="@+id/NavigationBar_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_blue_dark"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonIconResource="@drawable/ic_close_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_ICON|RIGHT_ICON_BUTTON"
+        app:rightButtonIconResource="@drawable/ic_more_horiz_black"
+        app:titleText="自定义导航栏示例6"
+        app:titleTextColor="#333333"
+        app:titleTextSize="16sp" />
+
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_orange_dark"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_TITLE|RIGHT_ICON_BUTTON"
+        app:rightButtonIconResource="@drawable/ic_more_horiz_black"
+        app:titleText="自定义导航栏示例7"
+        app:titleTextColor="#333333"
+        app:titleTextSize="16sp" />
+
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:id="@+id/NavigationBar_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_red_dark"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonIconResource="@drawable/ic_close_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|LEFT_CLOSE_ICON|SEARCH|RIGHT_TEXT_BUTTON"
+        app:rightButtonText="搜索"
+        app:rightButtonTextColor="#ffffff"
+        app:rightButtonTextSize="16sp"
+        app:searchBackgroundResource="@drawable/edit_shape"
+        app:searchHint="输入搜索关键字"
+        app:searchHintColor="#999999"
+        app:searchTextColor="#333333"
+        app:searchTextSize="15sp" />
+
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:id="@+id/NavigationBar_9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonIconResource="@drawable/ic_close_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|SEARCH|RIGHT_ICON_BUTTON"
+        app:rightButtonIconResource="@drawable/ic_search_black"
+        app:rightButtonText="搜索"
+        app:rightButtonTextColor="#000000"
+        app:rightButtonTextSize="16sp"
+        app:searchBackgroundResource="@drawable/edit_shape"
+        app:searchEditEnable="true"
+        app:searchEditFocusable="true"
+        app:searchHint="输入搜索关键字"
+        app:searchHintColor="#999999"
+        app:searchTextColor="#333333"
+        app:searchTextSize="15sp" />
+
+</LinearLayout>

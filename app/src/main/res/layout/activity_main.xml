@@ -27,6 +27,12 @@
             android:text="CANCEL REQUEST"
             android:textSize="16sp" />
 
+        <Button
+            android:id="@+id/btn_navigation_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NAVIGATION BAR" />
+
         <!--3D滚轮-->
         <include layout="@layout/dialog_select_timg_layout" />
 

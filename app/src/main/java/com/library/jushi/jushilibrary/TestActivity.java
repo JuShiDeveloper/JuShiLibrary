@@ -39,6 +39,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button btnStart;
     @FindViewById(R.id.btn_cancel)
     private Button btnCancel;
+    @FindViewById(R.id.btn_navigation_bar)
+    private Button btnNavigationBar;
 
     @Manager
     private NetworkManager networkManager;
@@ -216,6 +218,10 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         wvSelectEndMinute.setOnItemSelectedListener(index -> {
             endMinute = minuteList.get(index);
             curEndMintue = index;
+        });
+
+        btnNavigationBar.setOnClickListener(v -> {
+            startActivity(new Intent(this, NavigationBarActivity.class));
         });
     }
 
