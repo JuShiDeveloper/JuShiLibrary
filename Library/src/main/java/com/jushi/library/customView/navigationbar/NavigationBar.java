@@ -386,11 +386,11 @@ public class NavigationBar extends LinearLayout {
         this.backButtonClickListener = backButtonClickListener;
     }
 
-    public void setOnCloseButtonListener(OnClickListener closeButtonListener) {
+    public void setOnCloseButtonClickListener(OnClickListener closeButtonListener) {
         this.closeButtonClickListener = closeButtonListener;
     }
 
-    public void setOnRightButtonListener(OnClickListener rightButtonListener) {
+    public void setOnRightButtonClickListener(OnClickListener rightButtonListener) {
         this.rightButtonClickListener = rightButtonListener;
     }
 
