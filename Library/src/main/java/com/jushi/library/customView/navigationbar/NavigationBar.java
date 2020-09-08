@@ -17,6 +17,12 @@ import com.jushi.library.R;
 
 /**
  * 自定义页面导航栏
+ * 功能：
+ * 1、返回上一个页面按钮；
+ * 2、关闭当前页面按钮（文字/图标）；
+ * 3、页面标题显示；
+ * 4、搜索框功能；
+ * 5、右边功能按钮（文字/图标）；
  * create by wyf on 2020/09/07
  */
 public class NavigationBar extends LinearLayout {
