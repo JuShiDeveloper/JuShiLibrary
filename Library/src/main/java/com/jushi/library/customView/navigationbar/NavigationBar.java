@@ -138,6 +138,24 @@ public class NavigationBar extends LinearLayout {
     }
 
     /**
+     * 添加某个功能
+     *
+     * @param function
+     */
+    public void addFunction(int function) {
+        setFunction(this.function | function);
+    }
+
+    /**
+     * 移除某个功能
+     *
+     * @param function
+     */
+    public void removeFunction(int function) {
+        setFunction(this.function & (~function));
+    }
+
+    /**
      * 设置返回按钮图片资源文件
      *
      * @param resId
