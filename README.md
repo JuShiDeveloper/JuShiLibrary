@@ -335,6 +335,8 @@ xml布局文件使用示例
         app:titleText="自定义导航栏示例4"
         app:titleTextColor="#333333"
         app:titleTextSize="16sp" />
+
+        说明：isImmersiveStatusBar=true时需自行设置android:fitsSystemWindows才生效！
 ```
 > NavigationBar更多布局文件使用示例[请点击跳转查看](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/res/layout/activity_navigation_bar_layout.xml)
 
