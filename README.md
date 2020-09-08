@@ -70,7 +70,6 @@ authCodeBackgroundResource |获取验证码按钮背景资源文件
 isShowAuthCodeBtn | 是否显示获取验证码按钮
 editTextBackgroundColor| 输入框背景色
 editTextBackgroundResource| 输入框背景图片等资源文件
-
 ```
 布局文件使用：
 <!--输入手机号-->
@@ -295,6 +294,8 @@ searchTextSize|设置搜索框文字大小
 searchTextColor|设置搜索框输入文字颜色
 searchEditEnable|设置是否启用搜索框编辑模式，默认值false
 searchEditFocusable|设置搜索框是否获得焦点，默认值false
+isImmersiveStatusBar|是否沉浸式状态栏，默认值false
+statusBarBackgroundColor|沉浸式状态栏背景色，isImmersiveStatusBar=true时生效，不设置则为透明
 ```
 xml布局文件使用示例
 <com.jushi.library.customView.navigationbar.NavigationBar
@@ -311,6 +312,26 @@ xml布局文件使用示例
         app:rightButtonText="提交"
         app:rightButtonTextColor="#f9f9f9"
         app:rightButtonTextSize="15sp"
+        app:titleText="自定义导航栏示例4"
+        app:titleTextColor="#333333"
+        app:titleTextSize="16sp" />
+
+沉浸式状态栏示例：
+<com.jushi.library.customView.navigationbar.NavigationBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_dark"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonIconResource="@drawable/ic_close_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_ICON|RIGHT_TEXT_BUTTON"
+        app:isImmersiveStatusBar="true"                        <!--是否沉浸式状态栏-->
+        app:rightButtonText="提交"
+        app:rightButtonTextColor="#f9f9f9"
+        app:rightButtonTextSize="15sp"
+        app:statusBarBackgroundColor="@color/colorAccent"    <!--状态栏颜色-->
         app:titleText="自定义导航栏示例4"
         app:titleTextColor="#333333"
         app:titleTextSize="16sp" />
