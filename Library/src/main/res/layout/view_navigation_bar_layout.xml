@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:paddingRight="15dp">
+
+    <ImageView
+        android:id="@+id/iv_navigation_bar_back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp" />
+
+    <FrameLayout
+        android:id="@+id/fl_navigation_bar_close_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/iv_navigation_bar_back_btn">
+
+        <TextView
+            android:id="@+id/tv_navigation_bar_text_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+
+        <ImageView
+            android:id="@+id/iv_navigation_bar_icon_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/fl_navigation_bar_right_btn_container"
+        android:layout_toRightOf="@+id/fl_navigation_bar_close_container">
+
+        <FrameLayout
+            android:id="@+id/fl_navigation_bar_search_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/et_navigation_bar_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:background="@null"
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_navigation_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_navigation_bar_right_btn_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="5dp">
+
+        <TextView
+            android:id="@+id/tv_navigation_bar_right_text_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+
+        <ImageView
+            android:id="@+id/iv_navigation_bar_right_icon_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+
+    </FrameLayout>
+
+</RelativeLayout>

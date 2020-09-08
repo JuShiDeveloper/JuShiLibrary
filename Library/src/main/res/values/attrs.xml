@@ -170,4 +170,36 @@
         <attr name="stroke_color" format="color" /> <!--描边颜色，只有在启用描边的时候才生效-->
     </declare-styleable>
 
+    <declare-styleable name="NavigationBar">
+        <attr name="function">  <!--功能-->
+            <flag name="NONE" value="0" />  <!--不显示任何功能-->
+            <flag name="BACK_BUTTON" value="2" /> <!--导航栏返回按钮-->
+            <flag name="LEFT_CLOSE_TITLE" value="4" /> <!--返回按钮右边的关闭文字按钮-->
+            <flag name="LEFT_CLOSE_ICON" value="8" /> <!--返回按钮右边的 X 图标按钮，优先级高于文字关闭按钮-->
+            <flag name="TITLE" value="16" /> <!--导航栏标题，优先级高于搜索-->
+            <flag name="RIGHT_TEXT_BUTTON" value="32" /> <!--右边文字按钮-->
+            <flag name="RIGHT_ICON_BUTTON" value="64" /> <!--右边图标按钮，优先级高于右边文字按钮-->
+            <flag name="SEARCH" value="128" /> <!--中间的搜索功能，优先级低于标题-->
+        </attr>
+        <attr name="backButtonIconResource" format="reference" /> <!--返回按钮图标资源文件-->
+        <attr name="closeButtonText" format="string" /> <!--关闭文字按钮文案-->
+        <attr name="closeButtonTextColor" format="color" /> <!--关闭文字按钮文案颜色-->
+        <attr name="closeButtonTextSize" format="dimension" /> <!--关闭文字按钮文案字体大小-->
+        <attr name="closeButtonIconResource" format="reference" /> <!--关闭图标按钮图标资源文件-->
+        <attr name="titleText" format="string" />
+        <attr name="titleTextSize" format="dimension" />
+        <attr name="titleTextColor" format="color" />
+        <attr name="rightButtonText" format="string" />
+        <attr name="rightButtonTextColor" format="color" />
+        <attr name="rightButtonTextSize" format="dimension" />
+        <attr name="rightButtonIconResource" format="reference" />
+        <attr name="searchBackgroundResource" format="reference" />
+        <attr name="searchHint" format="string" />
+        <attr name="searchHintColor" format="color" />
+        <attr name="searchTextSize" format="dimension" />
+        <attr name="searchTextColor" format="color" />
+        <attr name="searchEditEnable" format="boolean"/>
+        <attr name="searchEditFocusable" format="boolean"/>
+    </declare-styleable>
+
 </resources>
