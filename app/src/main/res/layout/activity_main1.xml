@@ -13,6 +13,8 @@
         app:closeButtonIconResource="@drawable/ic_close_black"
         app:closeButtonText="关闭"
         app:closeButtonTextColor="#f7f7f7"
+        app:isImmersiveStatusBar="true"
+        app:statusBarBackgroundColor="@color/colorAccent"
         app:closeButtonTextSize="15sp"
         app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_ICON|RIGHT_TEXT_BUTTON"
         app:rightButtonText="提交"
