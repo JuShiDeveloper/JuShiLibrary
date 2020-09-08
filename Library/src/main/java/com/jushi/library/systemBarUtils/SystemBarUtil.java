@@ -230,7 +230,7 @@ public class SystemBarUtil {
 
     /**
      * 设置状态栏文字颜色
-     *
+     * https://www.jianshu.com/p/7392237bc1de
      * @param activity
      * @param dark
      */
