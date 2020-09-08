@@ -162,6 +162,7 @@ public class SystemBarUtil {
             } else if (OSUtils.isFlyme()) {
                 setStatusBarFontIconDark(activity, TYPE_FLYME, dark);
             } else {//其他情况
+                setAndroidNativeLightStatusBar(activity, dark);
                 return false;
             }
 
@@ -231,6 +232,7 @@ public class SystemBarUtil {
     /**
      * 设置状态栏文字颜色
      * https://www.jianshu.com/p/7392237bc1de
+     *
      * @param activity
      * @param dark
      */
