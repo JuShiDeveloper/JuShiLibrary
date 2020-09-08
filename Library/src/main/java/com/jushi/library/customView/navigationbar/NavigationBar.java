@@ -74,6 +74,7 @@ public class NavigationBar extends LinearLayout {
     }
 
     private void initView() {
+        setOrientation(LinearLayout.VERTICAL);
         View.inflate(getContext(), R.layout.view_navigation_bar_layout, this);
         ivBackBtn = findViewById(R.id.iv_navigation_bar_back_btn);
         tvCloseBtn = findViewById(R.id.tv_navigation_bar_text_close);
@@ -115,8 +116,35 @@ public class NavigationBar extends LinearLayout {
         setSearchTextColor(array.getColor(R.styleable.NavigationBar_searchTextColor, Color.BLACK));
         setSearchEditEnable(array.getBoolean(R.styleable.NavigationBar_searchEditEnable, false));
         setSearchEditFocusable(array.getBoolean(R.styleable.NavigationBar_searchEditFocusable, false));
+        boolean isImmersiveStatusBar = array.getBoolean(R.styleable.NavigationBar_isImmersiveStatusBar, false);
+        int statusBarColor = array.getColor(R.styleable.NavigationBar_statusBarBackgroundColor, Color.TRANSPARENT);
+        initStatusBarView(isImmersiveStatusBar, statusBarColor);
     }
 
+    /**
+     * 初始化
+     *
+     * @param isImmersiveStatusBar 是否沉浸式状态栏
+     * @param color                状态栏背景色
+     */
+    private void initStatusBarView(boolean isImmersiveStatusBar, int color) {
+        if (!isImmersiveStatusBar) return;
+        View statusBar = new View(getContext());
+        statusBar.setBackgroundColor(color);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, getStatusBarHeight());
+        statusBar.setLayoutParams(params);
+        addView(statusBar, 0);
+    }
+
+    /**
+     * 获取状态栏高度
+     *
+     * @return
+     */
+    private int getStatusBarHeight() {
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return resourceId > 0 ? getResources().getDimensionPixelSize(resourceId) : 0;
+    }
 
     private void setFunction(int function) {
         if (this.function == function) return;

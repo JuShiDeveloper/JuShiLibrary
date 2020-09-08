@@ -198,8 +198,10 @@
         <attr name="searchHintColor" format="color" />
         <attr name="searchTextSize" format="dimension" />
         <attr name="searchTextColor" format="color" />
-        <attr name="searchEditEnable" format="boolean"/>
-        <attr name="searchEditFocusable" format="boolean"/>
+        <attr name="searchEditEnable" format="boolean" />
+        <attr name="searchEditFocusable" format="boolean" />
+        <attr name="isImmersiveStatusBar" format="boolean" /> <!--是否沉浸式状态栏，默认值false-->
+        <attr name="statusBarBackgroundColor" format="color"/> <!--沉浸式状态栏背景色，isImmersiveStatusBar=true时生效-->
     </declare-styleable>
 
 </resources>
