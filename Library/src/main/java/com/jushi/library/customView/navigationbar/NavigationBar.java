@@ -36,7 +36,6 @@ public class NavigationBar extends LinearLayout {
     private FrameLayout flCloseBtnContainer;
     private FrameLayout flRightBtnContainer;
     private EditText editText;
-    private FrameLayout flSearchContainer;
 
     private int function = -1;
     public static final int NONE = 0;
@@ -85,7 +84,6 @@ public class NavigationBar extends LinearLayout {
         flCloseBtnContainer = findViewById(R.id.fl_navigation_bar_close_container);
         flRightBtnContainer = findViewById(R.id.fl_navigation_bar_right_btn_container);
         editText = findViewById(R.id.et_navigation_bar_text);
-        flSearchContainer = findViewById(R.id.fl_navigation_bar_search_container);
     }
 
     private void setClickListener() {
