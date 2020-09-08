@@ -37,21 +37,21 @@ public class NavigationBarActivity extends BaseFragmentActivity {
         navigationBar5.setOnBackButtonClickListener(v -> {
             showToast("返回按钮被点击");
         });
-        navigationBar5.setOnCloseButtonListener(v -> {
+        navigationBar5.setOnCloseButtonClickListener(v -> {
             showToast("关闭按钮被点击");
         });
-        navigationBar5.setOnRightButtonListener(v -> {
+        navigationBar5.setOnRightButtonClickListener(v -> {
             showToast("右边按钮被点击");
         });
 
         navigationBar6.setOnBackButtonClickListener(v -> {
             showToast("返回按钮被点击");
         });
-        navigationBar6.setOnCloseButtonListener(v -> {
+        navigationBar6.setOnCloseButtonClickListener(v -> {
             showToast("关闭按钮被点击，添加右边按钮");
             navigationBar6.addFunction(NavigationBar.FUNCTION_RIGHT_ICON_BUTTON);
         });
-        navigationBar6.setOnRightButtonListener(v -> {
+        navigationBar6.setOnRightButtonClickListener(v -> {
             showToast("右边按钮被点击，移除右边按钮");
             navigationBar6.removeFunction(NavigationBar.FUNCTION_RIGHT_ICON_BUTTON);
         });
