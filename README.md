@@ -271,6 +271,52 @@ gravity|输入内容对齐方式value = (left、right、top、bottom、center、
         pagerSlidingTabStrip.setTextSize(16);
      ```
  * 8、wheelview目录，自定义3D滚轮控件WheelView，该控件从[日期选择器](https://github.com/Bigkoo/Android-PickerView)中抽离出来单独使用，具体说明[请点击跳转](https://github.com/Bigkoo/Android-PickerView)，xml布局使用示例[请点击跳转](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/res/layout/dialog_select_timg_layout.xml)查看，Java代码中调用示例[请点击跳转](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/java/com/library/jushi/jushilibrary/TestActivity.java)查看WheelView相关代码。
+ * 9、navigationbar目录，自定义导航栏控件。
+
+ 属性|说明
+ :--|:--|
+ function|设置导航栏功能：NONE --- 不使用任何功能、BACK_BUTTON --- 返回按钮功能、LEFT_CLOSE_TITLE --- 关闭按钮文字、LEFT_CLOSE_ICON --- 关闭按钮图标、TITLE --- 导航栏标题、RIGHT_TEXT_BUTTON --- 最右边按钮文字、RIGHT_ICON_BUTTON --- 最右边按钮图标、SEARCH --- 搜索功能。
+ backButtonIconResource|设置返回按钮图标资源文件
+ closeButtonText|设置关闭按钮文字
+ closeButtonTextColor|设置关闭按钮文字颜色
+ closeButtonTextSize|设置关闭按钮文字大小
+ closeButtonIconResource|设置关闭按钮图标资源文件
+ titleText|设置导航栏标题
+ titleTextSize|设置导航栏标题文字大小
+ titleTextColor|设置导航栏标题文字颜色
+rightButtonText|设置最右边按钮文字
+rightButtonTextColor|设置最右边按钮文字颜色
+rightButtonTextSize|设置最右边按钮文字大小
+rightButtonIconResource|设置最右边按钮图标资源文件
+searchBackgroundResource|设置搜索框背景资源文件
+searchHint|设置搜索框提示文案
+searchHintColor|设置搜索框提示文案颜色
+searchTextSize|设置搜索框文字大小
+searchTextColor|设置搜索框输入文字颜色
+searchEditEnable|设置是否启用搜索框编辑模式，默认值false
+searchEditFocusable|设置搜索框是否获得焦点，默认值false
+```
+xml布局文件使用示例
+<com.jushi.library.customView.navigationbar.NavigationBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_blue_dark"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonIconResource="@drawable/ic_close_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_ICON|RIGHT_TEXT_BUTTON"
+        app:rightButtonText="提交"
+        app:rightButtonTextColor="#f9f9f9"
+        app:rightButtonTextSize="15sp"
+        app:titleText="自定义导航栏示例4"
+        app:titleTextColor="#333333"
+        app:titleTextSize="16sp" />
+```
+> NavigationBar更多布局文件使用示例[请点击跳转查看](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/res/layout/activity_navigation_bar_layout.xml)
+
 
 #### 四、database目录，数据库创建与管理简单封装。
 > 1、在DoctorSQLiteOpenHelper类中做数据库创建、升级、建表等操作；
