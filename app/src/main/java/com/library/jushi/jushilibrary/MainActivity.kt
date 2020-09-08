@@ -8,11 +8,14 @@ import com.jushi.library.http.UploadFileRequester
 import kotlinx.android.synthetic.main.activity_main1.*
 import org.json.JSONException
 import org.json.JSONObject
+import com.jushi.library.systemBarUtils.SystemBarUtil.setAndroidNativeLightStatusBar
+
 
 class MainActivity : BaseFragmentActivity() {
 
     override fun getLayoutResId(): Int {
         setSystemBarStatus(true, true)
+        setAndroidNativeLightStatusBar(this, true)
         return R.layout.activity_main1
     }
 

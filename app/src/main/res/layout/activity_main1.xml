@@ -19,7 +19,6 @@
         app:rightButtonText="提交"
         app:rightButtonTextColor="#f9f9f9"
         app:rightButtonTextSize="15sp"
-        app:statusBarBackgroundColor="@color/colorAccent"
         app:titleText="自定义导航栏示例4"
         app:titleTextColor="#333333"
         app:titleTextSize="16sp" />
