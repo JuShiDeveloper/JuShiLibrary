@@ -373,7 +373,7 @@ public class NavigationBar extends LinearLayout {
     }
 
     /**
-     * 搜索框被点击，只有在 setEnabled 为false时才生效
+     * 搜索框被点击，只有在 setSearchEditEnable 为false时才生效
      *
      * @param v
      */
