@@ -133,7 +133,7 @@ public class NavigationBar extends LinearLayout {
         editText.setVisibility(!isAddFunction(FUNCTION_TITLE) && isAddFunction(FUNCTION_SEARCH) ? VISIBLE : GONE);
     }
 
-    public boolean isAddFunction(int function) {
+    private boolean isAddFunction(int function) {
         return (this.function & function) == function;
     }
 
