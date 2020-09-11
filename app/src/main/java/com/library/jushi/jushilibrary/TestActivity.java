@@ -178,6 +178,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         new TestPOSTRequester(this).post();
         testUseDataBase();
         initWheelView();
+        new TestWebSocketManager().initWs("wss://test-dr.hlwyy.cn:8282");
     }
 
     private void initWheelView() {
