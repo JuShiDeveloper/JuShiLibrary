@@ -37,12 +37,6 @@ public class TestWebSocketManager extends WSBaseManager {
     }
 
 
-    public void connectWS(String url){
-        //初始化并连接WebSocket
-        initWs(url);
-    }
-
-
     public void sendMsg(String msg){
         //发送消息
         sendStringMessage(msg);
