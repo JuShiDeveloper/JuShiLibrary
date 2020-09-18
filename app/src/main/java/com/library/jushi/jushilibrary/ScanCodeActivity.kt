@@ -63,6 +63,11 @@ class ScanCodeActivity : BaseFragmentActivity(), ScanListener {
         scanManager.onPause()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        scanManager.onDestroy()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode != Activity.RESULT_OK) return
