@@ -7,18 +7,19 @@ import android.graphics.Paint;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.ImageView;
 
 /**
  * 类说明：画出扫描框的四个脚的脚边框，也可以直接用一张图片代替
  */
-public class MyImageView extends AppCompatImageView {
+public class ScanningFrameView extends View {
     private Context context;
-    public MyImageView(Context context, AttributeSet attrs) {
+    public ScanningFrameView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
     }
-    public MyImageView(Context context) {
+    public ScanningFrameView(Context context) {
         super(context);
         this.context = context;
     }
