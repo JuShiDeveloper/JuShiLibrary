@@ -1,4 +1,4 @@
-package com.jushi.library.takingPhoto.util;
+package com.jushi.library.utils;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;

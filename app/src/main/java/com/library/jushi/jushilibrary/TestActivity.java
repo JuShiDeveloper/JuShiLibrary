@@ -1,5 +1,6 @@
 package com.library.jushi.jushilibrary;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,7 +20,6 @@ import android.widget.RelativeLayout;
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
 import com.jushi.library.customView.editText.CustomEditText;
-import com.jushi.library.customView.floatview.FloatViewLayout;
 import com.jushi.library.customView.mzbanner.MZBannerView;
 import com.jushi.library.customView.mzbanner.holder.MZViewHolder;
 import com.jushi.library.customView.slideTabStrip.PagerSlidingTabStrip;
@@ -96,6 +96,11 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private final int TYPE_INPUT_PASSWORD = 2;
     //保存手机号/验证码输入正确时的状态，默认false,输入正确时修改位true
     private boolean[] inputState = {false, false, false};
+
+    @FindViewById(R.id.btn_scan)
+    private Button btnScan;
+    @FindViewById(R.id.create_code)
+    private Button createCode;
 
     @Override
     protected int getLayoutResId() {
@@ -223,6 +228,14 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 
         btnNavigationBar.setOnClickListener(v -> {
             startActivity(new Intent(this, NavigationBarActivity.class));
+        });
+
+        btnScan.setOnClickListener(v -> {
+            startActivity(new Intent(this, ScanCodeActivity.class));
+        });
+
+        createCode.setOnClickListener(v->{
+            startActivity(new Intent(this, CreateQRCodeActivity.class));
         });
     }
 
