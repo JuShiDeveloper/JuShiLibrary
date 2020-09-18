@@ -40,6 +40,8 @@
                 android:resource="@xml/file_path" />
         </provider>
         <service android:name=".TestFloatWindowService" />
+        <activity android:name=".ScanCodeActivity"/>
+        <activity android:name=".CreateQRCodeActivity"/>
     </application>
 
 </manifest>

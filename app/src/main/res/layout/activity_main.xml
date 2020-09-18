@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <com.jushi.library.customView.navigationbar.NavigationBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,6 +27,7 @@
             app:titleText="自定义导航栏示例4"
             app:titleTextColor="#333333"
             app:titleTextSize="16sp" />
+
         <Button
             android:id="@+id/btn_start"
             android:layout_width="wrap_content"
@@ -150,6 +152,18 @@
             app:srcPasswordDisplay="@mipmap/ic_password_seeable"
             app:srcPasswordHidden="@mipmap/ic_password_unseeable" />
 
+
+        <Button
+            android:id="@+id/btn_scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="扫一扫" />
+
+        <Button
+            android:id="@+id/create_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="生成二维码" />
 
     </LinearLayout>
 
