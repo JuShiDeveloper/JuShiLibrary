@@ -1,5 +1,6 @@
 package com.jushi.library.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
         setContentView(getLayoutResId());
         ViewInjecter.inject(this);
         BaseApplication.getInstance().injectManager(this);
+        getIntentData(getIntent());
         initView();
         initData();
         setListener();
@@ -43,6 +45,10 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
      * 初始化视图控件
      */
     protected abstract void initView();
+
+    protected void getIntentData(Intent intent) {
+
+    }
 
     /**
      * 初始化数据
@@ -66,43 +72,28 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
      *
      * @param isFitsSystemWindows    是否沉浸式状态栏
      * @param isTranslucentSystemBar 是否透明状态栏
+     * @param statusBarTextDark      状态栏文字颜色是否为深色 true-深色模式 , false-亮色模式
      */
-    public void setSystemBarStatus(boolean isFitsSystemWindows, boolean isTranslucentSystemBar) {
+    public void setSystemBarStatus(boolean isFitsSystemWindows, boolean isTranslucentSystemBar, boolean statusBarTextDark) {
         SystemBarUtil.setRootViewFitsSystemWindows(this, isFitsSystemWindows);
-        if (!isTranslucentSystemBar) return;
-        SystemBarUtil.setTranslucentStatus(this);
+        if (isTranslucentSystemBar) { //沉浸式状态栏，设置状态栏透明
+            SystemBarUtil.setTranslucentStatus(this);
+        }
+        if (isFitsSystemWindows) { //沉浸式状态栏，设置状态栏文字颜色模式
+            SystemBarUtil.setAndroidNativeLightStatusBar(this, statusBarTextDark);
+        }
     }
 
-    /**
-     * 如果设置沉浸式状态栏，如果view的父控件是 LinearLayout 则调用该方法 (在initView()中调用)
-     *
-     * @param view 显示在状态栏位置的View
-     */
-    public void setSystemBarViewLayoutParamsL(View view) {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, SystemBarUtil.getStatusBarHeight(this));
-        view.setLayoutParams(params);
+    public void showToast(long msg) {
+        showToast(msg + "");
     }
 
-    /**
-     * 如果设置沉浸式状态栏，如果view的父控件是RelativeLayout则调用该方法 (在initView()中调用)
-     *
-     * @param view 显示在状态栏位置的View
-     */
-    public void setSystemBarViewLayoutParamsR(View view) {
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, SystemBarUtil.getStatusBarHeight(this));
-        view.setLayoutParams(params);
+    public void showToast(boolean msg) {
+        showToast(msg + "");
     }
 
-    public void showToast(long msg){
-        showToast(msg+"");
-    }
-
-    public void showToast(boolean msg){
-        showToast(msg+"");
-    }
-
-    public void showToast(float msg){
-        showToast(msg+"");
+    public void showToast(float msg) {
+        showToast(msg + "");
     }
 
     public void showToast(int msg) {
