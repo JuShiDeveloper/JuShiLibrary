@@ -1,13 +1,26 @@
 package com.jushi.library.base;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.DownloadListener;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -22,9 +35,16 @@ import com.jushi.library.utils.Logger;
  * 网页加载界面基类
  */
 public abstract class BaseWebViewActivity extends BaseFragmentActivity implements DownloadListener {
+    private final int FILE_CHOOSER_RESULT_CODE = 10000;
+    private final int VIDEO_REQUEST = 104;
+    private final int REQUEST_CODE_PERMISSIONS_CAMERA = 100;
     private WebView mWebView;
     private ProgressBar progressBar;
     protected NavigationBar navigationBar;
+
+    private ValueCallback<Uri[]> uploadMessageAboveL;
+    private ValueCallback<Uri> uploadMessage;
+    private String accept;
 
     @Override
     protected int getLayoutResId() {
@@ -126,8 +146,124 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
                 Logger.v("WebViewActivity", consoleMessage.message());
             return super.onConsoleMessage(consoleMessage);
         }
+
+        // For Android  >= 3.0
+        public void openFileChooser(ValueCallback valueCallback, String acceptType) {
+            uploadMessage = valueCallback;
+            openImageChooserActivity(acceptType);
+        }
+
+        //For Android  >= 4.1
+        public void openFileChooser(ValueCallback<Uri> valueCallback, String acceptType, String capture) {
+            uploadMessage = valueCallback;
+            openImageChooserActivity(acceptType);
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
+            uploadMessageAboveL = filePathCallback;
+            String[] acceptTypes = fileChooserParams.getAcceptTypes();
+            for (int i = 0; i < acceptTypes.length; i++) {
+                openImageChooserActivity(acceptTypes[i]);
+            }
+            return true;
+        }
     }
 
+
+    private void openImageChooserActivity(String accept) {//调用自己的图库
+        this.accept = accept;
+        if (TextUtils.isEmpty(accept)) {
+            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+            i.addCategory(Intent.CATEGORY_OPENABLE);
+            i.setType("image/*");
+            startActivityForResult(Intent.createChooser(i, "Image Chooser"), FILE_CHOOSER_RESULT_CODE);
+            return;
+        }
+        if (accept.contains("image")) {
+            Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+            i.addCategory(Intent.CATEGORY_OPENABLE);
+            i.setType("image/*");
+            startActivityForResult(Intent.createChooser(i, "Image Chooser"), FILE_CHOOSER_RESULT_CODE);
+        } else if (accept.contains("video") && checkCameraPermission()) {
+            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                // set the video file name
+                //限制时长
+                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 5);
+                //开启摄像机
+                startActivityForResult(intent, VIDEO_REQUEST);
+            }
+        }
+    }
+
+    private boolean checkCameraPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_PERMISSIONS_CAMERA);
+        }
+        return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case FILE_CHOOSER_RESULT_CODE:
+                if (null == uploadMessageAboveL) return;
+                onActivityResultAboveL(requestCode, resultCode, data);
+                break;
+            case VIDEO_REQUEST:
+                if (null != uploadMessage) {
+                    uploadMessage.onReceiveValue(data == null ? null : data.getData());
+                    uploadMessage = null;
+                }
+                if (null != uploadMessageAboveL) {
+                    uploadMessageAboveL.onReceiveValue(new Uri[]{data == null ? null : data.getData()});
+                    uploadMessageAboveL = null;
+                }
+                break;
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void onActivityResultAboveL(int requestCode, int resultCode, Intent intent) {
+        if (requestCode != FILE_CHOOSER_RESULT_CODE || uploadMessageAboveL == null)
+            return;
+        Uri[] results = null;
+        if (resultCode == Activity.RESULT_OK) {
+            if (intent != null) {
+                String dataString = intent.getDataString();
+                ClipData clipData = intent.getClipData();
+                if (clipData != null) {
+                    results = new Uri[clipData.getItemCount()];
+                    for (int i = 0; i < clipData.getItemCount(); i++) {
+                        ClipData.Item item = clipData.getItemAt(i);
+                        results[i] = item.getUri();
+                    }
+                }
+                if (dataString != null)
+                    results = new Uri[]{Uri.parse(dataString)};
+            }
+        }
+        uploadMessageAboveL.onReceiveValue(results);
+        uploadMessageAboveL = null;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CODE_PERMISSIONS_CAMERA) {
+            if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (TextUtils.isEmpty(accept)) return;
+                openImageChooserActivity(accept);
+            } else {
+                showToast("相机权限被禁止");
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     public void onBackPressed() {
