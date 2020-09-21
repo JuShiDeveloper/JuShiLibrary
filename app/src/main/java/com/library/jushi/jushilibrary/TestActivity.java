@@ -102,6 +102,9 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     @FindViewById(R.id.create_code)
     private Button createCode;
 
+    @FindViewById(R.id.webview)
+    private Button btnWeb;
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
@@ -234,8 +237,14 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
             startActivity(new Intent(this, ScanCodeActivity.class));
         });
 
-        createCode.setOnClickListener(v->{
+        createCode.setOnClickListener(v -> {
             startActivity(new Intent(this, CreateQRCodeActivity.class));
+        });
+        btnWeb.setOnClickListener(v -> {
+            String url = "https://test-m.guijk.com/examination/index.html#/?uid=1012162&sid=84fec9a8e45846340fdf5c7c9f7ed66c&gender=3&cv=9012&ct=1";
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra(WebViewActivity.EXTRA_KEY_WEB_URL, url);
+            startActivity(intent);
         });
     }
 

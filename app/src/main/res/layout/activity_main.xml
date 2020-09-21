@@ -165,6 +165,12 @@
             android:layout_height="wrap_content"
             android:text="生成二维码" />
 
+        <Button
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WebView" />
+
     </LinearLayout>
 
 
