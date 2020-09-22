@@ -1,7 +1,6 @@
 package com.jushi.library.customView.radar;
 
 /**
- * Created by jeanboy on 2016/10/31.
  */
 
 public class RadarData {
