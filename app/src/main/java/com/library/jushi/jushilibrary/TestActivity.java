@@ -109,6 +109,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 
     @FindViewById(R.id.RadarView)
     private RadarView radarView;
+    @FindViewById(R.id.RadarView1)
+    private RadarView radarView1;
 
     @Override
     protected int getLayoutResId() {
@@ -138,6 +140,14 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
             data.add(new RadarData(skillName[i - 1], i * 20));
         }
         radarView.setDataList(data);
+
+        String[] skillName1 = {"管理", "设计", "维护", "巡检", "开发","运营"};
+        List<RadarData> data1 = new ArrayList<>();
+        for (int i = 1; i < skillName1.length + 1; i++) {
+            data1.add(new RadarData(skillName1[i - 1], i * 20));
+        }
+        radarView1.setDataList(data1);
+
     }
 
     private void initBannerView() {

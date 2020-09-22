@@ -171,17 +171,17 @@
             android:layout_height="wrap_content"
             android:text="WebView" />
 
-        <LinearLayout
+        <com.jushi.library.customView.radar.RadarView
+            android:id="@+id/RadarView"
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp" />
 
-            <com.jushi.library.customView.radar.RadarView
-                android:id="@+id/RadarView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp" />
-        </LinearLayout>
+        <com.jushi.library.customView.radar.RadarView
+            android:id="@+id/RadarView1"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_marginTop="10dp" />
 
     </LinearLayout>
 
