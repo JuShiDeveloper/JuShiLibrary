@@ -22,6 +22,8 @@ import com.jushi.library.base.Manager;
 import com.jushi.library.customView.editText.CustomEditText;
 import com.jushi.library.customView.mzbanner.MZBannerView;
 import com.jushi.library.customView.mzbanner.holder.MZViewHolder;
+import com.jushi.library.customView.radar.RadarData;
+import com.jushi.library.customView.radar.RadarView;
 import com.jushi.library.customView.slideTabStrip.PagerSlidingTabStrip;
 import com.jushi.library.customView.wheelview.WheelAdapter;
 import com.jushi.library.customView.wheelview.WheelView;
@@ -105,6 +107,9 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     @FindViewById(R.id.webview)
     private Button btnWeb;
 
+    @FindViewById(R.id.RadarView)
+    private RadarView radarView;
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
@@ -123,6 +128,16 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 
         initBannerView();
         initCustomEditText();
+        initRadarView();
+    }
+
+    private void initRadarView() {
+        String[] skillName = {"管理", "设计", "维护", "巡检", "开发"};
+        List<RadarData> data = new ArrayList<>();
+        for (int i = 1; i < skillName.length + 1; i++) {
+            data.add(new RadarData(skillName[i - 1], i * 20));
+        }
+        radarView.setDataList(data);
     }
 
     private void initBannerView() {

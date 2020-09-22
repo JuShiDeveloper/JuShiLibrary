@@ -171,6 +171,18 @@
             android:layout_height="wrap_content"
             android:text="WebView" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:orientation="vertical">
+
+            <com.jushi.library.customView.radar.RadarView
+                android:id="@+id/RadarView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+
     </LinearLayout>
 
 
