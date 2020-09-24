@@ -1,10 +1,10 @@
 package com.library.jushi.jushilibrary;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -118,7 +118,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
 //        App.getInstance().getManager(DatabaseManager.class);
         startService(new Intent(this, TestFloatWindowService.class));
 
@@ -126,7 +126,6 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         pagerSlidingTabStrip.setViewPager(mViewPager);
         pagerSlidingTabStrip.setTextColor(Color.parseColor("#333333"));
         pagerSlidingTabStrip.setTextSize(16);
-
 
         initBannerView();
         initCustomEditText();

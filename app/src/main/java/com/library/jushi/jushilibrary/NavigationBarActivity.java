@@ -1,5 +1,7 @@
 package com.library.jushi.jushilibrary;
 
+import android.os.Bundle;
+
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.customView.navigationbar.NavigationBar;
 import com.jushi.library.viewinject.FindViewById;
@@ -23,7 +25,7 @@ public class NavigationBarActivity extends BaseFragmentActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
 
     }
 

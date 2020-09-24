@@ -27,7 +27,7 @@ class ScanCodeActivity : BaseFragmentActivity(), ScanListener {
 
     override fun getLayoutResId(): Int = R.layout.activity_scan_code_layout
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle) {
         PermissionUtil.request(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE), 0)
     }
 

@@ -1,5 +1,6 @@
 package com.library.jushi.jushilibrary
 
+import android.os.Bundle
 import android.widget.Toast
 import com.jushi.library.base.BaseFragmentActivity
 import com.jushi.library.zxing.encode.EncodingHandler
@@ -13,7 +14,7 @@ class CreateQRCodeActivity : BaseFragmentActivity() {
 
     override fun getLayoutResId(): Int = R.layout.activity_create_qr_code_layout
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle) {
     }
 
     override fun initData() {

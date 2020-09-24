@@ -1,6 +1,7 @@
 package com.library.jushi.jushilibrary
 
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import com.jushi.library.base.BaseFragmentActivity
 import com.jushi.library.http.DownloadFileRequester
@@ -17,7 +18,7 @@ class MainActivity : BaseFragmentActivity() {
         return R.layout.activity_main1
     }
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle) {
 //        setSystemBarViewLayoutParamsL(v_system_bar)
         Log.v("yufei", "activity initView()")
     }
