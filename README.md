@@ -336,7 +336,7 @@ xml布局文件使用示例
         app:titleTextColor="#333333"
         app:titleTextSize="16sp" />
 
-        说明：isImmersiveStatusBar = true 时需自行设置 android:fitsSystemWindows 才生效！
+        说明：isImmersiveStatusBar=true时需自行设置android:fitsSystemWindows才生效！
 ```
 > NavigationBar更多布局文件使用示例[请点击跳转查看](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/res/layout/activity_navigation_bar_layout.xml)
 
@@ -585,4 +585,6 @@ public class TestWebSocketManager extends WSBaseManager {
     }
 }
 ```
-
+#### 十四、zxing目录，zxing封装。
+* 实例化ScanManager管理类来使用二维码、条形码扫描及生成功能；
+   二维码、条形码扫描示例[请点击跳转](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/java/com/library/jushi/jushilibrary/ScanCodeActivity.kt)，二维码、条形码生成示例[请点击跳转](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/java/com/library/jushi/jushilibrary/CreateQRCodeActivity.kt)。
