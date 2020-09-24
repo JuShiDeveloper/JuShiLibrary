@@ -4,14 +4,13 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ClipData;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -53,7 +52,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
     }
 
     @Override
-    protected void initView() {
+    protected void initView(Bundle savedInstanceState) {
         navigationBar = findViewById(R.id.NavigationBar);
         initWebView();
         initProgressBar();

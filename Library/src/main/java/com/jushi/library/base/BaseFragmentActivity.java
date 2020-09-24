@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.jushi.library.systemBarUtils.SystemBarUtil;
 import com.jushi.library.utils.ToastUtil;
@@ -20,15 +17,15 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initialize();
+        initialize(savedInstanceState);
     }
 
-    private void initialize() {
+    private void initialize(Bundle savedInstanceState) {
         setContentView(getLayoutResId());
         ViewInjecter.inject(this);
         BaseApplication.getInstance().injectManager(this);
         getIntentData(getIntent());
-        initView();
+        initView(savedInstanceState);
         initData();
         setListener();
         initAnimator();
@@ -43,8 +40,9 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     /**
      * 初始化视图控件
+     * @param savedInstanceState
      */
-    protected abstract void initView();
+    protected abstract void initView(Bundle savedInstanceState);
 
     protected void getIntentData(Intent intent) {
 
