@@ -17,15 +17,15 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initialize(savedInstanceState);
+        initialize();
     }
 
-    private void initialize(Bundle savedInstanceState) {
+    private void initialize() {
         setContentView(getLayoutResId());
         ViewInjecter.inject(this);
         BaseApplication.getInstance().injectManager(this);
         getIntentData(getIntent());
-        initView(savedInstanceState);
+        initView();
         initData();
         setListener();
         initAnimator();
@@ -40,9 +40,8 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     /**
      * 初始化视图控件
-     * @param savedInstanceState
      */
-    protected abstract void initView(Bundle savedInstanceState);
+    protected abstract void initView();
 
     protected void getIntentData(Intent intent) {
 

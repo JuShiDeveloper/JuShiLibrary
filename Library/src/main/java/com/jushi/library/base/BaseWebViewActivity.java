@@ -52,7 +52,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void initView() {
         navigationBar = findViewById(R.id.NavigationBar);
         initWebView();
         initProgressBar();
