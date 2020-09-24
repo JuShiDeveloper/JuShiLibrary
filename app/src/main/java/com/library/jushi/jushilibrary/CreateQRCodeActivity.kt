@@ -14,7 +14,7 @@ class CreateQRCodeActivity : BaseFragmentActivity() {
 
     override fun getLayoutResId(): Int = R.layout.activity_create_qr_code_layout
 
-    override fun initView(savedInstanceState: Bundle) {
+    override fun initView() {
     }
 
     override fun initData() {

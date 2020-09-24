@@ -118,7 +118,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void initView() {
 //        App.getInstance().getManager(DatabaseManager.class);
         startService(new Intent(this, TestFloatWindowService.class));
 

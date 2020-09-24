@@ -18,7 +18,7 @@ class MainActivity : BaseFragmentActivity() {
         return R.layout.activity_main1
     }
 
-    override fun initView(savedInstanceState: Bundle) {
+    override fun initView() {
 //        setSystemBarViewLayoutParamsL(v_system_bar)
         Log.v("yufei", "activity initView()")
     }

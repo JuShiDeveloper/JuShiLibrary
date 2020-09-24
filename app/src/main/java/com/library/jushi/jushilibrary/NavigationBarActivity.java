@@ -25,7 +25,7 @@ public class NavigationBarActivity extends BaseFragmentActivity {
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void initView() {
 
     }
 
