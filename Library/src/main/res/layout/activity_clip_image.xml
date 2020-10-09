@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    tools:context=".takingPhoto.ClipImageActivity">
+    android:background="@android:color/black">
 
-    <cmcc.gz.gz10086.myZone.takingPhoto.view.ClipViewLayout
+    <com.jushi.library.takingPhoto.view.ClipViewLayout
         android:id="@+id/clip_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
