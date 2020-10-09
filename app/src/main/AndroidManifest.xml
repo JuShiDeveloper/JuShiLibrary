@@ -43,6 +43,7 @@
         <activity android:name=".ScanCodeActivity"/>
         <activity android:name=".CreateQRCodeActivity"/>
         <activity android:name=".WebViewActivity"/>
+        <activity android:name="com.jushi.library.takingPhoto.view.ClipImageActivity"/>
     </application>
 
 </manifest>

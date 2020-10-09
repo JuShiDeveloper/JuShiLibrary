@@ -1,9 +1,11 @@
 package com.library.jushi.jushilibrary;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,13 +31,23 @@ import com.jushi.library.customView.wheelview.WheelAdapter;
 import com.jushi.library.customView.wheelview.WheelView;
 import com.jushi.library.database.DatabaseManager;
 import com.jushi.library.http.OnHttpResponseListener;
+import com.jushi.library.takingPhoto.PictureHelper;
+import com.jushi.library.takingPhoto.view.CircleImageView;
+import com.jushi.library.utils.Logger;
 import com.jushi.library.utils.NetworkManager;
 import com.jushi.library.viewinject.FindViewById;
 
+import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestActivity extends BaseFragmentActivity implements OnHttpResponseListener<String>, NetworkManager.OnNetworkChangeListener, CustomEditText.OnTextChangedListener {
+    private final int REQUEST_CODE_OPEN_ALBUM = 0x101;
+    private final int REQUEST_CODE_CLIP_PHOTO = 0x102;
+    private final int REQUEST_CODE_OPEN_CAMERA = 0x103;
+
+
     private TestGETRequester t;
     @FindViewById(R.id.btn_start)
     private Button btnStart;
@@ -112,6 +124,15 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     @FindViewById(R.id.RadarView1)
     private RadarView radarView1;
 
+    @FindViewById(R.id.open_album)
+    private Button openAlbum;
+    @FindViewById(R.id.CircleImageView)
+    private CircleImageView imageView;
+    @FindViewById(R.id.open_camera)
+    private Button openCamera;
+    private File imageFile;
+
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
@@ -140,7 +161,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         }
         radarView.setDataList(data);
 
-        String[] skillName1 = {"管理", "设计", "维护", "巡检", "开发","运营"};
+        String[] skillName1 = {"管理", "设计", "维护", "巡检", "开发", "运营"};
         List<RadarData> data1 = new ArrayList<>();
         for (int i = 1; i < skillName1.length + 1; i++) {
             data1.add(new RadarData(skillName1[i - 1], i * 20));
@@ -270,6 +291,13 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
             intent.putExtra(WebViewActivity.EXTRA_KEY_WEB_URL, url);
             startActivity(intent);
         });
+
+        openAlbum.setOnClickListener(v -> {
+            PictureHelper.gotoPhotoAlbum(this, REQUEST_CODE_OPEN_ALBUM);
+        });
+        openCamera.setOnClickListener(v -> {
+            imageFile = PictureHelper.gotoCamera(this, REQUEST_CODE_OPEN_CAMERA);
+        });
     }
 
     private List<String> getListData(int max) {
@@ -398,4 +426,22 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) return;
+        switch (requestCode) {
+            case REQUEST_CODE_OPEN_ALBUM:
+                PictureHelper.gotoClipActivity(this, data.getData(), REQUEST_CODE_CLIP_PHOTO);
+                break;
+            case REQUEST_CODE_CLIP_PHOTO:
+                Logger.v("yufei", data.getData().getPath());
+                imageView.setImageURI(data.getData());
+                break;
+            case REQUEST_CODE_OPEN_CAMERA:
+                Logger.v("yufei", imageFile.getPath());
+                PictureHelper.gotoClipActivity(this, Uri.fromFile(imageFile), REQUEST_CODE_CLIP_PHOTO);
+                break;
+        }
+    }
 }

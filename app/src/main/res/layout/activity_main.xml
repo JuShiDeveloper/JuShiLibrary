@@ -183,6 +183,24 @@
             android:layout_height="260dp"
             android:layout_marginTop="10dp" />
 
+        <com.jushi.library.takingPhoto.view.CircleImageView
+            android:id="@+id/CircleImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/open_album"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="打开相册" />
+        <Button
+            android:id="@+id/open_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="打开相机" />
+
     </LinearLayout>
 
 

@@ -29,7 +29,7 @@ class CreateQRCodeActivity : BaseFragmentActivity() {
         //生成条形码
         create_barcode.setOnClickListener {
             try {
-                bar_code.setImageBitmap(EncodingHandler.createBarCode(EditText.text.toString(), 600, 300))
+                bar_code.setImageBitmap(EncodingHandler.createBarCode(EditText.text.toString(), 400, 200))
             } catch (e: Exception) {
                 Toast.makeText(this, "输入的内容条形码不支持！", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
