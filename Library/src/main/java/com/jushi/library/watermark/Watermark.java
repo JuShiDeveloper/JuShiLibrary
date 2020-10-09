@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.IntDef;
+import android.support.annotation.StringDef;
 import android.text.TextUtils;
 
 /**
@@ -61,7 +63,7 @@ public class Watermark {
      * @param textSize     水印文字的大小
      * @param alpha        水印透明度值（0 - 255），值越小越透明
      */
-    public Bitmap createTextWatermark(Bitmap targetBitmap, String text, int color, String gravity, float textSize, int alpha) {
+    public Bitmap createTextWatermark(Bitmap targetBitmap, String text, int color, @GravityType String gravity, float textSize, int alpha) {
         this.gravity = gravity;
         this.alpha = alpha;
         this.isRecycle = false;
@@ -78,7 +80,7 @@ public class Watermark {
      * @param textSize            水印文字的大小
      * @param alpha               水印透明度值（0 - 255），值越小越透明
      */
-    public Bitmap createTextWatermark(Context context, int targetImageResource, String text, int color, String gravity, float textSize, int alpha) {
+    public Bitmap createTextWatermark(Context context, int targetImageResource, String text, int color, @GravityType String gravity, float textSize, int alpha) {
         this.gravity = gravity;
         this.alpha = alpha;
         this.isRecycle = false;
@@ -93,7 +95,7 @@ public class Watermark {
      * @param gravity         水印显示的位置
      * @param alpha           水印透明度值（0 - 255） ，值越小越透明
      */
-    public Bitmap createPictureWatermark(Bitmap targetBitmap, Bitmap watermarkBitmap, String gravity, int alpha) {
+    public Bitmap createPictureWatermark(Bitmap targetBitmap, Bitmap watermarkBitmap, @GravityType String gravity, int alpha) {
         this.gravity = gravity;
         this.alpha = alpha;
         this.isRecycle = false;
@@ -108,7 +110,7 @@ public class Watermark {
      * @param gravity             水印显示的位置
      * @param alpha               水印透明度值（0 - 255） ，值越小越透明
      */
-    public Bitmap createPictureWatermark(Context context, int targetImageResource, Bitmap watermarkBitmap, String gravity, int alpha) {
+    public Bitmap createPictureWatermark(Context context, int targetImageResource, Bitmap watermarkBitmap, @GravityType String gravity, int alpha) {
         this.gravity = gravity;
         this.alpha = alpha;
         this.isRecycle = false;
@@ -125,7 +127,7 @@ public class Watermark {
      * @param gravity      水印显示的位置
      * @param alpha        水印透明度值（0 - 255） ，值越小越透明
      */
-    public Bitmap createPictureWatermark(Context context, Bitmap targetBitmap, int resourceId, String gravity, int alpha) {
+    public Bitmap createPictureWatermark(Context context, Bitmap targetBitmap, int resourceId, @GravityType String gravity, int alpha) {
         this.gravity = gravity;
         this.alpha = alpha;
         this.isRecycle = true;
@@ -141,7 +143,7 @@ public class Watermark {
      * @param gravity             水印显示的位置
      * @param alpha               水印透明度值（0 - 255） ，值越小越透明
      */
-    public Bitmap createPictureWatermark(Context context, int targetImageResource, int resourceId, String gravity, int alpha) {
+    public Bitmap createPictureWatermark(Context context, int targetImageResource, int resourceId, @GravityType String gravity, int alpha) {
         this.gravity = gravity;
         this.alpha = alpha;
         this.isRecycle = true;
@@ -299,5 +301,9 @@ public class Watermark {
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    @StringDef({LEFT_TOP, LEFT_CENTER, LEFT_BOTTOM, TOP_CENTER, CENTER, BOTTOM_CENTER, RIGHT_TOP, RIGHT_CENTER, RIGHT_BOTTOM})
+    @interface GravityType {
     }
 }
