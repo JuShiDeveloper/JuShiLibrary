@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
 import com.jushi.library.customView.editText.CustomEditText;
+import com.jushi.library.customView.itemView.ItemView;
 import com.jushi.library.customView.mzbanner.MZBannerView;
 import com.jushi.library.customView.mzbanner.holder.MZViewHolder;
 import com.jushi.library.customView.radar.RadarData;
@@ -132,6 +133,10 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button openCamera;
     private File imageFile;
 
+    @FindViewById(R.id.ItemView1)
+    private ItemView itemView1;
+    @FindViewById(R.id.ItemView2)
+    private ItemView itemView2;
 
     @Override
     protected int getLayoutResId() {
@@ -298,6 +303,11 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         openCamera.setOnClickListener(v -> {
             imageFile = PictureHelper.gotoCamera(this, REQUEST_CODE_OPEN_CAMERA);
         });
+//        itemView1.setOnClickListener(v -> {
+//            showToast("点击设置选项卡");
+//        });
+//        itemView2.setOnClickListener(v -> {
+//        });
     }
 
     private List<String> getListData(int max) {

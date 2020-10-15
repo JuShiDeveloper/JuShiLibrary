@@ -28,6 +28,44 @@
             app:titleTextColor="#333333"
             app:titleTextSize="16sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <com.jushi.library.customView.itemView.ItemView
+                android:id="@+id/ItemView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_item_view_selector"
+                app:itemLeftIcon="@mipmap/ic_mine_setting"
+                app:itemRightIcon="@mipmap/ic_black_arrow"
+                app:itemTitleText="设置"
+                app:itemTitleTextColor="#333333"
+                app:itemTitleTextSize="16sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="15dp"
+                android:background="#f7f7f7" />
+
+            <com.jushi.library.customView.itemView.ItemView
+                android:id="@+id/ItemView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_item_view_selector"
+                app:itemLeftIcon="@mipmap/ic_mine_setting"
+                app:itemRightIcon="@mipmap/ic_black_arrow"
+                app:itemRightText="去设置"
+                app:itemRightTextColor="#666666"
+                app:itemRightTextSize="15sp"
+                app:itemTitleText="设置"
+                app:itemTitleTextColor="#333333"
+                app:itemTitleTextSize="16sp" />
+        </LinearLayout>
+
         <Button
             android:id="@+id/btn_start"
             android:layout_width="wrap_content"
@@ -187,14 +225,15 @@
             android:id="@+id/CircleImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp" />
 
         <Button
             android:id="@+id/open_album"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="打开相册" />
+
         <Button
             android:id="@+id/open_camera"
             android:layout_width="match_parent"
