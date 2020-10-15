@@ -201,7 +201,18 @@
         <attr name="searchEditEnable" format="boolean" />
         <attr name="searchEditFocusable" format="boolean" />
         <attr name="isImmersiveStatusBar" format="boolean" /> <!--是否沉浸式状态栏，默认值false-->
-        <attr name="statusBarBackgroundColor" format="color"/> <!--沉浸式状态栏背景色，isImmersiveStatusBar=true时生效-->
+        <attr name="statusBarBackgroundColor" format="color" /> <!--沉浸式状态栏背景色，isImmersiveStatusBar=true时生效-->
+    </declare-styleable>
+
+    <declare-styleable name="ItemView">
+        <attr name="itemLeftIcon" format="reference" />
+        <attr name="itemRightIcon" format="reference" />
+        <attr name="itemTitleText" format="string" />
+        <attr name="itemTitleTextColor" format="color" />
+        <attr name="itemTitleTextSize" format="dimension" />
+        <attr name="itemRightText" format="string" />
+        <attr name="itemRightTextColor" format="color" />
+        <attr name="itemRightTextSize" format="dimension" />
     </declare-styleable>
 
 </resources>
