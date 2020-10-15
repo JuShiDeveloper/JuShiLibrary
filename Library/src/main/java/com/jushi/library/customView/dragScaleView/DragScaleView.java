@@ -94,6 +94,7 @@ public class DragScaleView extends AppCompatImageView implements View.OnTouchLis
         TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.DragScaleView);
         enabledStroke = array.getBoolean(R.styleable.DragScaleView_enabled_stroke, false);
         strokeColor = array.getColor(R.styleable.DragScaleView_stroke_color, Color.RED);
+        array.recycle();
     }
 
     @Override

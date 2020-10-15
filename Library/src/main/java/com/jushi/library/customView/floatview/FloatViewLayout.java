@@ -66,6 +66,7 @@ public class FloatViewLayout extends RelativeLayout implements View.OnTouchListe
         isCacheXY = typedArray.getBoolean(R.styleable.FloatViewLayout_cacheXY, true);
         autoCalculateWelt = typedArray.getBoolean(R.styleable.FloatViewLayout_autoCalculateWelt, true);
         animatorDuration = typedArray.getInt(R.styleable.FloatViewLayout_animatorDuration, 250);
+        typedArray.recycle();
     }
 
     private void initCacheXY() { //获取上一次拖动贴边之后缓存的坐标

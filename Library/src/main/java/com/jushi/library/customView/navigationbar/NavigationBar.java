@@ -119,6 +119,7 @@ public class NavigationBar extends LinearLayout {
         boolean isImmersiveStatusBar = array.getBoolean(R.styleable.NavigationBar_isImmersiveStatusBar, false);
         int statusBarColor = array.getColor(R.styleable.NavigationBar_statusBarBackgroundColor, Color.TRANSPARENT);
         initStatusBarView(isImmersiveStatusBar, statusBarColor);
+        array.recycle();
     }
 
     /**

@@ -109,6 +109,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         setShowPasswordButtonVisible(typedArray.getBoolean(R.styleable.CustomEditText_isShowAuthCodeBtn, false));
         setEditTextBackgroundClor(typedArray.getColor(R.styleable.CustomEditText_editTextBackgroundColor, Color.parseColor("#bebebe")));
         setEditTextBackgroundResource(typedArray.getResourceId(R.styleable.CustomEditText_editTextBackgroundResource, 0));
+        typedArray.recycle();
     }
 
     private void setListener() {
