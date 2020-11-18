@@ -4,9 +4,13 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.jushi.library.utils.ToastUtil;
+
+import java.util.List;
 
 /**
  * 权限申请基类activity
@@ -80,6 +84,7 @@ abstract class BasePermissionActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        onFragmentPermissionResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case REQUEST_CODE_PERMISSIONS_CAMERA:
                 if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -109,6 +114,30 @@ abstract class BasePermissionActivity extends AppCompatActivity {
                     showToast("录音权限已被禁止");
                 }
                 break;
+        }
+    }
+
+    /**
+     * 权限事件传递到fragment
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    private void onFragmentPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        for (Fragment fragment : fragmentManager.getFragments()) {
+            if (fragment == null) continue;
+            handleChildPermissionResult(fragment, requestCode, permissions, grantResults);
+        }
+    }
+
+    private void handleChildPermissionResult(Fragment fragment, int requestCode, String[] permissions, int[] grantResults) {
+        fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);//onRequestPermissionsResult
+        List<Fragment> childFragment = fragment.getChildFragmentManager().getFragments(); //找到第二层Fragment
+        for (Fragment f : childFragment) {
+            if (f == null) continue;
+            handleChildPermissionResult(f, requestCode, permissions, grantResults);
         }
     }
 

@@ -3,6 +3,8 @@ package com.jushi.library.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import com.jushi.library.systemBarUtils.SystemBarUtil;
 import com.jushi.library.utils.ToastUtil;
@@ -120,4 +122,29 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
         ToastUtil.showToast(this, msg);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        for (Fragment f : fragmentManager.getFragments()) {
+            if (f == null) continue;
+            handleChildResult(f, requestCode, resultCode, data);
+        }
+    }
+
+    /**
+     * activity跳转结果响应事件传递到fragment
+     *
+     * @param f
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    private void handleChildResult(Fragment f, int requestCode, int resultCode, Intent data) {
+        f.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : f.getChildFragmentManager().getFragments()) {
+            if (fragment == null) continue;
+            handleChildResult(fragment, requestCode, resultCode, data);
+        }
+    }
 }
