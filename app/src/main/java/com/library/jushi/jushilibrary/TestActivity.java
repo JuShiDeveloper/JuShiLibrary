@@ -138,6 +138,16 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     @FindViewById(R.id.ItemView2)
     private ItemView itemView2;
 
+    @FindViewById(R.id.camera)
+    private Button btnCamera;
+    @FindViewById(R.id.Storage)
+    private Button btnStorage;
+    @FindViewById(R.id.audio)
+    private Button btnAudio;
+    @FindViewById(R.id.location)
+    private Button btnLocation;
+
+
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_main;
@@ -157,10 +167,6 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         initCustomEditText();
         initRadarView();
 
-        checkCameraPermission();
-        checkLocationPermission();
-        checkExternalStoragePermission();
-        checkRecordAudioPermission();
     }
 
     private void initRadarView() {
@@ -313,6 +319,19 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 //        });
 //        itemView2.setOnClickListener(v -> {
 //        });
+
+        btnCamera.setOnClickListener(v -> {
+            checkCameraPermission();
+        });
+        btnStorage.setOnClickListener(v -> {
+            checkExternalStoragePermission();
+        });
+        btnLocation.setOnClickListener(v -> {
+            checkLocationPermission();
+        });
+        btnAudio.setOnClickListener(v -> {
+            checkRecordAudioPermission();
+        });
     }
 
     private List<String> getListData(int max) {
