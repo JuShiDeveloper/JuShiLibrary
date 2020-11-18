@@ -3,14 +3,13 @@ package com.jushi.library.base;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jushi.library.viewinject.ViewInjecter;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends BasePermissionFragment {
     private View rootView;
 
     @Nullable
@@ -54,4 +53,24 @@ public abstract class BaseFragment extends Fragment {
      * 设置事件监听
      */
     protected abstract void setListener();
+
+    @Override
+    protected void onCameraPermissionOpened() {
+
+    }
+
+    @Override
+    protected void onExternalStoragePermissionOpened() {
+
+    }
+
+    @Override
+    protected void onLocationPermissionOpened() {
+
+    }
+
+    @Override
+    protected void onRecordAudioPermissionOpened() {
+
+    }
 }
