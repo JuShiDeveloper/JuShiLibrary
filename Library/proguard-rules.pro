@@ -122,19 +122,6 @@
 -dontwarn jp.wasabeef.*
 
 
-
-#-ButterKnife 7.0
- -keep class butterknife.** { *; }
- -dontwarn butterknife.internal.**
- -keep class **$$ViewBinder { *; }
- -keepclasseswithmembernames class * {
-  @butterknife.* <fields>;
- }
- -keepclasseswithmembernames class * {
- @butterknife.* <methods>;
- }
-
-
 #AndFix
 -keep class * extends java.lang.annotation.Annotation
 -keepclasseswithmembernames class * {
@@ -248,25 +235,6 @@
 # OkHttp platform used only on JVM and when Conscrypt dependency is available.
 -dontwarn okhttp3.internal.platform.ConscryptPlatform
 
-
-# RxJava RxAndroid
--dontwarn sun.misc.**
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-    long producerIndex;
-    long consumerIndex;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode producerNode;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode consumerNode;
-}
-
-
-### greenDAO 3
--keepclassmembers class * extends org.greenrobot.greendao.AbstractDao {
-public static java.lang.String TABLENAME;
-}
 -keep class **$Properties
 
 # If you do not use SQLCipher:
