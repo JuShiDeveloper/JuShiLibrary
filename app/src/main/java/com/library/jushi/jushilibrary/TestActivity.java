@@ -156,6 +156,11 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         initBannerView();
         initCustomEditText();
         initRadarView();
+
+        checkCameraPermission();
+        checkLocationPermission();
+        checkExternalStoragePermission();
+        checkRecordAudioPermission();
     }
 
     private void initRadarView() {
@@ -453,5 +458,29 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
                 PictureHelper.gotoClipActivity(this, Uri.fromFile(imageFile), REQUEST_CODE_CLIP_PHOTO);
                 break;
         }
+    }
+
+    @Override
+    protected void onCameraPermissionOpened() {
+        super.onCameraPermissionOpened();
+        Logger.v("yufei", "onCameraPermissionOpened");
+    }
+
+    @Override
+    protected void onLocationPermissionOpened() {
+        super.onLocationPermissionOpened();
+        Logger.v("yufei", "onLocationPermissionOpened");
+    }
+
+    @Override
+    protected void onExternalStoragePermissionOpened() {
+        super.onExternalStoragePermissionOpened();
+        Logger.v("yufei", "onExternalStoragePermissionOpened");
+    }
+
+    @Override
+    protected void onRecordAudioPermissionOpened() {
+        super.onRecordAudioPermissionOpened();
+        Logger.v("yufei", "onRecordAudioPermissionOpened");
     }
 }

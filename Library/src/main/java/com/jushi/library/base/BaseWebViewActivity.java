@@ -197,14 +197,6 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         }
     }
 
-    private boolean checkCameraPermission() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_PERMISSIONS_CAMERA);
-        }
-        return false;
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -252,16 +244,10 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_CODE_PERMISSIONS_CAMERA) {
-            if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (TextUtils.isEmpty(accept)) return;
-                openImageChooserActivity(accept);
-            } else {
-                showToast("相机权限被禁止");
-            }
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    protected void onCameraPermissionOpened() {
+        super.onCameraPermissionOpened();
+        if (TextUtils.isEmpty(accept)) return;
+        openImageChooserActivity(accept);
     }
 
     @Override

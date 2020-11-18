@@ -3,7 +3,6 @@ package com.jushi.library.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.jushi.library.systemBarUtils.SystemBarUtil;
 import com.jushi.library.utils.ToastUtil;
@@ -12,7 +11,7 @@ import com.jushi.library.viewinject.ViewInjecter;
 /**
  * 基类activity
  */
-public abstract class BaseFragmentActivity extends AppCompatActivity {
+public abstract class BaseFragmentActivity extends BasePermissionActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +60,26 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
      * 初始化动画 (根据需要选择是否重写此方法)
      */
     protected void initAnimator() {
+
+    }
+
+    @Override
+    protected void onCameraPermissionOpened() {
+
+    }
+
+    @Override
+    protected void onExternalStoragePermissionOpened() {
+
+    }
+
+    @Override
+    protected void onLocationPermissionOpened() {
+
+    }
+
+    @Override
+    protected void onRecordAudioPermissionOpened() {
 
     }
 
