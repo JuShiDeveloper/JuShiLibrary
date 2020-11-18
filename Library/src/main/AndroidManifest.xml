@@ -13,6 +13,7 @@
     <uses-feature android:name="android.hardware.camera.flash" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
 </manifest>
 
