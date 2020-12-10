@@ -7,6 +7,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import com.jushi.library.utils.PermissionUtil;
 import com.jushi.library.utils.ToastUtil;
 
 import java.util.List;
@@ -27,11 +28,12 @@ abstract class BasePermissionFragment extends Fragment {
      * @return
      */
     protected boolean checkCameraPermission() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE_PERMISSIONS_CAMERA);
-            return false;
-        }
-        return true;
+        return PermissionUtil.request(getActivity(),new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},REQUEST_CODE_PERMISSIONS_CAMERA);
+//        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE_PERMISSIONS_CAMERA);
+//            return false;
+//        }
+//        return true;
     }
 
     /**
@@ -40,13 +42,15 @@ abstract class BasePermissionFragment extends Fragment {
      * @return
      */
     protected boolean checkExternalStoragePermission() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_CODE_PERMISSIONS_EXTERNAL_STORAGE);
-            return false;
-        }
-        return true;
+        return PermissionUtil.request(getActivity(),new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                REQUEST_CODE_PERMISSIONS_EXTERNAL_STORAGE);
+//        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+//                || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+//                    REQUEST_CODE_PERMISSIONS_EXTERNAL_STORAGE);
+//            return false;
+//        }
+//        return true;
     }
 
     /**
@@ -55,12 +59,14 @@ abstract class BasePermissionFragment extends Fragment {
      * @return
      */
     protected boolean checkLocationPermission() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    REQUEST_CODE_PERMISSIONS_LOCATION);
-            return false;
-        }
-        return true;
+        return PermissionUtil.request(getActivity(),new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                REQUEST_CODE_PERMISSIONS_LOCATION);
+//        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+//                    REQUEST_CODE_PERMISSIONS_LOCATION);
+//            return false;
+//        }
+//        return true;
     }
 
     /**
@@ -69,12 +75,13 @@ abstract class BasePermissionFragment extends Fragment {
      * @return
      */
     protected boolean checkRecordAudioPermission() {
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO},
-                    REQUEST_CODE_PERMISSIONS_RECORD_AUDIO);
-            return false;
-        }
-        return true;
+        return PermissionUtil.request(getActivity(),new String[]{Manifest.permission.RECORD_AUDIO},REQUEST_CODE_PERMISSIONS_RECORD_AUDIO);
+//        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.RECORD_AUDIO},
+//                    REQUEST_CODE_PERMISSIONS_RECORD_AUDIO);
+//            return false;
+//        }
+//        return true;
     }
 
     private void showToast(String msg) {
