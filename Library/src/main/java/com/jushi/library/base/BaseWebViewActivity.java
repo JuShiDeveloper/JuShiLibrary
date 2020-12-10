@@ -112,7 +112,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-            return true;
+            return false;
         }
 
         @Override
