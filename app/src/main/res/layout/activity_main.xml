@@ -293,6 +293,12 @@
             android:layout_height="wrap_content"
             android:text="打开相机" />
 
+        <Button
+            android:id="@+id/refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="刷新页面示例" />
+
     </LinearLayout>
 
 

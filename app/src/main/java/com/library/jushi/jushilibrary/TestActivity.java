@@ -146,6 +146,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button btnAudio;
     @FindViewById(R.id.location)
     private Button btnLocation;
+    @FindViewById(R.id.refresh)
+    private Button btnRefresh;
 
 
     @Override
@@ -331,6 +333,9 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         });
         btnAudio.setOnClickListener(v -> {
             checkRecordAudioPermission();
+        });
+        btnRefresh.setOnClickListener(v -> {
+            startActivity(new Intent(this, RefreshSimpleActivity.class));
         });
     }
 

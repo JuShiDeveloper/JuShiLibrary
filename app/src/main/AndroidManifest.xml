@@ -48,6 +48,7 @@
         <activity android:name=".CreateQRCodeActivity"/>
         <activity android:name=".WebViewActivity"/>
         <activity android:name="com.jushi.library.takingPhoto.view.ClipImageActivity"/>
+        <activity android:name=".RefreshSimpleActivity"/>
     </application>
 
 </manifest>
