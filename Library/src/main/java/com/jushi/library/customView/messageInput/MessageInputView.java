@@ -110,6 +110,7 @@ public class MessageInputView extends RelativeLayout implements View.OnClickList
             tvInputAudio.setVisibility(!inputModeText ? VISIBLE : GONE);
         } else if (v.getId() == R.id.et_msg_input) {
             rvMoreFunction.setVisibility(GONE);
+            ivMoreBtn.setImageResource(R.mipmap.ic_msg_more);
         } else if (v.getId() == R.id.audio_recorder_btn) {
             if (onMessageInputListener == null) return;
             onMessageInputListener.onRecordAudio();
@@ -118,6 +119,7 @@ public class MessageInputView extends RelativeLayout implements View.OnClickList
             onMessageInputListener.onSend(etInputText.getText().toString());
         } else if (v.getId() == R.id.iv_msg_more) {
             rvMoreFunction.setVisibility(rvMoreFunction.getVisibility() == GONE ? VISIBLE : GONE);
+            ivMoreBtn.setImageResource(rvMoreFunction.getVisibility() == GONE ? R.mipmap.ic_msg_more : R.mipmap.ic_msg_close);
             if (onMessageInputListener == null) return;
             onMessageInputListener.onMoreBtnClick();
         }
