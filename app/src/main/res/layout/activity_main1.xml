@@ -62,6 +62,15 @@
         app:enabled_stroke="true"
         app:stroke_color="@android:color/holo_blue_light" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.jushi.library.customView.messageInput.MessageInputView
+            android:id="@+id/MessageInputView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <fragment
         android:id="@+id/fragment"
         android:name="com.library.jushi.jushilibrary.TestFragment"

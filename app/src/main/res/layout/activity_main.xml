@@ -299,6 +299,12 @@
             android:layout_height="wrap_content"
             android:text="刷新页面示例" />
 
+        <Button
+            android:id="@+id/calculator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calculator" />
+
     </LinearLayout>
 
 

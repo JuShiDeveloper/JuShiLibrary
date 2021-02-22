@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="scan_bg">#7f000000</color>
+    <color name="black">#000000</color>
+    <color name="c_049EFF">#049EFF</color>
 </resources>

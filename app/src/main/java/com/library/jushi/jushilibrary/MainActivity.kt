@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.jushi.library.base.BaseFragmentActivity
+import com.jushi.library.customView.messageInput.MessageInputView
 import com.jushi.library.http.DownloadFileRequester
 import com.jushi.library.http.UploadFileRequester
 import kotlinx.android.synthetic.main.activity_main1.*
@@ -11,10 +12,10 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
-class MainActivity : BaseFragmentActivity() {
+class MainActivity : BaseFragmentActivity(), MessageInputView.OnMessageInputListener {
 
     override fun getLayoutResId(): Int {
-        setSystemBarStatus(true, true,true)
+        setSystemBarStatus(true, true, true)
         return R.layout.activity_main1
     }
 
@@ -100,6 +101,35 @@ class MainActivity : BaseFragmentActivity() {
             showToast("点击")
             startActivity(Intent(this, MainActivity::class.java))
         }
+
+        val images = java.util.ArrayList<Int>()
+        images.add(R.drawable.ic_replay_press)
+        images.add(R.drawable.ic_recommend_press)
+        images.add(R.drawable.ic_msg_referral_press)
+        images.add(R.drawable.ic_prescription_light)
+
+        val titles = java.util.ArrayList<String>()
+        titles.add("模板")
+        titles.add("推荐")
+        titles.add("转诊")
+        titles.add("开处方")
+        MessageInputView.setMoreFunction(images, titles)
+        MessageInputView.setOnMessageInputListener(this)
     }
 
+    override fun onSend(msg: String) {
+        showToast("发送消息：$msg")
+    }
+
+    override fun onMoreBtnClick() {
+        hideSoftInput()
+    }
+
+    override fun onRecordAudio() {
+        showToast("录音")
+    }
+
+    override fun onMoreFunctionClick(functionTitle: String) {
+        showToast("点击：$functionTitle")
+    }
 }

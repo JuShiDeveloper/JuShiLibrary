@@ -23,6 +23,7 @@ import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
 import com.jushi.library.customView.editText.CustomEditText;
 import com.jushi.library.customView.itemView.ItemView;
+import com.jushi.library.customView.messageInput.MessageInputView;
 import com.jushi.library.customView.mzbanner.MZBannerView;
 import com.jushi.library.customView.mzbanner.holder.MZViewHolder;
 import com.jushi.library.customView.radar.RadarData;
@@ -37,6 +38,7 @@ import com.jushi.library.takingPhoto.view.CircleImageView;
 import com.jushi.library.utils.Logger;
 import com.jushi.library.utils.NetworkManager;
 import com.jushi.library.viewinject.FindViewById;
+import com.library.jushi.jushilibrary.calculator.CalculatorActivity;
 
 import java.io.File;
 import java.net.URI;
@@ -148,6 +150,9 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button btnLocation;
     @FindViewById(R.id.refresh)
     private Button btnRefresh;
+    @FindViewById(R.id.calculator)
+    private Button btnCalculator;
+
 
 
     @Override
@@ -337,6 +342,11 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         btnRefresh.setOnClickListener(v -> {
             startActivity(new Intent(this, RefreshSimpleActivity.class));
         });
+        btnCalculator.setOnClickListener(v -> {
+            startActivity(new Intent(this, CalculatorActivity.class));
+        });
+
+
     }
 
     private List<String> getListData(int max) {
