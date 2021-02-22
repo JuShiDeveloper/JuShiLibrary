@@ -11,7 +11,7 @@ public interface OnHttpResponseListener<Data> {
     void onHttpRequesterResponse(int code, String router, Data data);
 
     /**
-     * 请求成功响应
+     * 请求失败响应
      *
      * @param code    响应结果码
      * @param router  请求的接口路由
