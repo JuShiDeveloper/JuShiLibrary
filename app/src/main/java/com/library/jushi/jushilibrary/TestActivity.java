@@ -152,7 +152,10 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button btnRefresh;
     @FindViewById(R.id.calculator)
     private Button btnCalculator;
-
+    @FindViewById(R.id.test_RV)
+    private Button btnTestRV;
+    @FindViewById(R.id.alert_window)
+    private Button btnAlertWindow;
 
 
     @Override
@@ -328,22 +331,39 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 //        });
 
         btnCamera.setOnClickListener(v -> {
-            checkCameraPermission();
+            if (checkCameraPermission()) {
+                showToast("相机权限已打开");
+            }
         });
         btnStorage.setOnClickListener(v -> {
-            checkExternalStoragePermission();
+            if (checkExternalStoragePermission()) {
+                showToast("存储权限已打开");
+            }
         });
         btnLocation.setOnClickListener(v -> {
-            checkLocationPermission();
+            if (checkLocationPermission()) {
+                showToast("定位权限已打开");
+            }
         });
         btnAudio.setOnClickListener(v -> {
-            checkRecordAudioPermission();
+            if (checkRecordAudioPermission()) {
+                showToast("录音权限已打开");
+            }
+        });
+        btnAlertWindow.setOnClickListener(v -> {
+            if (checkAlertWindowPermission()) {
+                showToast("悬浮窗权限已打开");
+            }
         });
         btnRefresh.setOnClickListener(v -> {
             startActivity(new Intent(this, RefreshSimpleActivity.class));
         });
         btnCalculator.setOnClickListener(v -> {
             startActivity(new Intent(this, CalculatorActivity.class));
+        });
+
+        btnTestRV.setOnClickListener(v -> {
+            startActivity(new Intent(this, UltraRecyclerViewActivity.class));
         });
 
 
@@ -516,5 +536,11 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     protected void onRecordAudioPermissionOpened() {
         super.onRecordAudioPermissionOpened();
         Logger.v("yufei", "onRecordAudioPermissionOpened");
+    }
+
+    @Override
+    protected void onAlertWindowPermissionOpened() {
+        super.onAlertWindowPermissionOpened();
+        Logger.v("yufei", "onAlertWindowPermissionOpened");
     }
 }

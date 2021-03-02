@@ -50,6 +50,7 @@
         <activity android:name="com.jushi.library.takingPhoto.view.ClipImageActivity"/>
         <activity android:name=".RefreshSimpleActivity"/>
         <activity android:name=".calculator.CalculatorActivity"/>
+        <activity android:name=".UltraRecyclerViewActivity"/>
     </application>
 
 </manifest>

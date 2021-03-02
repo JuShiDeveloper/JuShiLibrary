@@ -137,6 +137,12 @@
                     android:layout_height="wrap_content"
                     android:text="location" />
 
+                <Button
+                    android:id="@+id/alert_window"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="alert window" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -304,6 +310,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Calculator" />
+
+        <Button
+            android:id="@+id/test_RV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TEST RV" />
 
     </LinearLayout>
 
