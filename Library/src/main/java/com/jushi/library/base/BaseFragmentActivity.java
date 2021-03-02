@@ -94,6 +94,11 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
 
     }
 
+    @Override
+    protected void onAlertWindowPermissionOpened() {
+
+    }
+
     /**
      * 设置状态栏状态 （在重写的getLayoutResId()方法中调用才有效）
      *

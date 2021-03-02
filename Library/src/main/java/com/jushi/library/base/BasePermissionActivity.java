@@ -1,8 +1,14 @@
 package com.jushi.library.base;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,6 +27,7 @@ abstract class BasePermissionActivity extends AppCompatActivity {
     private final int REQUEST_CODE_PERMISSIONS_EXTERNAL_STORAGE = 0x02;
     private final int REQUEST_CODE_PERMISSIONS_LOCATION = 0x03;
     private final int REQUEST_CODE_PERMISSIONS_RECORD_AUDIO = 0x04;
+    private final int SYSTEM_ALERT_WINDOW_CODE = 0x05;
 
     /**
      * 检查相机权限
@@ -28,7 +35,7 @@ abstract class BasePermissionActivity extends AppCompatActivity {
      * @return
      */
     protected boolean checkCameraPermission() {
-        return PermissionUtil.request(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},REQUEST_CODE_PERMISSIONS_CAMERA);
+        return PermissionUtil.request(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE_PERMISSIONS_CAMERA);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
 //            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE_PERMISSIONS_CAMERA);
 //            return false;
@@ -42,7 +49,7 @@ abstract class BasePermissionActivity extends AppCompatActivity {
      * @return
      */
     protected boolean checkExternalStoragePermission() {
-        return PermissionUtil.request(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+        return PermissionUtil.request(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 REQUEST_CODE_PERMISSIONS_EXTERNAL_STORAGE);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
 //                || ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -59,7 +66,7 @@ abstract class BasePermissionActivity extends AppCompatActivity {
      * @return
      */
     protected boolean checkLocationPermission() {
-        return PermissionUtil.request(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+        return PermissionUtil.request(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                 REQUEST_CODE_PERMISSIONS_LOCATION);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 //            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -75,13 +82,35 @@ abstract class BasePermissionActivity extends AppCompatActivity {
      * @return
      */
     protected boolean checkRecordAudioPermission() {
-        return PermissionUtil.request(this,new String[]{Manifest.permission.RECORD_AUDIO},REQUEST_CODE_PERMISSIONS_RECORD_AUDIO);
+        return PermissionUtil.request(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_CODE_PERMISSIONS_RECORD_AUDIO);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
 //            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO},
 //                    REQUEST_CODE_PERMISSIONS_RECORD_AUDIO);
 //            return false;
 //        }
 //        return true;
+    }
+
+    /**
+     * 检查悬浮窗权限
+     *
+     * @return
+     */
+    protected boolean checkAlertWindowPermission() {
+        if (canDrawOverlays()) return true;
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+        intent.setData(Uri.parse("package:" + getPackageName()));
+        startActivityForResult(intent, SYSTEM_ALERT_WINDOW_CODE);
+        return false;
+    }
+
+    /**
+     * 是否有悬浮窗权限
+     *
+     * @return
+     */
+    private boolean canDrawOverlays() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(this);
     }
 
     private void showToast(String msg) {
@@ -121,6 +150,16 @@ abstract class BasePermissionActivity extends AppCompatActivity {
                     showToast("录音权限已被禁止");
                 }
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (canDrawOverlays() && requestCode == SYSTEM_ALERT_WINDOW_CODE) {
+            onAlertWindowPermissionOpened();
+        } else {
+            showToast("悬浮窗权限已被禁止");
         }
     }
 
@@ -167,4 +206,9 @@ abstract class BasePermissionActivity extends AppCompatActivity {
      * 录音权限打开
      */
     protected abstract void onRecordAudioPermissionOpened();
+
+    /**
+     * 悬浮窗权限打开
+     */
+    protected abstract void onAlertWindowPermissionOpened();
 }
