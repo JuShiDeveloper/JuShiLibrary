@@ -34,8 +34,8 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
         setContentView(getLayoutResId());
         ViewInjecter.inject(this);
         BaseApplication.getInstance().injectManager(this);
-        getIntentData(getIntent());
         initView();
+        getIntentData(getIntent());
         initData();
         setListener();
         initAnimator();

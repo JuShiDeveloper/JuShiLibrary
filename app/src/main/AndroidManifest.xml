@@ -51,6 +51,8 @@
         <activity android:name=".RefreshSimpleActivity"/>
         <activity android:name=".calculator.CalculatorActivity"/>
         <activity android:name=".UltraRecyclerViewActivity"/>
+        <activity android:name="com.jushi.library.crash.ExceptionInfoActivity"/>
     </application>
+
 
 </manifest>

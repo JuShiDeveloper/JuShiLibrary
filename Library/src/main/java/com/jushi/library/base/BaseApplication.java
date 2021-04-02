@@ -3,6 +3,8 @@ package com.jushi.library.base;
 import android.app.Application;
 import android.os.Handler;
 
+import com.jushi.library.BuildConfig;
+import com.jushi.library.crash.ExceptionCaughtHandler;
 import com.jushi.library.database.DatabaseManager;
 import com.jushi.library.utils.NetworkManager;
 
@@ -34,6 +36,7 @@ public class BaseApplication extends Application {
         handler = new Handler();
         // 初始化管理器
         initManager();
+        initCrashLog();
     }
 
 
@@ -99,5 +102,14 @@ public class BaseApplication extends Application {
     protected void registerManager(List<BaseManager> lists) {
         lists.add(new NetworkManager());            // 网络管理器
         lists.add(new DatabaseManager());            // 数据库管理类
+    }
+
+    private void initCrashLog(){
+        if (BuildConfig.DEBUG){
+            // 测试版本   开启崩溃显示功能
+            Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
+            ExceptionCaughtHandler exceptionCaughtHandler = new ExceptionCaughtHandler(handler);
+            Thread.setDefaultUncaughtExceptionHandler(exceptionCaughtHandler);
+        }
     }
 }
