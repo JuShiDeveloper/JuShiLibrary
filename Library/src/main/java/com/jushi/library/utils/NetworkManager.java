@@ -87,6 +87,17 @@ public class NetworkManager extends BaseManager {
         return lastConnectType != -1;
     }
 
+    /**
+     * 是否是wifi连接
+     * @param mContext
+     * @return
+     */
+    public static boolean isWifi(Context mContext) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetInfo != null && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI;
+    }
+
 
     public interface OnNetworkChangeListener {
         /**
