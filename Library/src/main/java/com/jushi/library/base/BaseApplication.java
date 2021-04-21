@@ -1,12 +1,15 @@
 package com.jushi.library.base;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
 import android.os.Handler;
 
 import com.jushi.library.BuildConfig;
 import com.jushi.library.crash.ExceptionCaughtHandler;
 import com.jushi.library.database.DatabaseManager;
 import com.jushi.library.utils.NetworkManager;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -110,6 +113,29 @@ public class BaseApplication extends Application {
             Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
             ExceptionCaughtHandler exceptionCaughtHandler = new ExceptionCaughtHandler(handler);
             Thread.setDefaultUncaughtExceptionHandler(exceptionCaughtHandler);
+        }else {
+            try {
+                // 正式版本  启用崩溃提交
+                CrashReport.initCrashReport(this, "1234567890", false);
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    /**
+     * 获得进程名字
+     */
+    protected String getUIPName(Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager mActivityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        if (mActivityManager.getRunningAppProcesses() == null || mActivityManager.getRunningAppProcesses().size() == 0)
+            return "";
+        for (ActivityManager.RunningAppProcessInfo appProcess : mActivityManager.getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }
+        }
+        return "";
     }
 }
