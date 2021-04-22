@@ -14,18 +14,20 @@
             android:id="@+id/ll_tab_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@android:color/holo_blue_bright" />
+                android:src="@drawable/home_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="首页"
-                android:textSize="15sp" />
+                android:text="首页" />
         </LinearLayout>
     </LinearLayout>
 
@@ -39,18 +41,20 @@
             android:id="@+id/ll_tab_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@android:color/holo_blue_bright" />
+                android:src="@drawable/workbench_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="首页"
-                android:textSize="15sp" />
+                android:text="工作台" />
         </LinearLayout>
     </LinearLayout>
 
@@ -64,18 +68,20 @@
             android:id="@+id/ll_tab_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@android:color/holo_blue_bright" />
+                android:src="@drawable/report_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="首页"
-                android:textSize="15sp" />
+                android:text="报表" />
         </LinearLayout>
     </LinearLayout>
 
@@ -89,18 +95,20 @@
             android:id="@+id/ll_tab_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@android:color/holo_blue_bright" />
+                android:src="@drawable/mine_selector" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="首页"
-                android:textSize="15sp" />
+                android:text="我的" />
         </LinearLayout>
     </LinearLayout>
 

@@ -215,4 +215,10 @@
         <attr name="itemRightTextSize" format="dimension" />
     </declare-styleable>
 
+    <declare-styleable name="BottomNavigationView">
+        <attr name="tab_select_text_color" format="color"/>
+        <attr name="tab_unselect_text_color" format="color"/>
+        <attr name="tab_text_size" format="dimension"/>
+    </declare-styleable>
+
 </resources>

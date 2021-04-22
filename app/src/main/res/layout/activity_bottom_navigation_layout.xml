@@ -16,6 +16,9 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        app:tab_select_text_color="#d81e06"
+        app:tab_unselect_text_color="#bfbfbf"
+        app:tab_text_size="15sp"/>
 
 </RelativeLayout>
