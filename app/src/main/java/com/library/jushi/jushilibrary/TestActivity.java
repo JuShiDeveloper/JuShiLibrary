@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.Manager;
+import com.jushi.library.customView.bottomNavgationView.BottomNavigationView;
 import com.jushi.library.customView.editText.CustomEditText;
 import com.jushi.library.customView.itemView.ItemView;
 import com.jushi.library.customView.messageInput.MessageInputView;
@@ -157,10 +158,13 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     @FindViewById(R.id.alert_window)
     private Button btnAlertWindow;
 
+    @FindViewById(R.id.test_bottom_nav)
+    private Button btnBottomNav;
+
 
     @Override
     protected int getLayoutResId() {
-        setSystemBarStatus(true,true,false);
+        setSystemBarStatus(true, true, false);
         return R.layout.activity_main;
     }
 
@@ -367,6 +371,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
             startActivity(new Intent(this, UltraRecyclerViewActivity.class));
         });
 
+        btnBottomNav.setOnClickListener(v -> startActivity(new Intent(this, BottomNavigationViewActivity.class)));
 
     }
 
