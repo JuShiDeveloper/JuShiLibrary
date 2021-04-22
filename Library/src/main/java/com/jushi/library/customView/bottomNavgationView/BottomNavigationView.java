@@ -28,7 +28,6 @@ public class BottomNavigationView extends RelativeLayout {
     private Fragment curremtFragment;
     private int tabTextSelectColor;
     private int tabTextUnSelectColor;
-    private int tabTextSize;
 
     public BottomNavigationView(Context context) {
         this(context, null);
@@ -57,7 +56,9 @@ public class BottomNavigationView extends RelativeLayout {
     }
 
     private void setTabTextSize(int dimensionPixelSize) {
-        this.tabTextSize = dimensionPixelSize;
+        for (int i = 0; i < tabs.size(); i++) {
+            ((TextView) tabs.get(i).getChildAt(1)).setTextSize(TypedValue.COMPLEX_UNIT_PX, dimensionPixelSize);
+        }
     }
 
     private void setTabUnSelectTextColor(int color) {
@@ -92,7 +93,6 @@ public class BottomNavigationView extends RelativeLayout {
         for (int i = 0; i < tabs.size(); i++) {
             tabs.get(i).getChildAt(0).setSelected(index == i);
             ((TextView) tabs.get(i).getChildAt(1)).setTextColor(index == i ? tabTextSelectColor : tabTextUnSelectColor);
-            ((TextView) tabs.get(i).getChildAt(1)).setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
         }
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         if (curremtFragment == null) {

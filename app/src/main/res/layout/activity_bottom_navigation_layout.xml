@@ -19,6 +19,6 @@
         android:layout_alignParentBottom="true"
         app:tab_select_text_color="#d81e06"
         app:tab_unselect_text_color="#bfbfbf"
-        app:tab_text_size="15sp"/>
+        app:tab_text_size="16sp"/>
 
 </RelativeLayout>
