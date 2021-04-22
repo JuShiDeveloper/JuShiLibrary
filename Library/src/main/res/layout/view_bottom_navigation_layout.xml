@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center">
 
@@ -20,8 +20,8 @@
             android:paddingRight="10dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/home_selector" />
 
             <TextView
@@ -33,7 +33,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center">
 
@@ -47,8 +47,8 @@
             android:paddingRight="10dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/workbench_selector" />
 
             <TextView
@@ -60,7 +60,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center">
 
@@ -74,8 +74,8 @@
             android:paddingRight="10dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/report_selector" />
 
             <TextView
@@ -87,7 +87,7 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center">
 
@@ -101,8 +101,8 @@
             android:paddingRight="10dp">
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/mine_selector" />
 
             <TextView
