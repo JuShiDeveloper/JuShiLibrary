@@ -26,7 +26,9 @@
             app:rightButtonTextSize="15sp"
             app:titleText="自定义导航栏示例4"
             app:titleTextColor="#333333"
-            app:titleTextSize="16sp" />
+            app:titleTextSize="16sp"
+            app:isImmersiveStatusBar="true"
+            app:statusBarBackgroundColor="@android:color/holo_green_dark"/>
 
         <LinearLayout
             android:layout_width="match_parent"

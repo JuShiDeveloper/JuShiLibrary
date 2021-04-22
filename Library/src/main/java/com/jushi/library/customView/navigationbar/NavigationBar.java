@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jushi.library.R;
+import com.jushi.library.customView.statusBarView.StatusBarView;
 
 /**
  * 自定义页面导航栏
@@ -130,21 +131,9 @@ public class NavigationBar extends LinearLayout {
      */
     private void initStatusBarView(boolean isImmersiveStatusBar, int color) {
         if (!isImmersiveStatusBar) return;
-        View statusBar = new View(getContext());
+        StatusBarView statusBar = new StatusBarView(getContext());
         statusBar.setBackgroundColor(color);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, getStatusBarHeight());
-        statusBar.setLayoutParams(params);
         addView(statusBar, 0);
-    }
-
-    /**
-     * 获取状态栏高度
-     *
-     * @return
-     */
-    private int getStatusBarHeight() {
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        return resourceId > 0 ? getResources().getDimensionPixelSize(resourceId) : 0;
     }
 
     private void setFunction(int function) {

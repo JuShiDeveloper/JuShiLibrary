@@ -160,13 +160,14 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 
     @Override
     protected int getLayoutResId() {
+        setSystemBarStatus(true,true,false);
         return R.layout.activity_main;
     }
 
     @Override
     protected void initView() {
 //        App.getInstance().getManager(DatabaseManager.class);
-        startService(new Intent(this, TestFloatWindowService.class));
+//        startService(new Intent(this, TestFloatWindowService.class));
 
         mViewPager.setAdapter(pagerAdapter);
         pagerSlidingTabStrip.setViewPager(mViewPager);
