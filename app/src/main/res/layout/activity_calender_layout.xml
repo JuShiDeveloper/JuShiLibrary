@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.jushi.library.customView.statusBarView.StatusBarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_green_dark" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="选择起止日期示例:"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/tv_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/tv_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/last_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="上月" />
+
+            <Button
+                android:id="@+id/current_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本月" />
+
+            <Button
+                android:id="@+id/next_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下月" />
+        </LinearLayout>
+
+        <com.jushi.library.customView.calendarview.weiget.WeekView
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+        <com.jushi.library.customView.calendarview.weiget.CalendarView
+            android:id="@+id/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            app:choose_type="start_stop"
+            app:manual_rolling="false"
+            app:show_holiday="true"
+            app:show_lunar="true"
+            app:show_term="true"
+            app:switch_choose="false" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/crowd_out_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="crowd out" />
+
+</LinearLayout>
