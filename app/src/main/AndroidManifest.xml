@@ -8,8 +8,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".App"
@@ -24,6 +24,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -44,15 +45,17 @@
                 android:resource="@xml/file_path" />
         </provider>
         <service android:name=".TestFloatWindowService" />
-        <activity android:name=".ScanCodeActivity"/>
-        <activity android:name=".CreateQRCodeActivity"/>
-        <activity android:name=".WebViewActivity"/>
-        <activity android:name="com.jushi.library.takingPhoto.view.ClipImageActivity"/>
-        <activity android:name=".RefreshSimpleActivity"/>
-        <activity android:name=".calculator.CalculatorActivity"/>
-        <activity android:name=".UltraRecyclerViewActivity"/>
-        <activity android:name="com.jushi.library.crash.ExceptionInfoActivity"/>
-        <activity android:name=".BottomNavigationViewActivity"/>
+
+        <activity android:name=".ScanCodeActivity" />
+        <activity android:name=".CreateQRCodeActivity" />
+        <activity android:name=".WebViewActivity" />
+        <activity android:name="com.jushi.library.takingPhoto.view.ClipImageActivity" />
+        <activity android:name=".RefreshSimpleActivity" />
+        <activity android:name=".calculator.CalculatorActivity" />
+        <activity android:name=".UltraRecyclerViewActivity" />
+        <activity android:name="com.jushi.library.crash.ExceptionInfoActivity" />
+        <activity android:name=".BottomNavigationViewActivity" />
+        <activity android:name=".CalendarViewActivity" />
     </application>
 
 

@@ -12,7 +12,13 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    sourceSets {
+        main {
+//            jniLibs.srcDirs = ['src/main/jniLibs']
+            res.srcDirs = ['src/main/res']
+        }
     }
     buildTypes {
         release {

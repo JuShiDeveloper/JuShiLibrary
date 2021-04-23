@@ -325,6 +325,12 @@
             android:layout_height="wrap_content"
             android:text="TEST Bottom navigation" />
 
+        <Button
+            android:id="@+id/test_calender_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TEST Calender View" />
+
     </LinearLayout>
 
 

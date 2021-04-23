@@ -160,6 +160,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 
     @FindViewById(R.id.test_bottom_nav)
     private Button btnBottomNav;
+    @FindViewById(R.id.test_calender_view)
+    private Button btnCalender;
 
 
     @Override
@@ -372,7 +374,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         });
 
         btnBottomNav.setOnClickListener(v -> startActivity(new Intent(this, BottomNavigationViewActivity.class)));
-
+        btnCalender.setOnClickListener(v -> startActivity(new Intent(this, CalendarViewActivity.class)));
     }
 
     private List<String> getListData(int max) {
