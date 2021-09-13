@@ -68,7 +68,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         progressBar.setVisibility(needShowProgressBar() ? View.VISIBLE : View.GONE);
     }
 
-    @SuppressLint({"ObsoleteSdkInt", "JavascriptInterface", "setJavaScriptEnabled"})
+    @SuppressLint({"ObsoleteSdkInt", "JavascriptInterface", "setJavaScriptEnabled", "AddJavascriptInterface"})
     private void initWebView() {
         mWebView = findViewById(R.id.webview);
         mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
