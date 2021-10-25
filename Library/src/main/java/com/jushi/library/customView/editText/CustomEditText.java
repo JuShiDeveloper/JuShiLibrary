@@ -20,6 +20,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jushi.library.R;
+import com.jushi.library.customView.wheelview.WheelInfo;
+import com.jushi.library.customView.wheelview.WheelViewDialog;
+
+import java.util.List;
 
 /**
  * 自定义输入框
@@ -29,10 +33,17 @@ import com.jushi.library.R;
  * create by wyf on 2019/08/15
  */
 public class CustomEditText extends RelativeLayout implements View.OnClickListener, TextWatcher {
+    public final int VIEW_TYPE_INPUT = 1;
+    public final int VIEW_TYPE_OPTION = 2;
+    private int type = VIEW_TYPE_INPUT;
     /**
      * 输入框
      */
     private EditText editText;
+    /**
+     * 控件作为选项框时显示
+     */
+    private TextView textView;
     /**
      * 清除内容按钮
      */
@@ -45,6 +56,13 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
      * 获取验证码的文字按钮
      */
     private TextView authCodeBtn;
+
+    /**
+     * 下拉图标，显示时表示当前作为选项框使用
+     */
+    private ImageView ivDropDown;
+    private int inputTextColor;
+    private int hintTextColor;
 
     private OnAuthCodeButtonClickListener authCodeButtomClickListener;
     private OnTextChangedListener onTextChangedListener;
@@ -59,6 +77,8 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
     private int passwordHiddenResId = 0; //隐藏密码图片资源id
     private int passwordDisplayResid = 0; //显示密码图片资源id
     private int defaultTextSize = 42; //输入文字的默认大小,对应xml中设置的 14sp
+
+    private WheelViewDialog wheelViewDialog;
 
     public CustomEditText(Context context) {
         this(context, null);
@@ -86,6 +106,8 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         clearBtn = findViewById(R.id.iv_clear_btn);
         showPswBtn = findViewById(R.id.iv_is_show_view);
         authCodeBtn = findViewById(R.id.tv_auth_code_btn);
+        ivDropDown = findViewById(R.id.iv_drop_down);
+        textView = findViewById(R.id.tv_select_content);
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -109,6 +131,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         setShowPasswordButtonVisible(typedArray.getBoolean(R.styleable.CustomEditText_isShowAuthCodeBtn, false));
         setEditTextBackgroundClor(typedArray.getColor(R.styleable.CustomEditText_editTextBackgroundColor, Color.parseColor("#bebebe")));
         setEditTextBackgroundResource(typedArray.getResourceId(R.styleable.CustomEditText_editTextBackgroundResource, 0));
+        setViewType(typedArray.getInt(R.styleable.CustomEditText_type, 1));
         typedArray.recycle();
     }
 
@@ -195,6 +218,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
     public void setHintText(String hintText) {
         if (hintText == null || hintText.equals("")) return;
         editText.setHint(hintText);
+        textView.setText(hintText);
     }
 
     public void setClearButtonDrawable(int resId) {
@@ -241,7 +265,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         authCodeBtn.setEnabled(enabled);
     }
 
-    public boolean isAuthCodeButtonEnabled(){
+    public boolean isAuthCodeButtonEnabled() {
         return authCodeBtn.isEnabled();
     }
 
@@ -269,7 +293,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
      * @return 输入的内容
      */
     public String getInputText() {
-        return editText.getText().toString();
+        return type == VIEW_TYPE_INPUT ? editText.getText().toString() : textView.getText().toString();
     }
 
     /**
@@ -278,6 +302,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
      * @param color
      */
     public void setInputTextColor(int color) {
+        this.inputTextColor = color;
         editText.setTextColor(color);
     }
 
@@ -287,7 +312,9 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
      * @param color
      */
     public void setHintTextColor(int color) {
+        this.hintTextColor = color;
         editText.setHintTextColor(color);
+        textView.setTextColor(color);
     }
 
     /**
@@ -341,6 +368,47 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
 
     public TextView getAuthCodeBtn() {
         return authCodeBtn;
+    }
+
+    /**
+     * 设置view作用类型
+     *
+     * @param type 1-输入框  2-选项框
+     */
+    private void setViewType(int type) {
+        this.type = type;
+        ivDropDown.setVisibility(type == VIEW_TYPE_INPUT ? GONE : VISIBLE);
+        textView.setVisibility(type == VIEW_TYPE_INPUT ? GONE : VISIBLE);
+        editText.setVisibility(type != VIEW_TYPE_INPUT ? GONE : VISIBLE);
+        editText.setEnabled(type == VIEW_TYPE_INPUT);
+        if (type == VIEW_TYPE_INPUT) return;
+        wheelViewDialog = new WheelViewDialog(getContext());
+        textView.setOnClickListener(v -> {
+            wheelViewDialog.show();
+        });
+        wheelViewDialog.setOnConfirmClickListener(wheelInfo -> {
+            textView.setTextColor(inputTextColor);
+            textView.setText(wheelInfo.getName());
+        });
+    }
+
+    /**
+     * 获取选择的选项 当{@this.type}为2时有效
+     *
+     * @return
+     */
+    public WheelInfo getSelectOptionInfo() {
+        return wheelViewDialog == null ? null : wheelViewDialog.getWheelInfo();
+    }
+
+    /**
+     * 设置选项数据
+     *
+     * @param infos
+     */
+    public void setSelectOptions(List<WheelInfo> infos) {
+        if (wheelViewDialog == null) return;
+        wheelViewDialog.setData(infos);
     }
 
     @Override

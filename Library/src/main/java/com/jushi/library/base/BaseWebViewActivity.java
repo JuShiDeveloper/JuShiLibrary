@@ -1,21 +1,17 @@
 package com.jushi.library.base;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.DownloadListener;
@@ -28,7 +24,8 @@ import android.widget.ProgressBar;
 import com.jushi.library.BuildConfig;
 import com.jushi.library.R;
 import com.jushi.library.customView.navigationbar.NavigationBar;
-import com.jushi.library.utils.Logger;
+import com.jushi.library.utils.LogUtil;
+import com.jushi.library.utils.ToastUtil;
 
 /**
  * 网页加载界面基类
@@ -54,8 +51,13 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
     @Override
     protected void initView() {
         navigationBar = findViewById(R.id.NavigationBar);
+        navigationBar.setVisibility(showNavigationBar() ? View.VISIBLE : View.GONE);
         initWebView();
         initProgressBar();
+    }
+
+    protected boolean showNavigationBar() {
+        return true;
     }
 
     @Override
@@ -68,7 +70,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         progressBar.setVisibility(needShowProgressBar() ? View.VISIBLE : View.GONE);
     }
 
-    @SuppressLint({"ObsoleteSdkInt", "JavascriptInterface", "setJavaScriptEnabled", "AddJavascriptInterface"})
+    @SuppressLint({"ObsoleteSdkInt", "JavascriptInterface", "setJavaScriptEnabled"})
     private void initWebView() {
         mWebView = findViewById(R.id.webview);
         mWebView.getSettings().setDefaultTextEncodingName("UTF-8");
@@ -136,13 +138,16 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         @Override
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
+            navigationBar.setTitleText(title);
             onTitleChanged(title);
         }
 
         @Override
         public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-            if (BuildConfig.DEBUG)
-                Logger.v("WebViewActivity", consoleMessage.message());
+            LogUtil.v("H5日志： " + consoleMessage.message());
+            if (consoleMessage.message().contains("MissingPDFException")){
+                ToastUtil.showToast(getBaseContext(),"文件加载失败，请确认文件链接有效！", Gravity.CENTER);
+            }
             return super.onConsoleMessage(consoleMessage);
         }
 
@@ -160,7 +165,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
-        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
             uploadMessageAboveL = filePathCallback;
             String[] acceptTypes = fileChooserParams.getAcceptTypes();
             for (int i = 0; i < acceptTypes.length; i++) {
@@ -259,6 +264,10 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         }
     }
 
+    public WebView getWebView() {
+        return mWebView;
+    }
+
     /**
      * 是否显示进度条
      *
@@ -278,7 +287,10 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
      *
      * @param title
      */
-    protected abstract void onTitleChanged(String title);
+    protected void onTitleChanged(String title) {
+    }
+
+    ;
 
     /**
      * js回调对象

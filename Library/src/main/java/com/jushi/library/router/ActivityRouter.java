@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.jushi.library.utils.Logger;
+import com.jushi.library.utils.LogUtil;
 
 /**
  * Describe:路由器
@@ -37,7 +37,7 @@ public class ActivityRouter {
             Class clazz = Class.forName(name);
             startActivity(context, clazz, bundle);
         } catch (ClassNotFoundException e) {
-            Logger.v("Router", "The class cannot be found");
+            LogUtil.v("Router", "The class cannot be found");
         }
     }
 
@@ -52,7 +52,7 @@ public class ActivityRouter {
             Class clazz = Class.forName(name);
             startActivity(context, clazz, null);
         } catch (ClassNotFoundException e) {
-            Logger.v("Router", "The class cannot be found");
+            LogUtil.v("Router", "The class cannot be found");
         }
     }
 }

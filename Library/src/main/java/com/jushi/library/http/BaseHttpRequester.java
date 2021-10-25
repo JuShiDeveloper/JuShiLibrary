@@ -2,8 +2,13 @@ package com.jushi.library.http;
 
 import android.support.annotation.NonNull;
 
+import com.jushi.library.base.BaseApplication;
+import com.jushi.library.base.BaseManager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import okhttp3.Response;
 
 
 /**
@@ -22,17 +27,41 @@ public abstract class BaseHttpRequester<Data> extends BaseHttp {
     }
 
     @Override
-    protected void onRequestSuccess(int code, String message, JSONObject jsonObject) throws JSONException {
-        if (code == 0) {
-            responseListener.onHttpRequesterResponse(code, onRequestRouter(), onDumpData(jsonObject));
-        } else {
-            responseListener.onHttpRequesterResponse(code, onRequestRouter(), onDumpDataError(jsonObject));
+    protected void onRequestSuccess(int code, String message, JSONObject jsonObject, Response response) throws JSONException {
+        if (code == 410) {//未登录或登录信息过期
+            loginOverdue();
+            return;
         }
+        JSONObject dataObj = jsonObject.getJSONObject("data");
+        if (response.request().url().toString().contains("user/authority/login")) {
+            String authorization = response.header("authorization");
+            dataObj.put("authorization", authorization);
+        }
+        BaseApplication.getInstance().getHandler().post(() -> {
+            try {
+                if (code == 200) {
+                    responseListener.onHttpRequesterResponse(code, onRequestRouter(), onDumpData(dataObj));
+                } else {
+                    responseListener.onHttpRequesterResponse(code, onRequestRouter(), onDumpDataError(dataObj));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                onError(-1, "Json 转换异常");
+            }
+        });
     }
 
     @Override
     protected void onError(int code, String errorMsg) {
-        responseListener.onHttpRequesterError(code, onRequestRouter(), errorMsg);
+        BaseApplication.getInstance().getHandler().post(() -> {
+            responseListener.onHttpRequesterError(code, onRequestRouter(), errorMsg);
+        });
+    }
+
+    /**
+     * 登录失效或未登录
+     */
+    protected void loginOverdue() {
     }
 
     /**
@@ -59,4 +88,8 @@ public abstract class BaseHttpRequester<Data> extends BaseHttp {
      * @throws JSONException
      */
     protected abstract Data onDumpDataError(JSONObject jsonObject) throws JSONException;
+
+    protected <V extends BaseManager> V getManager(Class<V> cls) {
+        return BaseApplication.getInstance().getManager(cls);
+    }
 }

@@ -9,6 +9,8 @@ import android.support.v4.content.FileProvider;
 
 
 import com.jushi.library.BuildConfig;
+import com.jushi.library.base.BaseApplication;
+import com.jushi.library.manager.SdManager;
 import com.jushi.library.takingPhoto.view.ClipImageActivity;
 
 import java.io.File;
@@ -24,7 +26,8 @@ public class PictureHelper {
      * @return
      */
     public static File gotoCamera(Activity activity, int requestCode) {
-        File rootFile = new File(activity.getExternalFilesDir(null).getPath() + "/QjhUserImages");
+        SdManager sdManager = BaseApplication.getInstance().getManager(SdManager.class);
+        File rootFile = new File(sdManager.getImagePath());
         if (!rootFile.exists()) {
             rootFile.mkdirs();
         }
@@ -34,7 +37,7 @@ public class PictureHelper {
         Uri contentUri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            contentUri = FileProvider.getUriForFile(activity, BuildConfig.APPLICATION_ID + ".provider", imageFile);
+            contentUri = FileProvider.getUriForFile(activity,  "com.ibat.yongxing.provider", imageFile);
         } else {
             contentUri = Uri.fromFile(imageFile);
         }

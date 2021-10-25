@@ -1,9 +1,10 @@
 package com.jushi.library.http;
 
-import android.util.Log;
-
 
 import com.jushi.library.BuildConfig;
+import com.jushi.library.base.BaseApplication;
+import com.jushi.library.manager.UserManager;
+import com.jushi.library.utils.LogUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -30,10 +31,10 @@ import okhttp3.Response;
  * http请求基类
  */
 abstract class BaseHttp implements Callback {
-    private final String TAG = BaseHttp.class.getSimpleName();
     private static final OkHttpClient httpClient;
     private Call call;
     private boolean isResponse = false;
+    protected UserManager userManager = BaseApplication.getInstance().getManager(UserManager.class);
 
     static {
         httpClient = new OkHttpClient().newBuilder()
@@ -44,6 +45,7 @@ abstract class BaseHttp implements Callback {
     }
 
     public void get() {
+        LogUtil.v("request url = " + onHttpUrl() + getMethodParams());
         Request request = new Request.Builder()
                 .url(onHttpUrl() + getMethodParams())
                 .headers(Headers.of(getHeaders()))
@@ -52,21 +54,18 @@ abstract class BaseHttp implements Callback {
         call = httpClient.newCall(request);
         call.enqueue(this);
         isResponse = false;
-        if (BuildConfig.DEBUG)
-            Log.v(TAG, "request url = " + onHttpUrl() + getMethodParams());
     }
 
     public void post() {
+        LogUtil.v("request url = " + onHttpUrl() + " " + postMethodParams());
         Request request = new Request.Builder()
                 .url(onHttpUrl())
                 .headers(Headers.of(getHeaders()))
-                .post(RequestBody.create(postMethodParams(), MediaType.parse("application/json; charset=utf-8")))
+                .post(RequestBody.create(postMethodParams(), MediaType.parse("application/json")))
                 .build();
         call = httpClient.newCall(request);
         call.enqueue(this);
         isResponse = false;
-        if (BuildConfig.DEBUG)
-            Log.v(TAG, "request url = " + onHttpUrl() + " " + postMethodParams());
     }
 
     /**
@@ -76,12 +75,13 @@ abstract class BaseHttp implements Callback {
         if (isResponse) return;
         call.cancel();
         if (BuildConfig.DEBUG)
-            Log.v(TAG, "cancel request url = " + onHttpUrl() + " " + postMethodParams());
+            LogUtil.v("cancel request url = " + onHttpUrl() + " " + postMethodParams());
     }
 
     private String getMethodParams() {
         List<String> keys = new ArrayList<>(getParamsObject().keySet());
         StringBuilder stringBuilder = new StringBuilder();
+        if (keys.size()==0)return "";
         stringBuilder.append("?");
         for (int i = 0; i < keys.size(); i++) {
             String key = keys.get(i);
@@ -115,18 +115,20 @@ abstract class BaseHttp implements Callback {
      * @return
      */
     private Map<String, String> getHeaders() {
-        String time = System.currentTimeMillis() / 1000 + "";
-        String randomStr = Encoder.encodeByMD5(System.currentTimeMillis() + "" + (int) (Math.random() * 1000000));
+//        String time = System.currentTimeMillis() / 1000 + "";
+//        String randomStr = Encoder.encodeByMD5(System.currentTimeMillis() + "" + (int) (Math.random() * 1000000));
         Map<String, String> headers = new HashMap<>();
-        headers.put("app-id", "10004");
-        headers.put("nonce-str", randomStr);
-        headers.put("timestamp", time);
-
-        Map<String, String> signParams = new HashMap<>(changeParams(getParamsObject()));
-        signParams.put("app_id", "10004");
-        signParams.put("nonce_str", randomStr);
-        signParams.put("timestamp", time);
-        headers.put("sign", makeSign(signParams, "s5bMpNjp9DePwVZLLzZmrHPP45unpMVu"));
+        if (userManager.getUserInfo() != null)
+            headers.put("authorization", userManager.getUserInfo().getAuthorization());
+//        headers.put("app-id", "10004");
+//        headers.put("nonce-str", randomStr);
+//        headers.put("Content-Type", "application/json");
+//
+//        Map<String, String> signParams = new HashMap<>(changeParams(getParamsObject()));
+//        signParams.put("app_id", "10004");
+//        signParams.put("nonce_str", randomStr);
+//        signParams.put("timestamp", time);
+//        headers.put("sign", makeSign(signParams, "s5bMpNjp9DePwVZLLzZmrHPP45unpMVu"));
 
         return headers;
     }
@@ -147,7 +149,7 @@ abstract class BaseHttp implements Callback {
     private Map<String, Object> getParamsObject() {
         Map<String, Object> params = new HashMap<>();
         // 放入公共参数
-        params.put("sid", "c93745878e749c2ccf5e1825f1d5663f");
+//        params.put("authorization", userManager.getUserInfo().getAuthorization());
         onParams(params);
         return params;
     }
@@ -184,6 +186,7 @@ abstract class BaseHttp implements Callback {
     @Override
     public void onFailure(@NotNull Call call, @NotNull IOException e) {
         onError(-1, e.getMessage());
+        LogUtil.v("response url = " + onHttpUrl() + " result = " +  e.getMessage());
         isResponse = true;
     }
 
@@ -195,12 +198,10 @@ abstract class BaseHttp implements Callback {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(response.body().string());
-            if (BuildConfig.DEBUG) {
-                Log.v(TAG, "response url = " + onHttpUrl() + " result = " + jsonObject.toString());
-            }
+            LogUtil.v("response url = " + onHttpUrl() + " result = " + jsonObject.toString());
             code = jsonObject.getInt("code");
-            message = jsonObject.getString("message");
-            onRequestSuccess(code, message, jsonObject);
+            message = jsonObject.getString("msg");
+            onRequestSuccess(code, message, jsonObject, response);
         } catch (JSONException e) {
             onError(code, e.getMessage());
         }
@@ -228,7 +229,7 @@ abstract class BaseHttp implements Callback {
      * @param jsonObject
      * @throws JSONException
      */
-    protected abstract void onRequestSuccess(int code, String message, JSONObject jsonObject) throws JSONException;
+    protected abstract void onRequestSuccess(int code, String message, JSONObject jsonObject, Response response) throws JSONException;
 
     /**
      * 请求结果失败响应

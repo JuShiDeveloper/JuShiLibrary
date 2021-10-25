@@ -15,6 +15,9 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.jushi.library.customView.progressDialog.CustomProgressDialog;
+import com.jushi.library.manager.NetworkManager;
+import com.jushi.library.manager.UserManager;
 import com.jushi.library.systemBarUtils.SystemBarUtil;
 import com.jushi.library.utils.ToastUtil;
 import com.jushi.library.viewinject.ViewInjecter;
@@ -24,9 +27,16 @@ import com.jushi.library.viewinject.ViewInjecter;
  */
 public abstract class BaseFragmentActivity extends BasePermissionActivity {
 
+    private CustomProgressDialog progressDialog;
+    private Boolean isDestroy = false;
+    protected UserManager userManager = null;
+    protected NetworkManager networkManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userManager = getManager(UserManager.class);
+        networkManager = getManager(NetworkManager.class);
         initialize();
     }
 
@@ -39,6 +49,13 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
         initData();
         setListener();
         initAnimator();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.isDestroy = true;
     }
 
     /**
@@ -96,6 +113,11 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
 
     @Override
     protected void onAlertWindowPermissionOpened() {
+
+    }
+
+    @Override
+    protected void onBluetoothOpened() {
 
     }
 
@@ -231,5 +253,39 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
         } else {
             return 0;
         }
+    }
+
+    /**
+     * 显示小菊花对话框
+     */
+    public void showIndeterminateProgressDialog() {
+        if (isDestroy) return;
+        if (progressDialog == null) {
+            progressDialog = CustomProgressDialog.createDialog(this);
+        }
+        progressDialog.setCancelable(false);
+        progressDialog.setStyle(CustomProgressDialog.STYLE_ONE);
+        if (!progressDialog.isShowing()) {
+            try {
+                progressDialog.show();
+            } catch (Throwable e) {
+            }
+        }
+    }
+
+    /**
+     * 关闭小菊花对话框
+     */
+    public void dismissIndeterminateProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            try {
+                progressDialog.dismiss();
+            } catch (Throwable e) {
+            }
+        }
+    }
+
+    public <Manager extends BaseManager> Manager getManager(Class<Manager> cls) {
+        return BaseApplication.getInstance().getManager(cls);
     }
 }

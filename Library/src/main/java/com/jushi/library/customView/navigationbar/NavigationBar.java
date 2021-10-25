@@ -28,6 +28,7 @@ import com.jushi.library.customView.statusBarView.StatusBarView;
  */
 public class NavigationBar extends LinearLayout {
 
+    private LinearLayout llBack;
     private ImageView ivBackBtn;
     private TextView tvCloseBtn;
     private ImageView ivCloseBtn;
@@ -50,10 +51,10 @@ public class NavigationBar extends LinearLayout {
 
     private boolean canEditClick = false;
 
-    private View.OnClickListener backButtonClickListener;
-    private View.OnClickListener closeButtonClickListener;
-    private View.OnClickListener rightButtonClickListener;
-    private View.OnClickListener searchEditClickListener;
+    private OnClickListener backButtonClickListener;
+    private OnClickListener closeButtonClickListener;
+    private OnClickListener rightButtonClickListener;
+    private OnClickListener searchEditClickListener;
 
     public NavigationBar(Context context) {
         this(context, null);
@@ -77,6 +78,7 @@ public class NavigationBar extends LinearLayout {
     private void initView() {
         setOrientation(LinearLayout.VERTICAL);
         View.inflate(getContext(), R.layout.view_navigation_bar_layout, this);
+        llBack = findViewById(R.id.ll_navigation_bar_back);
         ivBackBtn = findViewById(R.id.iv_navigation_bar_back_btn);
         tvCloseBtn = findViewById(R.id.tv_navigation_bar_text_close);
         ivCloseBtn = findViewById(R.id.iv_navigation_bar_icon_close);
@@ -89,7 +91,7 @@ public class NavigationBar extends LinearLayout {
     }
 
     private void setClickListener() {
-        ivBackBtn.setOnClickListener(v -> navigationBarBackButtonClick(v));
+        llBack.setOnClickListener(v -> navigationBarBackButtonClick(v));
         flCloseBtnContainer.setOnClickListener(v -> navigationBarCloseButtonClick(v));
         flRightBtnContainer.setOnClickListener(v -> navigationBarRightButtonClick(v));
         editText.setOnClickListener(v -> searchEditViewClick(v));
@@ -132,8 +134,17 @@ public class NavigationBar extends LinearLayout {
     private void initStatusBarView(boolean isImmersiveStatusBar, int color) {
         if (!isImmersiveStatusBar) return;
         StatusBarView statusBar = new StatusBarView(getContext());
-        statusBar.setBackgroundColor(color);
         addView(statusBar, 0);
+    }
+
+    /**
+     * 获取状态栏高度
+     *
+     * @return
+     */
+    private int getStatusBarHeight() {
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        return resourceId > 0 ? getResources().getDimensionPixelSize(resourceId) : 0;
     }
 
     private void setFunction(int function) {

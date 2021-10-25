@@ -61,7 +61,7 @@ public class SHA1SignCheck {
                 return true;
             }
         } else {
-            Logger.e(TAG, "未给定真实的签名 SHA-1 值");
+            LogUtil.e(TAG, "未给定真实的签名 SHA-1 值");
         }
         return false;
     }

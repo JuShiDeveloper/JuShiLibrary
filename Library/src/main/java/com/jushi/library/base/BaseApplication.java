@@ -8,8 +8,9 @@ import android.os.Handler;
 import com.jushi.library.BuildConfig;
 import com.jushi.library.crash.ExceptionCaughtHandler;
 import com.jushi.library.database.DatabaseManager;
-import com.jushi.library.utils.NetworkManager;
-import com.tencent.bugly.crashreport.CrashReport;
+import com.jushi.library.manager.SdManager;
+import com.jushi.library.manager.UserManager;
+import com.jushi.library.manager.NetworkManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -105,23 +106,19 @@ public class BaseApplication extends Application {
     protected void registerManager(List<BaseManager> lists) {
         lists.add(new NetworkManager());            // 网络管理器
         lists.add(new DatabaseManager());            // 数据库管理类
+        lists.add(new UserManager());
+        lists.add(new SdManager());
     }
 
     private void initCrashLog(){
-        if (BuildConfig.DEBUG){
-            // 测试版本   开启崩溃显示功能
-            Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
-            ExceptionCaughtHandler exceptionCaughtHandler = new ExceptionCaughtHandler(handler);
-            Thread.setDefaultUncaughtExceptionHandler(exceptionCaughtHandler);
-        }else {
-            try {
-                // 正式版本  启用崩溃提交
-                CrashReport.initCrashReport(this, "1234567890", false);
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-        }
+    if (BuildConfig.DEBUG){
+        // 测试版本   开启崩溃显示功能
+        Thread.UncaughtExceptionHandler handler = Thread.getDefaultUncaughtExceptionHandler();
+        ExceptionCaughtHandler exceptionCaughtHandler = new ExceptionCaughtHandler(handler);
+        Thread.setDefaultUncaughtExceptionHandler(exceptionCaughtHandler);
+    }else {
     }
+}
 
     /**
      * 获得进程名字

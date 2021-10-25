@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.jushi.library.viewinject.ViewInjecter;
 
 public abstract class BaseFragment extends BasePermissionFragment {
-    private View rootView;
+    protected View rootView;
 
     @Nullable
     @Override

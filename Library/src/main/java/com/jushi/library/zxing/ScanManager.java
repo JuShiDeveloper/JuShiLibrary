@@ -34,6 +34,8 @@ import com.jushi.library.zxing.utils.InactivityTimer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.util.Map;
 
@@ -73,7 +75,7 @@ public class ScanManager implements SurfaceHolder.Callback {
      * @param scanLine      扫描线
      */
     public ScanManager(Activity activity, SurfaceView scanPreview, View scanContainer,
-                       View scanCropView, ImageView scanLine, @ScanManager.ScanMode int scanMode, ScanListener listener) {
+                       View scanCropView, ImageView scanLine, @ScanMode int scanMode, ScanListener listener) {
         this.activity = activity;
         this.scanPreview = scanPreview;
         this.scanContainer = scanContainer;
@@ -343,6 +345,7 @@ public class ScanManager implements SurfaceHolder.Callback {
         return false;
     }
 
+    @Retention(RetentionPolicy.SOURCE)
     @IntDef({BARCODE_MODE, QRCODE_MODE, ALL_MODE})
     public @interface ScanMode {
 

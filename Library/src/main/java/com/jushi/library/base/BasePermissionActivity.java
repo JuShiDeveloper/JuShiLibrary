@@ -2,6 +2,8 @@ package com.jushi.library.base;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -28,6 +30,9 @@ abstract class BasePermissionActivity extends AppCompatActivity {
     private final int REQUEST_CODE_PERMISSIONS_LOCATION = 0x03;
     private final int REQUEST_CODE_PERMISSIONS_RECORD_AUDIO = 0x04;
     private final int SYSTEM_ALERT_WINDOW_CODE = 0x05;
+    private final int REQUEST_OPEN_BLUETOOTH = 0x06;
+
+    protected BluetoothAdapter bluetoothAdapter;
 
     /**
      * 检查相机权限
@@ -66,7 +71,7 @@ abstract class BasePermissionActivity extends AppCompatActivity {
      * @return
      */
     protected boolean checkLocationPermission() {
-        return PermissionUtil.request(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+        return PermissionUtil.request(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},
                 REQUEST_CODE_PERMISSIONS_LOCATION);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 //            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -113,6 +118,50 @@ abstract class BasePermissionActivity extends AppCompatActivity {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(this);
     }
 
+    /**
+     * 请求开启蓝牙
+     */
+    protected void requestOpenBluetooth() {
+        if (bluetoothAdapter == null) {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        }
+        if (bluetoothAdapter == null) {
+            showToast("该设备不支持蓝牙");
+            return;
+        }
+        if (!bluetoothAdapter.isEnabled()) {
+            //请求打开并可见
+            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(intent, REQUEST_OPEN_BLUETOOTH);
+        }
+    }
+
+    /**
+     * 蓝牙是否开启
+     *
+     * @return
+     */
+    protected boolean bluetoothIsEnabled() {
+        if (bluetoothAdapter == null) {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        }
+        if (bluetoothAdapter == null) {
+            showToast("该设备不支持蓝牙");
+            return false;
+        }
+        return bluetoothAdapter.isEnabled();
+    }
+
+    /**
+     * 跳转系统蓝牙设置页面
+     */
+    protected void openBluetoothSetting() {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_BLUETOOTH_SETTINGS);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     private void showToast(String msg) {
         ToastUtil.showToast(this, msg);
     }
@@ -156,10 +205,21 @@ abstract class BasePermissionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (canDrawOverlays() && requestCode == SYSTEM_ALERT_WINDOW_CODE) {
-            onAlertWindowPermissionOpened();
-        } else {
-            showToast("悬浮窗权限已被禁止");
+        switch (requestCode) {
+            case SYSTEM_ALERT_WINDOW_CODE:
+                if (canDrawOverlays()) {
+                    onAlertWindowPermissionOpened();
+                } else {
+                    showToast("悬浮窗权限已被禁止");
+                }
+                break;
+            case REQUEST_OPEN_BLUETOOTH:
+                if (bluetoothAdapter.isEnabled()) {
+                    onBluetoothOpened();
+                } else {
+                    showToast("请求打开蓝牙被拒");
+                }
+                break;
         }
     }
 
@@ -211,4 +271,9 @@ abstract class BasePermissionActivity extends AppCompatActivity {
      * 悬浮窗权限打开
      */
     protected abstract void onAlertWindowPermissionOpened();
+
+    /**
+     * 蓝牙一打开
+     */
+    protected abstract void onBluetoothOpened();
 }

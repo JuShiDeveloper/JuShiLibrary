@@ -11,6 +11,9 @@ import android.support.annotation.IntDef;
 import android.support.annotation.StringDef;
 import android.text.TextUtils;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * 给图片添加水印
  * create time 2018/9/12
@@ -303,6 +306,7 @@ public class Watermark {
         return bitmap;
     }
 
+    @Retention(RetentionPolicy.SOURCE)
     @StringDef({LEFT_TOP, LEFT_CENTER, LEFT_BOTTOM, TOP_CENTER, CENTER, BOTTOM_CENTER, RIGHT_TOP, RIGHT_CENTER, RIGHT_BOTTOM})
     @interface GravityType {
     }

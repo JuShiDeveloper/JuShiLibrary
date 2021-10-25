@@ -1,7 +1,11 @@
 package com.jushi.library.http;
 
-import android.os.Handler;
-import android.os.Message;
+
+import android.view.Gravity;
+
+import com.jushi.library.base.BaseApplication;
+import com.jushi.library.utils.LogUtil;
+import com.jushi.library.utils.ToastUtil;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +25,6 @@ import okhttp3.Response;
  * 下载文件
  */
 public class DownloadFileRequester implements Callback {
-    private final String TAG = DownloadFileRequester.class.getSimpleName();
     private static final OkHttpClient httpClient;
     private OnDownloadListener downloadListener;
     private String downloadPath;
@@ -42,6 +45,11 @@ public class DownloadFileRequester implements Callback {
      * @param downloadListener
      */
     public void download(String url, String savePath, String fileName, OnDownloadListener downloadListener) {
+        LogUtil.v("****************************开始下载文件*********************");
+        LogUtil.v("url ：" + url);
+        LogUtil.v("savePath ：" + savePath);
+        LogUtil.v("fileName ：" + fileName);
+        LogUtil.v("*************************************************************");
         this.downloadListener = downloadListener;
         this.downloadPath = savePath;
         this.fileName = fileName;
@@ -55,11 +63,16 @@ public class DownloadFileRequester implements Callback {
     @Override
     public void onFailure(@NotNull Call call, @NotNull IOException e) {
         if (downloadListener != null)
-            downloadListener.onError(e.getMessage());
+            downloadListener.onError(-1,e.getMessage());
     }
 
     @Override
     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+        if (response.code() != 200) {
+            if (downloadListener != null)
+                downloadListener.onError(response.code(),"文件下载链接无法访问");
+            return;
+        }
         InputStream is = null;
         byte[] buf = new byte[2048];
         int length = 0;
@@ -82,11 +95,11 @@ public class DownloadFileRequester implements Callback {
             }
             fos.flush();
             if (downloadListener != null)
-                downloadListener.onSuccess();
+                downloadListener.onSuccess(file.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
             if (downloadListener != null)
-                downloadListener.onError(e.getMessage());
+                downloadListener.onError(-1,e.getMessage());
         } finally {
             try {
                 if (is != null) {
@@ -104,8 +117,8 @@ public class DownloadFileRequester implements Callback {
     public interface OnDownloadListener {
         void onProgress(int progress);
 
-        void onSuccess();
+        void onSuccess(String filePath);
 
-        void onError(String msg);
+        void onError(int code, String msg);
     }
 }

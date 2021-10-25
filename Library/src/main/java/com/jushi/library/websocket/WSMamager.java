@@ -1,7 +1,7 @@
 package com.jushi.library.websocket;
 
 
-import com.jushi.library.utils.Logger;
+import com.jushi.library.utils.LogUtil;
 
 import org.java_websocket.drafts.Draft_6455;
 import org.java_websocket.extensions.IExtension;
@@ -53,7 +53,7 @@ class WSMamager implements WSClientCallBack {
      * @param url WebSocket域名
      */
     public void connect(String url) {
-        Logger.i(TAG, "connectWs: url = " + url);
+        LogUtil.i(TAG, "connectWs: url = " + url);
         this.wsUrl = url;
         if (mHeartTimer == null) {
             mHeartTimer = new Timer();
@@ -85,12 +85,12 @@ class WSMamager implements WSClientCallBack {
 
     public void SendStringMessage(final String message) {
         if (wsClient == null) {
-            Logger.i(TAG, "wsclient is null:");
+            LogUtil.i(TAG, "wsclient is null:");
             return;
         }
         try {
             executor.execute(() -> {
-                Logger.i(TAG, "send:" + message);
+                LogUtil.i(TAG, "send:" + message);
                 if (wsClient != null && wsClient.isOpen()) {
                     wsClient.send(message);
                 }
@@ -138,7 +138,7 @@ class WSMamager implements WSClientCallBack {
     /////////////////////////////////////////// WSClientCallBack回调接口 //////////////////////////////////////
     @Override
     public void onOpen(ServerHandshake handshakedata) {
-        Logger.i(TAG, "connect ws onOpen");
+        LogUtil.i(TAG, "connect ws onOpen");
         mStopSendHeartBeat = false;
         sendHeartBeat();
     }
@@ -148,7 +148,7 @@ class WSMamager implements WSClientCallBack {
         notifier.execute(new Runnable() {
             @Override
             public void run() {
-                Logger.i(TAG, "onMessage:" + message);
+                LogUtil.i(TAG, "onMessage:" + message);
                 onWSConnectlistener.onMessages(message);
             }
         });
@@ -156,14 +156,14 @@ class WSMamager implements WSClientCallBack {
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        Logger.i(TAG, "onClose: code = " + code + "  reason = " + reason + "  remote = " + remote);
+        LogUtil.i(TAG, "onClose: code = " + code + "  reason = " + reason + "  remote = " + remote);
         mStopSendHeartBeat = true;
         onWSConnectlistener.onErrors(reason);
     }
 
     @Override
     public void onError(Exception ex) {
-        Logger.i(TAG, "onError: " + ex.getMessage());
+        LogUtil.i(TAG, "onError: " + ex.getMessage());
         mStopSendHeartBeat = true;
         onWSConnectlistener.onErrors(ex.getMessage());
     }
@@ -176,14 +176,14 @@ class WSMamager implements WSClientCallBack {
             @Override
             public void run() {
                 if (mStopSendHeartBeat) {
-                    Logger.i(TAG, "mStopSendHeartBeat");
+                    LogUtil.i(TAG, "mStopSendHeartBeat");
                     mHeartTimer.cancel();
                     mHeartTimer = null;
                 } else {
                     executor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            Logger.i(TAG, "send:" + mheartbeatMsg);
+                            LogUtil.i(TAG, "send:" + mheartbeatMsg);
                             SendStringMessage(mheartbeatMsg);
                         }
                     });
@@ -229,7 +229,7 @@ class WSMamager implements WSClientCallBack {
     }
 
     private void wSConnect(String _serverUrl) {
-        Logger.d(TAG, "wSConnect: url = " + _serverUrl);
+        LogUtil.d(TAG, "wSConnect: url = " + _serverUrl);
         if (_serverUrl == null || _serverUrl.equals("")) return;
         try {
             URI url = new URI(_serverUrl);
@@ -243,7 +243,7 @@ class WSMamager implements WSClientCallBack {
     }
 
     private void wSSConnect(String wsUrl) {
-        Logger.d(TAG, "wSSConnect: url = " + wsUrl);
+        LogUtil.d(TAG, "wSSConnect: url = " + wsUrl);
         if (wsUrl == null || wsUrl.equals("")) return;
         try {
             URI url = new URI(wsUrl);
@@ -265,7 +265,7 @@ class WSMamager implements WSClientCallBack {
      * @func 检查_serverUrl是否使用ssl
      */
     private boolean CheckUseSSL(String _serverUrl) {
-        Logger.d(TAG, "CheckUseSSL url: " + _serverUrl);
+        LogUtil.d(TAG, "CheckUseSSL url: " + _serverUrl);
 
         if (null == _serverUrl || _serverUrl.equals("") || _serverUrl.length() == 0) {
             return false;
@@ -273,7 +273,7 @@ class WSMamager implements WSClientCallBack {
 
         // 取前3个字符wss
         String head = _serverUrl.substring(0, 3);
-        Logger.d(TAG, "url head is " + head);
+        LogUtil.d(TAG, "url head is " + head);
 
         if (head.compareTo("wss") == 0) {
             return true;
@@ -297,7 +297,7 @@ class WSMamager implements WSClientCallBack {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Logger.d(TAG, "websocket reconnect");
+                    LogUtil.d(TAG, "websocket reconnect");
                     wsClient.reconnect();
                 }
             }).start();

@@ -25,7 +25,7 @@ public class CheckRoot {
                 String path = paths[i] + "su";
                 if (new File(path).exists()) {
                     String execResult = exec(new String[]{"ls", "-l", path});
-                    Logger.d("CheckRoot", "isRooted=" + execResult);
+                    LogUtil.d("CheckRoot", "isRooted=" + execResult);
                     if (TextUtils.isEmpty(execResult) || execResult.indexOf("root") == execResult.lastIndexOf("root")) {
                         return false;
                     }

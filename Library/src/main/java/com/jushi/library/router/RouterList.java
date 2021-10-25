@@ -12,4 +12,8 @@ public class RouterList {
      */
     public static final String LOGINT_ACTIVITY = "com.base.muslim.user.login.LoginEmailActivity";
 
+    /**
+     * 首页Fragment
+     */
+    public static final String HOME_FRAGMENT = "com.ibat.home.HomeFragment";
 }

@@ -4,17 +4,27 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import com.jushi.library.base.BaseApplication;
+import com.jushi.library.manager.UserManager;
+import com.jushi.library.utils.LogUtil;
+
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -30,6 +40,8 @@ public class UploadFileRequester implements Callback {
     private final String TAG = UploadFileRequester.class.getSimpleName();
     private static final OkHttpClient httpClient;
     private OnUploadListener onUploadListener;
+    protected UserManager userManager = BaseApplication.getInstance().getManager(UserManager.class);
+    private String url;
 
     static {
         httpClient = new OkHttpClient().newBuilder()
@@ -49,21 +61,42 @@ public class UploadFileRequester implements Callback {
     });
 
 
-    public void uploadFile(String url, String fileName, OnUploadListener onUploadListener) {
+    public void uploadFile(String url, String filePath, OnUploadListener onUploadListener) {
         this.onUploadListener = onUploadListener;
+        this.url = url;
+        LogUtil.v("文件上传：" + url);
+        RequestBody fileBody = getStreamBody(filePath);
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("avatar", new File(filePath).getName(),fileBody)
+//                .addFormDataPart("avatar", file.getName(), RequestBody.create(MediaType.parse(getMimeType(file.getName())), file))
+                .build();
         Request request = new Request.Builder()
                 .url(url)
-                .post(getStreamBody(fileName))
+                .headers(Headers.of(getHeaders()))
+                .post(requestBody)
                 .build();
         httpClient.newCall(request).enqueue(this);
     }
 
-    private RequestBody getStreamBody(final String fileName) {
+    /**
+     * 请求头参数
+     *
+     * @return
+     */
+    private Map<String, String> getHeaders() {
+        Map<String, String> headers = new HashMap<>();
+        if (userManager.getUserInfo() != null)
+            headers.put("authorization", userManager.getUserInfo().getAuthorization());
+        headers.put("Content-Type", "multipart/form-data");
+        return headers;
+    }
+
+    private RequestBody getStreamBody(final String filePath) {
         return new RequestBody() {
 
             @Override
             public long contentLength() throws IOException {
-                return new File(fileName).length();//若是断点续传则返回剩余的字节数
+                return new File(filePath).length();//若是断点续传则返回剩余的字节数
             }
 
             @Override
@@ -76,7 +109,7 @@ public class UploadFileRequester implements Callback {
             @Override
             public void writeTo(BufferedSink sink) throws IOException {
                 //方式一：
-                FileInputStream fis = new FileInputStream(new File(fileName));
+                FileInputStream fis = new FileInputStream(new File(filePath));
                 fis.skip(0);//跳到指定位置，断点续传
                 long writeLength = 0;
                 int length;
@@ -103,7 +136,8 @@ public class UploadFileRequester implements Callback {
      * @param fileNames
      */
     public void uploadFiles(String url, List<String> fileNames) {
-        Log.v(TAG, "url = " + url);
+        this.url = url;
+        LogUtil.v("文件上传：" + url);
         Call call = httpClient.newCall(getRequest(url, fileNames));
         call.enqueue(this);
     }
@@ -117,7 +151,9 @@ public class UploadFileRequester implements Callback {
      */
     private Request getRequest(String url, List<String> fileNames) {
         Request.Builder builder = new Request.Builder();
-        builder.url(url).post(getRequestBody(fileNames));
+        builder.url(url)
+                .headers(Headers.of(getHeaders()))
+                .post(getRequestBody(fileNames));
         return builder.build();
     }
 
@@ -134,7 +170,7 @@ public class UploadFileRequester implements Callback {
             File file = new File(fileNames.get(i));
             String fileType = getMimeType(file.getName());
             builder.addFormDataPart( //给Builder添加上传的文件
-                    "image",  //请求的名字
+                    "avatar",  //请求的名字
                     file.getName(), //文件的名字，服务器端用来解析的
                     RequestBody.create(MediaType.parse(fileType), file) //创建RequestBody，把上传的文件放入
             );
@@ -150,17 +186,32 @@ public class UploadFileRequester implements Callback {
     @Override
     public void onFailure(@NotNull Call call, @NotNull IOException e) {
         onUploadListener.onError(e.getMessage());
+        LogUtil.v("文件上传结果： url = " + url + " result = " + e.getMessage());
     }
 
     @Override
     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-        onUploadListener.onSuccess();
+        try {
+            JSONObject jsonObject = new JSONObject(response.body().string());
+            LogUtil.v("文件上传结果： url = " + url + " result = " + jsonObject.toString());
+            int code = jsonObject.getInt("code");
+            if (code == 200) {
+                JSONObject obj = new JSONObject();
+                obj.put("data",jsonObject.getString("data"));
+                onUploadListener.onSuccess(obj);
+            } else {
+                onUploadListener.onError(jsonObject.toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            onUploadListener.onError(e.getMessage());
+        }
     }
 
     public interface OnUploadListener {
         void onProgress(int progress);
 
-        void onSuccess();
+        void onSuccess(JSONObject jsonObject) throws JSONException;
 
         void onError(String msg);
     }
