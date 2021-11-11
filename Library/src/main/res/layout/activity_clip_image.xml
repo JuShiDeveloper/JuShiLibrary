@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
+    <com.jushi.library.customView.statusBarView.StatusBarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <com.jushi.library.takingPhoto.view.ClipViewLayout
         android:id="@+id/clip_view"
         android:layout_width="match_parent"
@@ -18,8 +22,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
         android:padding="10dp"
         android:text="取消"
         android:textColor="@android:color/white"
@@ -41,10 +45,10 @@
         android:id="@+id/clip_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:padding="10dp"
         android:text="完成"
         android:textColor="@android:color/white"

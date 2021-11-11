@@ -8,13 +8,21 @@
         android:id="@+id/et_input_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/iv_clear_btn"
         android:layout_centerInParent="true"
+        android:layout_toLeftOf="@+id/iv_clear_btn"
+        android:background="@null"
+        android:drawablePadding="5dp"
         android:maxLines="1"
-        android:padding="5dp"
-        android:drawablePadding="3dp"
-        android:background="@null" />
+        android:padding="10dp" />
 
+    <TextView
+        android:id="@+id/tv_select_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@null"
+        android:maxLines="1"
+        android:padding="10dp" />
     <!--清除内容的x按钮-->
     <ImageView
         android:id="@+id/iv_clear_btn"
@@ -29,15 +37,15 @@
         android:id="@+id/fl_controller_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_alignParentRight="true">
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true">
         <!--控制是否显示输入内容（比如是否显示密码之类的）-->
         <ImageView
             android:id="@+id/iv_is_show_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:padding="5dp"/>
+            android:padding="5dp" />
 
         <!--获取验证码按钮-->
         <TextView
@@ -47,7 +55,12 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:padding="5dp" />
-
+        <!--显示下拉按钮-->
+        <ImageView
+            android:id="@+id/iv_drop_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_expand_more_black_24dp" />
     </FrameLayout>
 
 </RelativeLayout>

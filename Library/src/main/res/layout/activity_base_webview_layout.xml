@@ -32,7 +32,7 @@
             android:id="@+id/webView_progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="5dp"
             android:max="100"
             android:progress="0"
             android:progressDrawable="@drawable/webview_loading_progressbar" />

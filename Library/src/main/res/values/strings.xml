@@ -1,3 +1,6 @@
 <resources>
     <string name="set_richscan_box_tip">请将二维码/条形码置于取景器内扫描,距离大约\n10cm,尽量避免反光</string>
+    <string name="crowd_out_dialog_title">提示</string>
+    <string name="crowd_out_diolg_message">您的账号在另一台设备登录，您被迫下线。</string>
+    <string name="i_know">知道了</string>
 </resources>

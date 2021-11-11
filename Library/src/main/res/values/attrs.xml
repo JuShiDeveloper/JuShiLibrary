@@ -108,6 +108,10 @@
         <attr name="isShowAuthCodeBtn" format="boolean" />
         <attr name="editTextBackgroundColor" format="color" />
         <attr name="editTextBackgroundResource" format="reference" />
+        <attr name="type" >
+            <enum name="input" value="1"/>
+            <enum name="option" value="2"/>
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="FloatViewLayout">
@@ -216,9 +220,9 @@
     </declare-styleable>
 
     <declare-styleable name="BottomNavigationView">
-        <attr name="tab_select_text_color" format="color"/>
-        <attr name="tab_unselect_text_color" format="color"/>
-        <attr name="tab_text_size" format="dimension"/>
+        <attr name="tab_select_text_color" format="color" />
+        <attr name="tab_unselect_text_color" format="color" />
+        <attr name="tab_text_size" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="CalendarView">
@@ -264,5 +268,4 @@
         <!--周的文字大小-->
         <attr name="week_size" format="integer" />
     </declare-styleable>
-
 </resources>
