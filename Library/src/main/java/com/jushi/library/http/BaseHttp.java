@@ -67,6 +67,17 @@ abstract class BaseHttp implements Callback {
         call.enqueue(this);
         isResponse = false;
     }
+    public void patch() {
+        LogUtil.v("request url = " + onHttpUrl() + " " + postMethodParams());
+        Request request = new Request.Builder()
+                .url(onHttpUrl())
+                .headers(Headers.of(getHeaders()))
+                .patch(RequestBody.create(postMethodParams(), MediaType.parse("application/json")))
+                .build();
+        call = httpClient.newCall(request);
+        call.enqueue(this);
+        isResponse = false;
+    }
 
     /**
      * 取消请求
@@ -199,9 +210,13 @@ abstract class BaseHttp implements Callback {
         try {
             jsonObject = new JSONObject(response.body().string());
             LogUtil.v("response url = " + onHttpUrl() + " result = " + jsonObject.toString());
-            code = jsonObject.getInt("code");
-            message = jsonObject.getString("msg");
-            onRequestSuccess(code, message, jsonObject, response);
+            if (response.request().url().toString().contains("apis.map.qq.com")){
+                onRequestSuccess(code, message, jsonObject, response);
+            }else {
+                code = jsonObject.getInt("code");
+                message = jsonObject.getString("msg");
+                onRequestSuccess(code, message, jsonObject, response);
+            }
         } catch (JSONException e) {
             onError(code, e.getMessage());
         }

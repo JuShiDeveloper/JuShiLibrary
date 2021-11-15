@@ -8,10 +8,15 @@ import android.os.Handler;
 import com.jushi.library.BuildConfig;
 import com.jushi.library.crash.ExceptionCaughtHandler;
 import com.jushi.library.database.DatabaseManager;
+import com.jushi.library.bluetooth.BluetoothFuncManager;
 import com.jushi.library.manager.SdManager;
 import com.jushi.library.manager.UserManager;
 import com.jushi.library.manager.NetworkManager;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -98,6 +103,12 @@ public class BaseApplication extends Application {
         }
     }
 
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD})
+    public @interface Manager {
+
+    }
+
     /**
      * 注册管理类
      *
@@ -108,6 +119,7 @@ public class BaseApplication extends Application {
         lists.add(new DatabaseManager());            // 数据库管理类
         lists.add(new UserManager());
         lists.add(new SdManager());
+        lists.add(new BluetoothFuncManager());
     }
 
     private void initCrashLog(){

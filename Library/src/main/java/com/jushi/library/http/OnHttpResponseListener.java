@@ -8,7 +8,7 @@ public interface OnHttpResponseListener<Data> {
      * @param router 请求的接口路由
      * @param data   响应数据
      */
-    void onHttpRequesterResponse(int code, String router, Data data);
+    void onHttpRequesterResponse(int code, String router,String message, Data data);
 
     /**
      * 请求失败响应

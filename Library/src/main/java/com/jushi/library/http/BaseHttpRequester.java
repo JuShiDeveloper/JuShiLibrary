@@ -28,27 +28,35 @@ public abstract class BaseHttpRequester<Data> extends BaseHttp {
 
     @Override
     protected void onRequestSuccess(int code, String message, JSONObject jsonObject, Response response) throws JSONException {
-        if (code == 410) {//未登录或登录信息过期
-            loginOverdue();
-            return;
-        }
-        JSONObject dataObj = jsonObject.getJSONObject("data");
-        if (response.request().url().toString().contains("user/authority/login")) {
-            String authorization = response.header("authorization");
-            dataObj.put("authorization", authorization);
-        }
-        BaseApplication.getInstance().getHandler().post(() -> {
-            try {
-                if (code == 200) {
-                    responseListener.onHttpRequesterResponse(code, onRequestRouter(), onDumpData(dataObj));
-                } else {
-                    responseListener.onHttpRequesterResponse(code, onRequestRouter(), onDumpDataError(dataObj));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                onError(-1, "Json 转换异常");
+        if (response.request().url().toString().contains("apis.map.qq.com")){//根据经纬度获取位置信息
+            responseListener.onHttpRequesterResponse(code, onRequestRouter(),message, onDumpData(jsonObject));
+        }else {
+            JSONObject dataObj = null;
+            if (code == 410) {//未登录或登录信息过期
+                loginOverdue(response.request().url().toString());
+                return;
             }
-        });
+            if (jsonObject.has("data")){
+                dataObj = jsonObject.getJSONObject("data");
+            }
+            if (response.request().url().toString().contains("user/authority/login")) {
+                String authorization = response.header("authorization");
+                dataObj.put("authorization", authorization);
+            }
+            JSONObject finalDataObj = dataObj;
+            BaseApplication.getInstance().getHandler().post(() -> {
+                try {
+                    if (code == 200) {
+                        responseListener.onHttpRequesterResponse(code, onRequestRouter(),message, onDumpData(finalDataObj));
+                    } else {
+                        responseListener.onHttpRequesterResponse(code, onRequestRouter(),message, onDumpDataError(finalDataObj));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    onError(-1, "Json 转换异常");
+                }
+            });
+        }
     }
 
     @Override
@@ -60,8 +68,9 @@ public abstract class BaseHttpRequester<Data> extends BaseHttp {
 
     /**
      * 登录失效或未登录
+     * @param s
      */
-    protected void loginOverdue() {
+    protected void loginOverdue(String s) {
     }
 
     /**

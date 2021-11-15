@@ -158,6 +158,10 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
         ToastUtil.showToast(this, msg);
     }
 
+    public void showToast(String msg,int gravity) {
+        ToastUtil.showToast(this, msg,gravity);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

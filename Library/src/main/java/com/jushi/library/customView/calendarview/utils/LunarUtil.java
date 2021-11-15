@@ -346,7 +346,7 @@ public class LunarUtil {
         synchronized (utcCal) {
             utcCal.clear();
             utcCal.setTimeInMillis(date.getTime());
-            return utcCal.get(Calendar.DAY_OF_MONTH);
+            return utcCal.get(java.util.Calendar.DAY_OF_MONTH);
         }
     }
 

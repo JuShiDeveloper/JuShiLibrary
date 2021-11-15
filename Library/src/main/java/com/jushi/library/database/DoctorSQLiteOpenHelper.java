@@ -12,19 +12,19 @@ public class DoctorSQLiteOpenHelper extends SQLiteOpenHelper {
     public static final int version = 1;
 
     DoctorSQLiteOpenHelper() {
-        super(BaseApplication.getInstance(), "database_name", null, version);
+        super(BaseApplication.getInstance(), "db_yongxing", null, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         //create table
-        createUserInfoTable(db);
+        createDeviceParamsTable(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //update data base
-        if (oldVersion < 2) {
+        if (oldVersion < version) {
             //TO DO
 
         }
@@ -32,14 +32,17 @@ public class DoctorSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * 创建用户信息表，保存用户信息（json字符串格式保存）
+     * 创建设备配置 设备参数缓存表，保存配置的设备参数（params 以json字符串格式保存）
      *
      * @param db
      */
-    private void createUserInfoTable(SQLiteDatabase db) {
-        db.execSQL("create table test(" +
+    private void createDeviceParamsTable(SQLiteDatabase db) {
+        db.execSQL("create table device_params(" +
                 "id integer primary key autoincrement," +
-                "json_info text)");
+                "device_code text,"+ //设备编号
+                "params text," +   //参数json字符串
+                "state integer default 0," +  //上传状态 0-未上传  1-已上传
+                "type integer)"); //参数类型 0-LORA参数  1-网络参数
     }
 
 }

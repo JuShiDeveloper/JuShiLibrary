@@ -119,6 +119,6 @@ public class DownloadFileRequester implements Callback {
 
         void onSuccess(String filePath);
 
-        void onError(int code, String msg);
+        void onError(int code,String msg);
     }
 }

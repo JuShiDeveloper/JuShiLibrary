@@ -7,6 +7,7 @@ import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
@@ -15,6 +16,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.webkit.ConsoleMessage;
 import android.webkit.DownloadListener;
+import android.webkit.GeolocationPermissions;
+import android.webkit.SslErrorHandler;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -79,6 +82,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.getSettings().setGeolocationEnabled(true);
         mWebView.addJavascriptInterface(onJavascriptInterfaceObject(), onJavascriptInterfaceName());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             mWebView.getSettings().setDisplayZoomControls(false);
@@ -121,6 +125,12 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             super.onReceivedError(view, errorCode, description, failingUrl);
 //            mWebView.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+//            super.onReceivedSslError(view, handler, error);
+            handler.proceed();
         }
     }
 
@@ -165,13 +175,19 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
-        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
             uploadMessageAboveL = filePathCallback;
             String[] acceptTypes = fileChooserParams.getAcceptTypes();
             for (int i = 0; i < acceptTypes.length; i++) {
                 openImageChooserActivity(acceptTypes[i]);
             }
             return true;
+        }
+
+        @Override
+        public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+            callback.invoke(origin, true, false);
+            super.onGeolocationPermissionsShowPrompt(origin, callback);
         }
     }
 

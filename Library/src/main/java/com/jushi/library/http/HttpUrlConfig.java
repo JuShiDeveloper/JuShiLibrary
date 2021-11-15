@@ -16,7 +16,7 @@ public abstract class HttpUrlConfig {
     private static String baseUrl() {
         if (BuildConfig.DEBUG) {
             return "http://139.159.248.233:8085";
-//            return "http://192.168.1.105:20000";
+//            return "http://192.168.1.107:20000";
         } else {
             return "http://139.159.248.233:8085";
         }
@@ -29,9 +29,9 @@ public abstract class HttpUrlConfig {
      */
     public static String h5Host() {
         if (BuildConfig.DEBUG) {
-            return "http://192.168.1.127:8080/";
+            return "http://139.159.248.233:8086/";
         } else {
-            return "";
+            return "http://139.159.248.233:8086/";
         }
     }
 }

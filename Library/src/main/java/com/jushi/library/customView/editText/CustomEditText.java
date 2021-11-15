@@ -63,6 +63,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
     private ImageView ivDropDown;
     private int inputTextColor;
     private int hintTextColor;
+    private String hintText;
 
     private OnAuthCodeButtonClickListener authCodeButtomClickListener;
     private OnTextChangedListener onTextChangedListener;
@@ -217,6 +218,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
      */
     public void setHintText(String hintText) {
         if (hintText == null || hintText.equals("")) return;
+        this.hintText = hintText;
         editText.setHint(hintText);
         textView.setText(hintText);
     }
@@ -389,6 +391,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         wheelViewDialog.setOnConfirmClickListener(wheelInfo -> {
             textView.setTextColor(inputTextColor);
             textView.setText(wheelInfo.getName());
+            setClearButtonVisible(true);
         });
     }
 
@@ -418,9 +421,13 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
 //获取验证码按钮点击
         if (i == R.id.iv_clear_btn) {
             editText.setText("");
+            if (type == VIEW_TYPE_OPTION) {
+                textView.setText(hintText);
+                textView.setTextColor(hintTextColor);
+                setClearButtonVisible(false);
+            }
         } else if (i == R.id.iv_is_show_view) {
             showPswBtnClickEvent();
-
         } else if (i == R.id.tv_auth_code_btn) {
             if (authCodeButtomClickListener != null)
                 authCodeButtomClickListener.onAuthCodeButtonClick(v);

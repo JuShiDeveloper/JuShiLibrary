@@ -7,8 +7,9 @@ import com.jushi.library.base.BaseApplication;
 
 /**
  * 管理器基类，所有管理器都必须继承自本类
+ * 继承 Handler 为了方便与子线程通信
  */
-public abstract class BaseManager {
+public abstract class BaseManager extends Handler{
 
     /**
      * 管理器被初始化的回调，初始化整个管理器
