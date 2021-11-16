@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -53,6 +52,8 @@ public class BluetoothFuncManager extends BaseManager {
     private List<BluetoothFoundListener> foundListeners = new ArrayList<>();
     private List<OnReceivedMessageListener> receivedMessageListeners = new ArrayList<>();
     private String readMsg = "";
+
+    private SpBLE spBLE;
 
 
     @Override
@@ -123,6 +124,7 @@ public class BluetoothFuncManager extends BaseManager {
         activity.unregisterReceiver(foundReceiver);
         activity.unregisterReceiver(openStateReceiver);
         activity = null;
+        System.gc();
     }
 
     /**
@@ -184,18 +186,33 @@ public class BluetoothFuncManager extends BaseManager {
      * @param device
      */
     public void connect(BluetoothDevice device) {
-        if (connectService == null) {
-            connectService = new BluetoothConnectService(activity, this);
+        //DEVICE_TYPE_CLASSIC 1 BR/EDR
+        //DEVICE_TYPE_LE 2 LE-only
+        //DEVICE_TYPE_DUAL 3 双模式BR/EDR/LE
+        //DEVICE_TYPE_UNKNOWN 0 蓝牙不可用
+        if (device.getType() == BluetoothDevice.DEVICE_TYPE_DUAL) {
+            if (connectService == null) {
+                connectService = new BluetoothConnectService(activity, this);
+            }
+            connectService.connect(device);
+        } else {
+            if (spBLE == null) {
+                spBLE = new SpBLE(activity, this);
+            }
+            spBLE.connect(device, activity);
         }
-        connectService.connect(device);
     }
 
     /**
      * 断开连接
      */
     public void disConnect() {
-        if (connectService == null) return;
-        connectService.stop();
+        if (connectService != null) {
+            connectService.stop();
+        }
+        if (spBLE != null) {
+            spBLE.disconnect();
+        }
     }
 
     /**
@@ -205,11 +222,17 @@ public class BluetoothFuncManager extends BaseManager {
      */
     public void write(String msg) {
         try {
-            connectService.write(msg.getBytes("GBK"));
+            if (connectService != null) {
+                connectService.write(msg.getBytes("GBK"));
+            }
+            if (spBLE != null) {
+                spBLE.write(msg.getBytes("GBK"));
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * 蓝牙开启状态广播监听
      */
@@ -243,10 +266,10 @@ public class BluetoothFuncManager extends BaseManager {
             BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
             switch (intent.getAction()) {
                 case BluetoothDevice.ACTION_ACL_CONNECTED://已连接
-                    notificationConnectChange("已连接", device);
+                    notificationConnectChange("已连接",0, device);
                     break;
                 case BluetoothDevice.ACTION_ACL_DISCONNECTED://断开连接
-                    notificationConnectChange("已断开连接", device);
+                    notificationConnectChange("已断开连接",1, device);
                     break;
             }
         }
@@ -257,17 +280,19 @@ public class BluetoothFuncManager extends BaseManager {
      * 通知外部监听，蓝牙连接状态改变
      *
      * @param state  已连接  断开连接
+     * @param code 0-已连接  1-已断开连接
      * @param device 蓝牙设备对象
      */
-    private void notificationConnectChange(String state, BluetoothDevice device) {
+    private void notificationConnectChange(String state,int code, BluetoothDevice device) {
         log(device.getName() + "   " + state);
         for (BluetoothConnectListener listener : connectListeners) {
-            listener.onConnectChange(state, device);
+            listener.onConnectChange(state,code, device);
         }
     }
 
     /**
      * 添加蓝牙连接监听
+     *
      * @param listener
      */
     public void addBluetoothConnectListener(BluetoothConnectListener listener) {
@@ -276,15 +301,18 @@ public class BluetoothFuncManager extends BaseManager {
 
     /**
      * 移除蓝牙连接监听
+     *
      * @param listener
      */
     public void removeBluetoothConnectListener(BluetoothConnectListener listener) {
         connectListeners.remove(listener);
     }
+
     public interface BluetoothConnectListener {
-        void onConnectChange(String state, BluetoothDevice device);
+        void onConnectChange(String state, int code, BluetoothDevice device);
 
     }
+
     /**
      * 蓝牙扫描广播
      */
@@ -321,11 +349,13 @@ public class BluetoothFuncManager extends BaseManager {
 
     /**
      * 移除蓝牙扫描结果监听
+     *
      * @param listener
      */
     public void removeBluetoothFoundListener(BluetoothFoundListener listener) {
         foundListeners.remove(listener);
     }
+
     public interface BluetoothFoundListener {
         void onFoundDevice(int action, BluetoothDevice device);
 
@@ -399,7 +429,7 @@ public class BluetoothFuncManager extends BaseManager {
         postDelayed(() -> {
             if (!TextUtils.isEmpty(this.readMsg)) {
 //                log("收到消息：" + this.readMsg);
-                for (OnReceivedMessageListener listener:receivedMessageListeners){
+                for (OnReceivedMessageListener listener : receivedMessageListeners) {
                     listener.onReceivedMessage(this.readMsg);
                 }
                 this.readMsg = "";
@@ -409,16 +439,19 @@ public class BluetoothFuncManager extends BaseManager {
 
     /**
      * 添加收到消息监听
+     *
      * @param listener
      */
-    public void addOnReceivedMessageListener(OnReceivedMessageListener listener){
+    public void addOnReceivedMessageListener(OnReceivedMessageListener listener) {
         this.receivedMessageListeners.add(listener);
     }
+
     /**
      * 移除收到消息监听
+     *
      * @param listener
      */
-    public void removeOnReceivedMessageListener(OnReceivedMessageListener listener){
+    public void removeOnReceivedMessageListener(OnReceivedMessageListener listener) {
         this.receivedMessageListeners.remove(listener);
     }
 
