@@ -330,6 +330,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TEST Calender View" />
+        <Button
+            android:id="@+id/test_map_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TEST SELECT LOCATION" />
 
     </LinearLayout>
 

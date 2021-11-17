@@ -17,11 +17,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="true">
         <activity
-            android:name=".TestActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:name=".TestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -30,8 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:name=".MainActivity"/>
 
         <activity android:name=".NavigationBarActivity" />
 
@@ -56,6 +53,7 @@
         <activity android:name="com.jushi.library.crash.ExceptionInfoActivity" />
         <activity android:name=".BottomNavigationViewActivity" />
         <activity android:name=".CalendarViewActivity" />
+        <activity android:name="com.jushi.library.amap.SelectLocationActivity"/>
     </application>
 
 

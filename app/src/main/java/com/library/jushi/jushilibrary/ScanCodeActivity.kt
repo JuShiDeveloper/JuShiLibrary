@@ -8,7 +8,7 @@ import android.provider.MediaStore
 import android.view.View
 import com.jushi.library.base.BaseFragmentActivity
 import com.jushi.library.takingPhoto.PictureHelper
-import com.jushi.library.utils.Logger
+import com.jushi.library.utils.LogUtil
 import com.jushi.library.utils.PermissionUtil
 import com.jushi.library.zxing.ScanListener
 import com.jushi.library.zxing.ScanManager
@@ -91,13 +91,13 @@ class ScanCodeActivity : BaseFragmentActivity(), ScanListener {
      * 扫描成功结果
      */
     override fun scanResult(result: String?, bundle: Bundle?) {
-        Logger.v("ScanCodeActivity", result)
+        LogUtil.v("ScanCodeActivity", result)
     }
 
     /**
      * 扫描失败
      */
     override fun scanError(e: Exception?) {
-        Logger.v("ScanCodeActivity", e!!.message)
+        LogUtil.v("ScanCodeActivity", e!!.message)
     }
 }

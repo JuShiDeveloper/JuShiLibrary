@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.jushi.library.amap.SelectLocationActivity;
 import com.jushi.library.base.BaseFragmentActivity;
 import com.jushi.library.base.BaseApplication.Manager;
 import com.jushi.library.customView.bottomNavgationView.BottomNavigationView;
@@ -162,6 +163,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button btnBottomNav;
     @FindViewById(R.id.test_calender_view)
     private Button btnCalender;
+    @FindViewById(R.id.test_map_view)
+    private Button btnMap;
 
 
     @Override
@@ -375,6 +378,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 
         btnBottomNav.setOnClickListener(v -> startActivity(new Intent(this, BottomNavigationViewActivity.class)));
         btnCalender.setOnClickListener(v -> startActivity(new Intent(this, CalendarViewActivity.class)));
+        btnMap.setOnClickListener(v -> startActivityForResult(new Intent(this, SelectLocationActivity.class),121));
     }
 
     private List<String> getListData(int max) {
@@ -518,6 +522,9 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
             case REQUEST_CODE_OPEN_CAMERA:
                 LogUtil.v("yufei", imageFile.getPath());
                 PictureHelper.gotoClipActivity(this, Uri.fromFile(imageFile), REQUEST_CODE_CLIP_PHOTO);
+                break;
+            case 121:
+                LogUtil.v("选择位置信息: "+data.getStringExtra(SelectLocationActivity.EXTRA_LOCATION));
                 break;
         }
     }

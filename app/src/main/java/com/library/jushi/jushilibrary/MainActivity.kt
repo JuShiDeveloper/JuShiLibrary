@@ -57,14 +57,13 @@ class MainActivity : BaseFragmentActivity(), MessageInputView.OnMessageInputList
         list.add(fileName)
         btn.setOnClickListener {
             tv_progress.text = "0%"
-            UploadFileRequester().uploadFile(url, fileName, object : UploadFileRequester.OnUploadListener { //文件上传
+            UploadFileRequester().uploadFile(url, fileName, object : UploadFileRequester.OnUploadListener {
+                override fun onSuccess(jsonObject: JSONObject?) {
+                    Log.v("yufei", "onSucess")
+                } //文件上传
                 override fun onProgress(progress: Int) {
                     runOnUiThread { tv_progress.text = "$progress%" }
                     Log.v("yufei", "$progress%")
-                }
-
-                override fun onSuccess() {
-                    Log.v("yufei", "onSucess")
                 }
 
                 override fun onError(msg: String?) {
@@ -82,15 +81,15 @@ class MainActivity : BaseFragmentActivity(), MessageInputView.OnMessageInputList
         var savePath = externalCacheDir.path + "/download"
         var fileName = "testDownload.jpg"
         DownloadFileRequester().download(url, savePath, fileName, object : DownloadFileRequester.OnDownloadListener {
+            override fun onSuccess(filePath: String?) {
+                Log.v("yufei", "onSucess")
+            }
+
             override fun onProgress(progress: Int) {
                 Log.v("yufei", "$progress%")
             }
 
-            override fun onSuccess() {
-                Log.v("yufei", "onSucess")
-            }
-
-            override fun onError(msg: String?) {
+            override fun onError(code: Int, msg: String?) {
                 Log.v("yufei", "onError  $msg")
             }
         })

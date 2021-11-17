@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.webkit.JavascriptInterface;
 
 import com.jushi.library.base.BaseWebViewActivity;
-import com.jushi.library.utils.Logger;
+import com.jushi.library.utils.LogUtil;
 
 /**
  * 网页加载界面示例
@@ -60,14 +60,14 @@ public class WebViewActivity extends BaseWebViewActivity {
 
     @JavascriptInterface
     public void toPay(String data) {
-        Logger.v("WebViewActivity", data);
+        LogUtil.v("WebViewActivity", data);
     }
 
     private class Test {
 
         @JavascriptInterface
         public void toPay(String data) {
-            Logger.v("WebViewActivity", data);
+            LogUtil.v("WebViewActivity", data);
         }
     }
 }
