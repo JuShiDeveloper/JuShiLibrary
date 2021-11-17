@@ -2,6 +2,7 @@ package com.library.jushi.jushilibrary;
 
 import com.jushi.library.base.BaseApplication;
 import com.jushi.library.base.BaseManager;
+import com.jushi.library.utils.LogUtil;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class App extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         app = this;
+        LogUtil.TAG = BaseApplication.class.getName();
     }
 
     /**

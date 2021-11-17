@@ -263,8 +263,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 
     @Override
     protected void initData() {
-        t = new TestGETRequester(this);
-        new TestPOSTRequester(this).post();
+//        t = new TestGETRequester(this);
+//        new TestPOSTRequester(this).post();
         testUseDataBase();
         initWheelView();
         new TestWebSocketManager().initWs("wss://test-dr.hlwyy.cn:8282");
