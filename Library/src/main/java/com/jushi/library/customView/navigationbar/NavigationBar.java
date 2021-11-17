@@ -411,6 +411,15 @@ public class NavigationBar extends LinearLayout {
         searchEditClickListener.onClick(v);
     }
 
+    /**
+     * 获取输入的内容
+     * xml中function为 SEARCH 并且searchEditEnable="true" 时，通过该方法获取输入的内容
+     * @return
+     */
+    public String getInputText(){
+        return editText.getText().toString();
+    }
+
     public void setOnBackButtonClickListener(OnClickListener backButtonClickListener) {
         this.backButtonClickListener = backButtonClickListener;
     }

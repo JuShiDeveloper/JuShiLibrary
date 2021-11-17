@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <com.jushi.library.customView.statusBarView.StatusBarView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#5396FF"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <com.amap.api.maps.MapView
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_location"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:focusable="false"
+            android:src="@mipmap/icon_location_red" />
+    </RelativeLayout>
+    <com.jushi.library.customView.navigationbar.NavigationBar
+        android:id="@+id/search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:backButtonIconResource="@drawable/ic_arrow_back_black"
+        app:closeButtonText="关闭"
+        app:closeButtonTextColor="#f7f7f7"
+        app:closeButtonTextSize="15sp"
+        app:function="BACK_BUTTON|SEARCH|RIGHT_ICON_BUTTON"
+        app:rightButtonIconResource="@drawable/ic_search_black"
+        app:searchBackgroundResource="@drawable/edit_shape"
+        app:searchEditEnable="true"
+        app:searchEditFocusable="true"
+        app:searchHint="输入搜索关键字"
+        app:searchHintColor="#999999"
+        app:searchTextColor="#333333"
+        app:searchTextSize="14sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#eeeeee" />
+        <!--        我的位置-->
+        <TextView
+            android:id="@+id/tv_my_location"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:lineSpacingMultiplier="1.1"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text=""
+            android:textColor="#333333"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#eeeeee" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_locations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

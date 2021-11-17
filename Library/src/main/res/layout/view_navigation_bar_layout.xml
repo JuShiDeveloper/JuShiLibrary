@@ -14,8 +14,8 @@
 
         <ImageView
             android:id="@+id/iv_navigation_bar_back_btn"
-            android:layout_width="13dp"
-            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="10dp"
             android:scaleType="fitXY" />
@@ -49,7 +49,9 @@
         <FrameLayout
             android:id="@+id/fl_navigation_bar_search_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:focusable="true">
 
             <EditText
                 android:id="@+id/et_navigation_bar_text"
@@ -58,7 +60,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="10dp"
                 android:background="@null"
-                android:maxLines="1"
+                android:singleLine="true"
+                android:lines="1"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
         </FrameLayout>

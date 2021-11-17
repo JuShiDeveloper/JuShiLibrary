@@ -31,10 +31,12 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
     private Boolean isDestroy = false;
     protected UserManager userManager = null;
     protected NetworkManager networkManager;
+    protected Bundle savedInstanceState;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.savedInstanceState = savedInstanceState;
         userManager = getManager(UserManager.class);
         networkManager = getManager(NetworkManager.class);
         initialize();

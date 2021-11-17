@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'org.greenrobot.greendao'
+//apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     defaultConfig {
@@ -23,14 +23,14 @@ android {
     buildToolsVersion = rootProject.ext.android.buildToolsVersion
 }
 
-greendao {
-    //数据库的schema版本，也可以理解为数据库版本号
-    schemaVersion 1
-    //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
-    daoPackage 'com.jushi.library.dao'
-    //设置DaoMaster、DaoSession、Dao目录
-    targetGenDir 'src/main/java'
-}
+//greendao {
+//    //数据库的schema版本，也可以理解为数据库版本号
+//    schemaVersion 1
+//    //设置DaoMaster、DaoSession、Dao包名，也就是要放置这些类的包的全路径。
+//    daoPackage 'com.jushi.library.dao'
+//    //设置DaoMaster、DaoSession、Dao目录
+//    targetGenDir 'src/main/java'
+//}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -43,7 +43,10 @@ dependencies {
     api rootProject.ext.dependencies["Java-WebSocket"]
     api rootProject.ext.dependencies["recyclerview"]
     api rootProject.ext.dependencies["fastjson"]
-    api rootProject.ext.dependencies["greenDao"]
+//    api rootProject.ext.dependencies["greenDao"]
+    api rootProject.ext.dependencies["amap-3dmap"]
+    api rootProject.ext.dependencies["amap-location"]
+    api rootProject.ext.dependencies["amap-search"]
 
     implementation files('libs/zxing.jar')
 

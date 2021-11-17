@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.jushi.library.base.BaseFragmentActivity;
-import com.jushi.library.base.Manager;
+import com.jushi.library.base.BaseApplication.Manager;
 import com.jushi.library.customView.bottomNavgationView.BottomNavigationView;
 import com.jushi.library.customView.editText.CustomEditText;
 import com.jushi.library.customView.itemView.ItemView;
@@ -34,10 +34,10 @@ import com.jushi.library.customView.wheelview.WheelAdapter;
 import com.jushi.library.customView.wheelview.WheelView;
 import com.jushi.library.database.DatabaseManager;
 import com.jushi.library.http.OnHttpResponseListener;
+import com.jushi.library.manager.NetworkManager;
 import com.jushi.library.takingPhoto.PictureHelper;
 import com.jushi.library.takingPhoto.view.CircleImageView;
-import com.jushi.library.utils.Logger;
-import com.jushi.library.utils.NetworkManager;
+import com.jushi.library.utils.LogUtil;
 import com.jushi.library.viewinject.FindViewById;
 import com.library.jushi.jushilibrary.calculator.CalculatorActivity;
 
@@ -458,7 +458,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     }
 
     @Override
-    public void onHttpRequesterResponse(int code, String router, String s) {
+    public void onHttpRequesterResponse(int code, String router, String message, String s) {
         switch (router) {
             case "doctor/app/get_info_auth":
                 Log.v(MainActivity.class.getSimpleName(), "测试GET请求成功！ code = " + code + "  result = " + s);
@@ -512,11 +512,11 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
                 PictureHelper.gotoClipActivity(this, data.getData(), REQUEST_CODE_CLIP_PHOTO);
                 break;
             case REQUEST_CODE_CLIP_PHOTO:
-                Logger.v("yufei", data.getData().getPath());
+                LogUtil.v("yufei", data.getData().getPath());
                 imageView.setImageURI(data.getData());
                 break;
             case REQUEST_CODE_OPEN_CAMERA:
-                Logger.v("yufei", imageFile.getPath());
+                LogUtil.v("yufei", imageFile.getPath());
                 PictureHelper.gotoClipActivity(this, Uri.fromFile(imageFile), REQUEST_CODE_CLIP_PHOTO);
                 break;
         }
@@ -525,30 +525,30 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     @Override
     protected void onCameraPermissionOpened() {
         super.onCameraPermissionOpened();
-        Logger.v("yufei", "onCameraPermissionOpened");
+        LogUtil.v("yufei", "onCameraPermissionOpened");
     }
 
     @Override
     protected void onLocationPermissionOpened() {
         super.onLocationPermissionOpened();
-        Logger.v("yufei", "onLocationPermissionOpened");
+        LogUtil.v("yufei", "onLocationPermissionOpened");
     }
 
     @Override
     protected void onExternalStoragePermissionOpened() {
         super.onExternalStoragePermissionOpened();
-        Logger.v("yufei", "onExternalStoragePermissionOpened");
+        LogUtil.v("yufei", "onExternalStoragePermissionOpened");
     }
 
     @Override
     protected void onRecordAudioPermissionOpened() {
         super.onRecordAudioPermissionOpened();
-        Logger.v("yufei", "onRecordAudioPermissionOpened");
+        LogUtil.v("yufei", "onRecordAudioPermissionOpened");
     }
 
     @Override
     protected void onAlertWindowPermissionOpened() {
         super.onAlertWindowPermissionOpened();
-        Logger.v("yufei", "onAlertWindowPermissionOpened");
+        LogUtil.v("yufei", "onAlertWindowPermissionOpened");
     }
 }
