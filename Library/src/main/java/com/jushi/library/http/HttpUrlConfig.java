@@ -15,10 +15,10 @@ public abstract class HttpUrlConfig {
      */
     private static String baseUrl() {
         if (BuildConfig.DEBUG) {
-            return "http://139.159.248.233:8085";
+            return "http://139.159.248.233:8085/";
 //            return "http://192.168.1.107:20000";
         } else {
-            return "http://139.159.248.233:8085";
+            return "http://139.159.248.233:8085/";
         }
     }
 

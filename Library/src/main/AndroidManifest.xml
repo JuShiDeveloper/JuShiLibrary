@@ -38,6 +38,9 @@
         <activity
             android:name=".crash.ExceptionInfoActivity"
             android:screenOrientation="portrait" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="0d20333f2e5355bc80ae315f87d9d06c"/>
     </application>
 
 </manifest>
