@@ -378,7 +378,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
 
         btnBottomNav.setOnClickListener(v -> startActivity(new Intent(this, BottomNavigationViewActivity.class)));
         btnCalender.setOnClickListener(v -> startActivity(new Intent(this, CalendarViewActivity.class)));
-        btnMap.setOnClickListener(v -> startActivityForResult(new Intent(this, SelectLocationActivity.class),121));
+        btnMap.setOnClickListener(v -> startActivityForResult(new Intent(this, SelectLocationActivity.class), 121));
     }
 
     private List<String> getListData(int max) {
@@ -458,7 +458,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        t.cancel();
+        if (t != null)
+            t.cancel();
     }
 
     @Override
@@ -524,7 +525,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
                 PictureHelper.gotoClipActivity(this, Uri.fromFile(imageFile), REQUEST_CODE_CLIP_PHOTO);
                 break;
             case 121:
-                LogUtil.v("选择位置信息: "+data.getStringExtra(SelectLocationActivity.EXTRA_LOCATION));
+                LogUtil.v("选择位置信息: " + data.getStringExtra(SelectLocationActivity.EXTRA_LOCATION));
                 break;
         }
     }
