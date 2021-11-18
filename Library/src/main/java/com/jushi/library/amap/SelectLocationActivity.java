@@ -16,7 +16,10 @@ import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -62,15 +65,18 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
     private AMap aMap;
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
-    private TextView tvMyLocation;
+    private TextView tvMyLocation,tvConfirmBtn;
     private RecyclerView recyclerView;
     private NavigationBar searchView;
+    private LinearLayout llCurrLocation;
+    private ImageView ivSelect;
     private LocationsAdapter locationsAdapter;
     private GeocodeSearch geocoderSearch;
     private RegeocodeQuery query;
     private PoiSearch poiSearch;
     private JSONObject locationJson;
     private boolean isSelect = false;
+    private LatLng latLng;//当前所在位置
 
     @Override
     protected int getLayoutResId() {
@@ -89,6 +95,9 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         locationsAdapter = new LocationsAdapter(this);
         recyclerView.setAdapter(locationsAdapter);
+        llCurrLocation = findViewById(R.id.ll_curr_location);
+        ivSelect = findViewById(R.id.iv_select);
+        tvConfirmBtn = findViewById(R.id.tv_confirm);
     }
 
     @Override
@@ -121,18 +130,17 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
         myLocationStyle.strokeColor(Color.argb(0, 0, 0, 0));// 设置圆形的边框颜色    不显示范围圆圈
         myLocationStyle.radiusFillColor(Color.argb(0, 0, 0, 0));// 设置圆形的填充颜色 不显示范围圆圈
         aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
-        aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
+//        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
+//        aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         //设置缩放级别
         aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
     }
 
     private void setUiSettings() {// 控件交互 缩放按钮、指南针、定位按钮、比例尺等
         // 控件交互 缩放按钮、指南针、定位按钮、比例尺等
-        UiSettings mUiSettings;//定义一个UiSettings对象
-        mUiSettings = aMap.getUiSettings();//实例化UiSettings类对象
+        UiSettings mUiSettings = aMap.getUiSettings();//实例化UiSettings类对象
         mUiSettings.setZoomControlsEnabled(false);
-        mUiSettings.setMyLocationButtonEnabled(true); //显示默认的定位按钮
+        mUiSettings.setMyLocationButtonEnabled(false); //显示默认的定位按钮  false-不显示默认定位按钮
         aMap.setMyLocationEnabled(true);// 可触发定位并显示当前位置
         mUiSettings.setScaleControlsEnabled(true);//控制比例尺控件是否显示
         mUiSettings.setLogoPosition(AMapOptions.LOGO_MARGIN_LEFT);//设置logo位置
@@ -161,7 +169,11 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
         //地图移动监听
         aMap.setOnCameraChangeListener(this);
         locationsAdapter.setOnItemClickListener(this);
-        tvMyLocation.setOnClickListener(v -> setResult());
+        tvMyLocation.setOnClickListener(v -> {
+            aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng,15,0,0)));
+            ivSelect.setVisibility(View.VISIBLE);
+            locationsAdapter.setCurrentSelect(-1);
+        });
         searchView.setOnRightButtonClickListener(v->{
             hideSoftInput();
             PoiSearch.Query query = new PoiSearch.Query(searchView.getInputText(), "", "");
@@ -177,6 +189,8 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
                 hideSoftInput();
             }
         });
+        llCurrLocation.setOnClickListener(v->aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng,15,0,0))));
+        tvConfirmBtn.setOnClickListener(v->setResult());
     }
 
     @Override
@@ -189,14 +203,18 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
         LogUtil.v("onCameraChangeFinish = " + cameraPosition.toString());
 //        setMarker(cameraPosition.target);
         animTranslate();
-        this.isSelect = false;
+        if (this.isSelect)return;
         getGeocodeSearch(cameraPosition.target);
     }
 
     @Override
     public void onItemClick(PoiItem poiItem) { //点击位置列表项
         this.isSelect = true;
+        ivSelect.setVisibility(View.INVISIBLE);
         poiSearch.searchPOIIdAsyn(poiItem.getPoiId());// 异步搜索
+        //地图移动到搜索内容位置区域
+        aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
+                new LatLng(poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude()),15,0,0)));
     }
 
     private Marker centerMarker;
@@ -254,6 +272,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
     @Override
     public void onLocationChanged(AMapLocation amapLocation) {
         if (amapLocation != null && amapLocation.getErrorCode() == AMapLocation.LOCATION_SUCCESS) {
+            latLng = new LatLng(amapLocation.getLatitude(),amapLocation.getLongitude());
             setMapCenter(amapLocation);
         } else {
             //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
@@ -273,7 +292,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
         if (i != 1000) return;
         locationsAdapter.setData(regeocodeResult.getRegeocodeAddress().getPois());
-        SpannableStringBuilder msp = new SpannableStringBuilder("当前位置：" + regeocodeResult.getRegeocodeAddress().getFormatAddress());
+        SpannableStringBuilder msp = new SpannableStringBuilder("当前位置：\n" + regeocodeResult.getRegeocodeAddress().getFormatAddress());
         msp.setSpan(new ForegroundColorSpan(Color.parseColor("#5396FF")), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvMyLocation.setText(msp);
         locationJson.put("address", regeocodeResult.getRegeocodeAddress().getFormatAddress());
@@ -314,8 +333,8 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
             locationJson.put("address", poiItem.getSnippet() + poiItem.getTitle());
             locationJson.put("latitude", poiItem.getLatLonPoint().getLatitude());
             locationJson.put("longitude", poiItem.getLatLonPoint().getLongitude());
-            setResult();
         }
+        this.isSelect = false;
 //        LogUtil.v(locationJson.toString());
     }
 

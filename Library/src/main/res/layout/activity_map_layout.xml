@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/white">
-    <com.jushi.library.customView.statusBarView.StatusBarView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#5396FF"/>
+    android:background="@color/white"
+    android:orientation="vertical">
+    <!--    <com.jushi.library.customView.statusBarView.StatusBarView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:background="#5396FF"/>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp">
@@ -26,7 +26,39 @@
             android:layout_centerHorizontal="true"
             android:focusable="false"
             android:src="@mipmap/icon_location_red" />
+
+        <LinearLayout
+            android:id="@+id/ll_curr_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_current_location_btn">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:src="@mipmap/current_location" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:textColor="#5396FF"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
+            android:background="@drawable/bg_location_confirm_btn"
+            android:layout_margin="10dp"/>
     </RelativeLayout>
+
     <com.jushi.library.customView.navigationbar.NavigationBar
         android:id="@+id/search_view"
         android:layout_width="match_parent"
@@ -45,26 +77,44 @@
         app:searchHintColor="#999999"
         app:searchTextColor="#333333"
         app:searchTextSize="14sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="#eeeeee" />
         <!--        我的位置-->
-        <TextView
-            android:id="@+id/tv_my_location"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center_vertical"
-            android:lineSpacingMultiplier="1.1"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text=""
-            android:textColor="#333333"
-            android:textSize="14sp" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_my_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_toLeftOf="@+id/iv_select"
+                android:gravity="center_vertical"
+                android:lineSpacingMultiplier="1.1"
+                android:minHeight="45dp"
+                android:text=""
+                android:textColor="#333333"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_select"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:src="@mipmap/right_blue" />
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
