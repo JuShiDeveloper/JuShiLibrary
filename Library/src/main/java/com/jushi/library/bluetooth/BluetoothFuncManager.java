@@ -50,7 +50,7 @@ public class BluetoothFuncManager extends BaseManager {
     private Activity activity;
     private List<BluetoothConnectListener> connectListeners = new ArrayList<>();
     private List<BluetoothFoundListener> foundListeners = new ArrayList<>();
-    private List<OnReceivedMessageListener> receivedMessageListeners = new ArrayList<>();
+    private List<OnMessageListener> receivedMessageListeners = new ArrayList<>();
     private String readMsg = "";
 
     private SpBLE spBLE;
@@ -382,6 +382,9 @@ public class BluetoothFuncManager extends BaseManager {
                 break;
             case MESSAGE_WRITE://发送数据结果
                 log("发送结果：" + msg.arg1);
+                for (OnMessageListener listener : receivedMessageListeners) {
+                    listener.onSendResult(msg.arg1);
+                }
                 break;
         }
     }
@@ -428,8 +431,8 @@ public class BluetoothFuncManager extends BaseManager {
     private void notifyReceivedMessage() {
         postDelayed(() -> {
             if (!TextUtils.isEmpty(this.readMsg)) {
-//                log("收到消息：" + this.readMsg);
-                for (OnReceivedMessageListener listener : receivedMessageListeners) {
+                log("收到消息：" + this.readMsg);
+                for (OnMessageListener listener : receivedMessageListeners) {
                     listener.onReceivedMessage(this.readMsg);
                 }
                 this.readMsg = "";
@@ -438,24 +441,33 @@ public class BluetoothFuncManager extends BaseManager {
     }
 
     /**
-     * 添加收到消息监听
+     * 添加消息监听
      *
      * @param listener
      */
-    public void addOnReceivedMessageListener(OnReceivedMessageListener listener) {
+    public void addOnReceivedMessageListener(OnMessageListener listener) {
         this.receivedMessageListeners.add(listener);
     }
 
     /**
-     * 移除收到消息监听
+     * 移除消息监听
      *
      * @param listener
      */
-    public void removeOnReceivedMessageListener(OnReceivedMessageListener listener) {
+    public void removeOnReceivedMessageListener(OnMessageListener listener) {
         this.receivedMessageListeners.remove(listener);
     }
 
-    public interface OnReceivedMessageListener {
+    public interface OnMessageListener {
+        /**
+         * 发送结果
+         * @param code 大于0表示成功
+         */
+        void onSendResult(int code);
+        /**
+         * 收到消息
+         * @param message
+         */
         void onReceivedMessage(String message);
     }
 

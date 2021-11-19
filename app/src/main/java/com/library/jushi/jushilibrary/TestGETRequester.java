@@ -19,7 +19,7 @@ public class TestGETRequester extends BaseHttpRequester<String> {
 
     @Override
     protected String onRequestRouter() {
-        return "doctor/app/get_info_auth";
+        return "/doctor/app/get_info_auth";
     }
 
     @Override

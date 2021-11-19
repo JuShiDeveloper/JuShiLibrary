@@ -420,6 +420,8 @@ class BluetoothConnectService {
                         .sendToTarget();
             } catch (IOException e) {
                 LogUtil.v("Exception during write  " + e.getMessage());
+                mHandler.obtainMessage(BluetoothFuncManager.MESSAGE_WRITE, -1, -1, buffer)
+                        .sendToTarget();
             }
         }
 

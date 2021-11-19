@@ -20,7 +20,7 @@ public class TestPOSTRequester extends BaseHttpRequester<String> {
 
     @Override
     protected String onRequestRouter() {
-        return "doctor/app/password_verify";
+        return "/doctor/app/password_verify";
     }
 
     @Override

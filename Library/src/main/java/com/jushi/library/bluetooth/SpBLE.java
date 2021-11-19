@@ -247,7 +247,12 @@ public class SpBLE {
 
     public void write(byte[] data) {
         // Update TX characteristic value.  Note the setValue overload that takes a byte array must be used.
-        if (tx == null) return;
+        if (tx == null){
+            mHandler.obtainMessage(BluetoothFuncManager.MESSAGE_WRITE, -1, -1, data)
+                    .sendToTarget();
+            writeLine("Sent: sent error no service!");
+            return;
+        }
         tx.setValue(data);
         if (gatt.writeCharacteristic(tx)) {
             mHandler.obtainMessage(BluetoothFuncManager.MESSAGE_WRITE, data.length, -1, data)

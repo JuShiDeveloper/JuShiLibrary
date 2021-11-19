@@ -77,6 +77,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
     private JSONObject locationJson;
     private boolean isSelect = false;
     private LatLng latLng;//当前所在位置
+    private LatLng moveLatLng;//移动地图后 地图中心点位置
 
     @Override
     protected int getLayoutResId() {
@@ -133,7 +134,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
 //        aMap.getUiSettings().setMyLocationButtonEnabled(true);//设置默认定位按钮是否显示，非必需设置。
 //        aMap.setMyLocationEnabled(true);// 设置为true表示启动显示定位蓝点，false表示隐藏定位蓝点并不进行定位，默认是false。
         //设置缩放级别
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(18));
     }
 
     private void setUiSettings() {// 控件交互 缩放按钮、指南针、定位按钮、比例尺等
@@ -170,7 +171,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
         aMap.setOnCameraChangeListener(this);
         locationsAdapter.setOnItemClickListener(this);
         tvMyLocation.setOnClickListener(v -> {
-            aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng,15,0,0)));
+            aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(moveLatLng,18,0,0)));
             ivSelect.setVisibility(View.VISIBLE);
             locationsAdapter.setCurrentSelect(-1);
         });
@@ -189,7 +190,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
                 hideSoftInput();
             }
         });
-        llCurrLocation.setOnClickListener(v->aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng,15,0,0))));
+        llCurrLocation.setOnClickListener(v->aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(latLng,18,0,0))));
         tvConfirmBtn.setOnClickListener(v->setResult());
     }
 
@@ -204,6 +205,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
 //        setMarker(cameraPosition.target);
         animTranslate();
         if (this.isSelect)return;
+        moveLatLng = new LatLng(cameraPosition.target.latitude,cameraPosition.target.longitude);
         getGeocodeSearch(cameraPosition.target);
     }
 
@@ -214,7 +216,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
         poiSearch.searchPOIIdAsyn(poiItem.getPoiId());// 异步搜索
         //地图移动到搜索内容位置区域
         aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
-                new LatLng(poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude()),15,0,0)));
+                new LatLng(poiItem.getLatLonPoint().getLatitude(),poiItem.getLatLonPoint().getLongitude()),18,0,0)));
     }
 
     private Marker centerMarker;
@@ -285,13 +287,15 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
     private void setMapCenter(AMapLocation amapLocation) {
         aMap.animateCamera(CameraUpdateFactory.newCameraPosition(
                 new CameraPosition(new LatLng(amapLocation.getLatitude(), amapLocation.getLongitude())
-                        , 15, 0, 0)), 300, null); //设置地图中心点
+                        , 18, 0, 0)), 300, null); //设置地图中心点
     }
 
     @Override
     public void onRegeocodeSearched(RegeocodeResult regeocodeResult, int i) {
         if (i != 1000) return;
         locationsAdapter.setData(regeocodeResult.getRegeocodeAddress().getPois());
+        ivSelect.setVisibility(View.VISIBLE);
+        locationsAdapter.setCurrentSelect(-1);
         SpannableStringBuilder msp = new SpannableStringBuilder("当前位置：\n" + regeocodeResult.getRegeocodeAddress().getFormatAddress());
         msp.setSpan(new ForegroundColorSpan(Color.parseColor("#5396FF")), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvMyLocation.setText(msp);
@@ -308,11 +312,13 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
     public void onPoiSearched(PoiResult poiResult, int i) {
         if (i != 1000) return;
         locationsAdapter.setData(poiResult.getPois());
+        ivSelect.setVisibility(View.VISIBLE);
+        locationsAdapter.setCurrentSelect(-1);
         poiSearch.searchPOIIdAsyn(poiResult.getPois().get(0).getPoiId());// 异步搜索
         //地图移动到搜索内容位置区域
         aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(
                 new LatLng(poiResult.getPois().get(0).getLatLonPoint().getLatitude(),
-                        poiResult.getPois().get(0).getLatLonPoint().getLongitude()),15,0,0)));
+                        poiResult.getPois().get(0).getLatLonPoint().getLongitude()),18,0,0)));
     }
 
     @Override
