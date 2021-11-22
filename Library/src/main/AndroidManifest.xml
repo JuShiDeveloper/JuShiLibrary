@@ -33,11 +33,6 @@
             android:value="0d20333f2e5355bc80ae315f87d9d06c" />
 
         <activity
-            android:name=".crowdout.CrowdOutDialogActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/Translucent" />
-        <activity
             android:name=".takingPhoto.view.ClipImageActivity"
             android:screenOrientation="portrait" />
         <activity

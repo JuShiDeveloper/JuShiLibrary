@@ -601,7 +601,9 @@ public class TestWebSocketManager extends WSBaseManager {
 ```
 跳转位置选择页面
 startActivityForResult(new Intent(this, SelectLocationActivity.class), 121)
+
 获取到页面返回选择的位置信息
+String location = data.getStringExtra(SelectLocationActivity.EXTRA_LOCATION);
 {"address":"阳关大道XXXX","districtName":"XX区","cityName":"XX市","province":"520000","city":"520100","latitude":26.621906,"district":"520115","provinceName":"贵州省","longitude":106.649174}
 ```
 #### 十六、bluetooth目录，蓝牙服务功能，蓝牙连接状态监听、蓝牙扫描管理、蓝牙连接/断开连接、蓝牙通信(收发消息)。
