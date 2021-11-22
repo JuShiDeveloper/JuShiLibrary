@@ -25,7 +25,7 @@ import java.util.UUID;
  * Created by Administrator on 2018-04-01.
  */
 
-public class SpBLE {
+ class SpBLE {
     public static final int STATE_DISCONNECTED = 0;
     private final static String ACTION_GATT_DISCONNECTING =
             "com.usr.bluetooth.le.ACTION_GATT_DISCONNECTING";

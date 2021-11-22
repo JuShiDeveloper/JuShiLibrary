@@ -490,7 +490,7 @@ private fun downLoadFile() { //文件下载
 * 2、使用[PictureHelper](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/takingPhoto/PictureHelper.java)类中gotoPhotoAlbum(Activity activity, int requestCode)方法打开相册选择图片；
 * 3、使用[PictureHelper](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/takingPhoto/PictureHelper.java)类中gotoClipActivity(Activity activity, Uri uri, int requestCode)方法打开图片裁剪界面；
 #### 十、utils目录，常用工具类。
-* 包含：手机号、密码校验工具([CalibratorUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/CalibratorUtil.java))，身份证号校验工具([IdCardUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/IdCardUtil.java))，root权限检测工具([CheckRoot](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/CheckRoot.java))，日期、时间工具([DateUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/DateUtil.java))，设备工具([DeviceUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/DeviceUtils.java))，MD5、SHA1加密工具([Encoder](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/Encoder.java))，文件工具类([FileUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/FileUtil.java))，高斯模糊工具类([GaussUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/GaussUtils.java))，网络变化管理器([NetworkManager](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/NetworkManager.java))，手机系统判断工具类([OSUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/OSUtils.java))，执行周期性任务(定时器)工具类([PeriodicTask](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/PeriodicTask.java))，屏幕相关尺寸工具类([ScreenUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/ScreenUtils.java))，SHA1签名检测工具类([SHA1SignCheck](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/SHA1SignCheck.java))等。
+* 包含：手机号、密码校验工具([CalibratorUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/CalibratorUtil.java))，身份证号校验工具([IdCardUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/IdCardUtil.java))，root权限检测工具([CheckRoot](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/CheckRoot.java))，日期、时间工具([DateUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/DateUtil.java))，设备工具([DeviceUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/DeviceUtils.java))，MD5、SHA1加密工具([Encoder](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/Encoder.java))，文件工具类([FileUtil](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/FileUtil.java))，高斯模糊工具类([GaussUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/GaussUtils.java))，手机系统判断工具类([OSUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/OSUtils.java))，执行周期性任务(定时器)工具类([PeriodicTask](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/PeriodicTask.java))，屏幕相关尺寸工具类([ScreenUtils](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/ScreenUtils.java))，SHA1签名检测工具类([SHA1SignCheck](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/utils/SHA1SignCheck.java))等。
 #### 十一、viewinject目录，IOC 注解,支持findViewById使用方法，通过注解的方式获取控件。
 * 使用[ViewInjecter](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/Library/src/main/java/com/jushi/library/viewinject/ViewInjecter.java)类中的inject(Activity activity)方法，该方法有多个重载的方法。
 ```
@@ -588,3 +588,51 @@ public class TestWebSocketManager extends WSBaseManager {
 #### 十四、zxing目录，zxing封装。
 * 实例化ScanManager管理类来使用二维码、条形码扫描及生成功能；
    二维码、条形码扫描示例[请点击跳转](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/java/com/library/jushi/jushilibrary/ScanCodeActivity.kt)，二维码、条形码生成示例[请点击跳转](https://github.com/JuShiDeveloper/JuShiLibrary/blob/master/app/src/main/java/com/library/jushi/jushilibrary/CreateQRCodeActivity.kt)。
+
+#### 十五、amap目录，高德地图位置点选功能，类似微信发送位置功能。
+1、修改manifest.xml中meta-data的value值
+
+```
+<meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="你申请的高德地图apikey" />
+```
+2、使用
+```
+跳转位置选择页面
+startActivityForResult(new Intent(this, SelectLocationActivity.class), 121)
+获取到页面返回选择的位置信息
+{"address":"阳关大道XXXX","districtName":"XX区","cityName":"XX市","province":"520000","city":"520100","latitude":26.621906,"district":"520115","provinceName":"贵州省","longitude":106.649174}
+```
+#### 十六、bluetooth目录，蓝牙服务功能，蓝牙连接状态监听、蓝牙扫描管理、蓝牙连接/断开连接、蓝牙通信(收发消息)。
+蓝牙服务功能主要使用BluetoothFuncManager类进行管理，该类提供的函数如下：
+|函数名称|说明  |
+|:--|:--|
+|void registerReceiver(Activity activity) | 注册蓝牙相关广播 |
+|void unregisterReceiver()|取消注册广播|
+|void checkConnectedDevice()|检查已连接的蓝牙设备数量|
+|boolean bluetoothIsEnabled()|蓝牙是否开启|
+|void requestOpenBluetooth()|请求开启蓝牙|
+|void doDiscovery()|扫描蓝牙设备|
+|void cancelDiscovery()|停止扫描|
+|void connect(BluetoothDevice device)|连接设备|
+|void disConnect()|断开连接|
+|void write(String msg)|发送消息|
+|void addBluetoothConnectListener(BluetoothConnectListener listener)|添加蓝牙连接监听|
+|void removeBluetoothConnectListener(BluetoothConnectListener listener)|移除蓝牙连接监听|
+|void addBluetoothFoundListener(BluetoothFoundListener listener)|添加蓝牙扫描结果监听|
+|void removeBluetoothFoundListener(BluetoothFoundListener listener)|移除蓝牙扫描结果监听|
+|void addOnReceivedMessageListener(OnMessageListener listener)|添加消息监听|
+|void removeOnReceivedMessageListener(OnMessageListener listener)|移除消息监听|
+#### 十七、manager目录
+1、NetworkManager
+网络变化管理器，负责管理网络变化的通知，如果需要知道当前手机的网络连接类型，调用getNetWorkType函数 如果需要时刻监听网络的断开与连接，请调用addOnNetworkChangeListener。
+
+2、SdManager
+SD卡管理，项目中用到SD卡存储时，使用该类统一管理。
+
+3、UserManager
+用户信息管理类，根据项目实际需求做相应修改。
+#### 十八、share_data目录,数据缓存工具
+ShareSparse SP数据缓存类，SharedPreferences缓存管理。
+

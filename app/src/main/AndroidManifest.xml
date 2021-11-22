@@ -55,7 +55,6 @@
         <activity android:name="com.jushi.library.crash.ExceptionInfoActivity" />
         <activity android:name=".BottomNavigationViewActivity" />
         <activity android:name=".CalendarViewActivity" />
-        <activity android:name="com.jushi.library.amap.SelectLocationActivity"/>
     </application>
 
 
