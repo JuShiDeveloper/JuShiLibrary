@@ -238,7 +238,7 @@ gravity|输入内容对齐方式value = (left、right、top、bottom、center、
    sriv_right_bottom_corner_radius|右下角圆角半径
    sriv_border_width|描边宽度
    sriv_border_color|描边颜色
-   * 6、scaleImageView目录，基于ImageView自定义的ScaleImageView控件，该自定义控件使用Kotlin代码实现，包含手势缩放图片、放大后单指触摸拖动图片、双击放大缩小等功能。
+   * 6、scaleImageView目录，基于ImageView自定义的ScaleImageView控件，包含手势缩放图片、放大后单指触摸拖动图片、双击放大缩小等功能。
    ```
    布局文件中使用
    <com.jushi.library.customView.scaleImageView.ScaleImageView
