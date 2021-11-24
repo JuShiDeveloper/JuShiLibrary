@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.jushi.library.utils.PermissionUtil;
@@ -31,6 +32,7 @@ abstract class BasePermissionActivity extends AppCompatActivity {
     private final int REQUEST_CODE_PERMISSIONS_RECORD_AUDIO = 0x04;
     private final int SYSTEM_ALERT_WINDOW_CODE = 0x05;
     private final int REQUEST_OPEN_BLUETOOTH = 0x06;
+    private final int REQUEST_OPEN_NOTICE = 0x07;
 
     protected BluetoothAdapter bluetoothAdapter;
 
@@ -162,6 +164,31 @@ abstract class BasePermissionActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * 是否开启了系统通知权限
+     *
+     * @return true-已开启通知权限  false-未开启通知权限
+     */
+    protected boolean isNotificationEnabled() {
+        boolean isOpened = false;
+        try {
+            isOpened = NotificationManagerCompat.from(this).areNotificationsEnabled();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isOpened;
+    }
+
+    /**
+     * 跳转系统通知设置页面
+     */
+    protected void toSystemNoticeSettings(String pkgName){
+        Intent intent = new Intent();
+        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+        intent.putExtra("android.provider.extra.APP_PACKAGE", pkgName);
+        startActivityForResult(intent,REQUEST_OPEN_NOTICE);
+    }
+
     private void showToast(String msg) {
         ToastUtil.showToast(this, msg);
     }
@@ -220,6 +247,13 @@ abstract class BasePermissionActivity extends AppCompatActivity {
                     showToast("请求打开蓝牙被拒");
                 }
                 break;
+            case REQUEST_OPEN_NOTICE:
+                if (isNotificationEnabled()) {
+                    onNotificationPermissionOpened();
+                } else {
+                    showToast("通知权限被禁止");
+                }
+                break;
         }
     }
 
@@ -273,7 +307,12 @@ abstract class BasePermissionActivity extends AppCompatActivity {
     protected abstract void onAlertWindowPermissionOpened();
 
     /**
-     * 蓝牙一打开
+     * 蓝牙已打开
      */
     protected abstract void onBluetoothOpened();
+
+    /**
+     * 通知权限已打开
+     */
+    protected abstract void onNotificationPermissionOpened();
 }

@@ -2,32 +2,35 @@ package com.library.jushi.jushilibrary
 
 import android.support.v4.app.Fragment
 import com.jushi.library.base.BaseFragmentActivity
+import com.jushi.library.customView.bottomNavgationView.TabInfo
 import kotlinx.android.synthetic.main.activity_bottom_navigation_layout.*
 import java.util.ArrayList
 
 class BottomNavigationViewActivity : BaseFragmentActivity() {
 
-    private val fragmentArray = ArrayList<Fragment>()
+    private var pages:ArrayList<TabInfo> = arrayListOf()
+
     override fun getLayoutResId(): Int {
         setSystemBarStatus(true, true, true)
         return R.layout.activity_bottom_navigation_layout
     }
 
     override fun initView() {
-        fragmentArray.add(TestFragment())
-        fragmentArray.add(TestFragment())
-        fragmentArray.add(TestFragment())
-        fragmentArray.add(TestFragment())
-        bottomNavigationView.setFragmentLayoutId(R.id.fragment_content)
-        bottomNavigationView.setFragmentsArray(supportFragmentManager, fragmentArray)
+
     }
 
     override fun initData() {
+        pages.add(TabInfo("TAB1",TestFragment(),R.drawable.home_selector))
+        pages.add(TabInfo("TAB2",TestFragment(),R.drawable.workbench_selector))
+        pages.add(TabInfo("TAB3",TestFragment(),R.drawable.report_selector))
+        pages.add(TabInfo("TAB4",TestFragment(),R.drawable.mine_selector))
+        pages.add(TabInfo("TAB5",TestFragment(),R.drawable.report_selector))
+        bottomNavigationView.initViewInfo(supportFragmentManager,pages,R.id.fragment_content)
     }
 
     override fun setListener() {
-        bottomNavigationView.setOnTabSelectListener { index ->
-            (fragmentArray[index] as TestFragment).setText("点击Fragment $index")
+        bottomNavigationView.setOnTabSelectListener { index,tabText ->
+            (pages[index].fragment as TestFragment).setText("点击Fragment $tabText")
         }
     }
 }

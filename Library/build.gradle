@@ -5,20 +5,12 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode versionCodes.toInteger()
-        versionName versionCodes
-    }
-
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+        versionCode rootProject.ext.android.versionCodes
+        versionName rootProject.ext.android.versionNames
     }
     compileOptions {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     buildToolsVersion = rootProject.ext.android.buildToolsVersion
 }
@@ -49,5 +41,7 @@ dependencies {
     api rootProject.ext.dependencies["amap-search"]
 
     implementation files('libs/zxing.jar')
+    //腾讯TBS实现文件预览
+    implementation files('libs/tbs_sdk_thirdapp_v4.3.0.215_44115_sharewithdownloadwithfile_withoutGame_obfs_20211019_111112.jar')
 
 }

@@ -13,6 +13,7 @@ import com.jushi.library.viewinject.FindViewById;
 public class TestFragment extends BaseFragment {
     @FindViewById(R.id.text)
     private TextView textView;
+    private String text = "Fragment";
 
     @Override
     protected View initRootView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +35,14 @@ public class TestFragment extends BaseFragment {
         Log.v("yufei", "fragment setListener()");
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        textView.setText(text);
+    }
+
     public void setText(String text) {
+        this.text = text;
         if (textView != null)
             textView.setText(text);
     }

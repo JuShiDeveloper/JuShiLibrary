@@ -223,6 +223,12 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         textView.setText(hintText);
     }
 
+    public void setText(String text){
+        editText.setText(text);
+        editText.setSelection(text.length());
+        textView.setText(text);
+    }
+
     public void setClearButtonDrawable(int resId) {
         if (resId == 0) return;
         clearBtn.setImageResource(resId);

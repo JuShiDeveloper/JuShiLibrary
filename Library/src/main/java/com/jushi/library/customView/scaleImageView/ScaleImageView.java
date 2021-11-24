@@ -58,7 +58,7 @@ public class ScaleImageView extends AppCompatImageView implements View.OnTouchLi
      **/
     private GestureDetector mGestureDetector;
     private boolean isAutoScale = false;
-    private View.OnClickListener clickListener;
+    private OnClickListener clickListener;
     private Context context;
 
     public ScaleImageView(Context context) {
