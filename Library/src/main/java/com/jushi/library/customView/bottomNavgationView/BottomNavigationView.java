@@ -29,7 +29,7 @@ public class BottomNavigationView extends LinearLayout {
     private int textSize;
     private List<TabView> tabViews = new ArrayList<>();
     private List<TabInfo> tabInfos;
-
+    private int currentIndex = 0;
 
     public BottomNavigationView(Context context) {
         this(context, null);
@@ -66,7 +66,7 @@ public class BottomNavigationView extends LinearLayout {
 
     private void initView() {
         setOrientation(HORIZONTAL);
-        setPadding(0,0,0,20);
+        setPadding(0, 0, 0, 20);
     }
 
     private void setListener() {
@@ -80,9 +80,16 @@ public class BottomNavigationView extends LinearLayout {
 
     /**
      * 设置当前选中的tab
+     *
      * @param index
      */
-    public void setSelectTab(int index) {
+    public void setCurrentIndex(int index) {
+        currentIndex = index;
+        setSelectTab(index);
+    }
+
+    private void setSelectTab(int index) {
+        if (tabInfos == null || tabViews.size() == 0) return;
         if (onTabSelectListener != null)
             onTabSelectListener.onTabSelect(index, tabViews.get(index).getText());
         for (int i = 0; i < tabViews.size(); i++) {
@@ -105,9 +112,10 @@ public class BottomNavigationView extends LinearLayout {
 
     /**
      * 初始化地步tab按钮
-     * @param fragmentManager FragmentManager
-     * @param pages  页面信息
-     * @param fragmentLayoutId  显示fragment的布局容器id
+     *
+     * @param fragmentManager  FragmentManager
+     * @param pages            页面信息
+     * @param fragmentLayoutId 显示fragment的布局容器id
      */
     public void initViewInfo(FragmentManager fragmentManager, List<TabInfo> pages, int fragmentLayoutId) {
         this.tabInfos = pages;
@@ -116,7 +124,7 @@ public class BottomNavigationView extends LinearLayout {
         tabViews.clear();
         removeAllViews();
         initTabView();
-        setSelectTab(0);
+        setSelectTab(currentIndex);
         setListener();
     }
 
