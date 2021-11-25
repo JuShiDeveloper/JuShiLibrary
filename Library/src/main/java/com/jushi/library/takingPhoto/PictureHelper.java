@@ -22,10 +22,11 @@ public class PictureHelper {
      * 打开相机拍照
      *
      * @param activity
+     * @param  pkgName 包名（manifest.xml中配置的android:authorities="${applicationId}.provider"）applicationId值
      * @param requestCode
      * @return
      */
-    public static File gotoCamera(Activity activity, int requestCode) {
+    public static File gotoCamera(Activity activity,String pkgName, int requestCode) {
         SdManager sdManager = BaseApplication.getInstance().getManager(SdManager.class);
         File rootFile = new File(sdManager.getImagePath());
         if (!rootFile.exists()) {
@@ -37,7 +38,7 @@ public class PictureHelper {
         Uri contentUri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            contentUri = FileProvider.getUriForFile(activity,  "com.ibat.yongxing.provider", imageFile);
+            contentUri = FileProvider.getUriForFile(activity,  pkgName+".provider", imageFile);
         } else {
             contentUri = Uri.fromFile(imageFile);
         }

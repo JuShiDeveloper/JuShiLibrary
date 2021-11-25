@@ -92,6 +92,7 @@ class ScanCodeActivity : BaseFragmentActivity(), ScanListener {
      */
     override fun scanResult(result: String?, bundle: Bundle?) {
         LogUtil.v("ScanCodeActivity", result)
+        showToast("扫码成功：$result")
     }
 
     /**
@@ -99,5 +100,6 @@ class ScanCodeActivity : BaseFragmentActivity(), ScanListener {
      */
     override fun scanError(e: Exception?) {
         LogUtil.v("ScanCodeActivity", e!!.message)
+        showToast("扫码失败：${e!!.message}")
     }
 }

@@ -332,7 +332,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
             PictureHelper.gotoPhotoAlbum(this, REQUEST_CODE_OPEN_ALBUM);
         });
         openCamera.setOnClickListener(v -> {
-            imageFile = PictureHelper.gotoCamera(this, REQUEST_CODE_OPEN_CAMERA);
+            imageFile = PictureHelper.gotoCamera(this, getPackageName(),REQUEST_CODE_OPEN_CAMERA);
         });
 //        itemView1.setOnClickListener(v -> {
 //            showToast("点击设置选项卡");
