@@ -10,6 +10,13 @@
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/v_line" />
+
+    <View
+        android:id="@+id/v_line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#ebebeb"
         android:layout_above="@+id/bottomNavigationView"/>
 
     <com.jushi.library.customView.bottomNavgationView.BottomNavigationView
@@ -18,7 +25,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:tab_select_text_color="#d81e06"
-        app:tab_unselect_text_color="#bfbfbf"
-        app:tab_text_size="16sp"/>
+        app:tab_text_size="16sp"
+        app:tab_unselect_text_color="#bfbfbf" />
 
+    <com.jushi.library.customView.roundeimage.SelectableRoundedImageView
+        android:id="@+id/iv_center_btn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:src="@mipmap/ic_launcher_round"
+        app:riv_corner_radius="50dp" />
 </RelativeLayout>

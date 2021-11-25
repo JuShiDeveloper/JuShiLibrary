@@ -22,7 +22,7 @@ class BottomNavigationViewActivity : BaseFragmentActivity() {
     override fun initData() {
         pages.add(TabInfo("TAB1",TestFragment(),R.drawable.home_selector))
         pages.add(TabInfo("TAB2",TestFragment(),R.drawable.workbench_selector))
-        pages.add(TabInfo("TAB3",TestFragment(),R.drawable.report_selector))
+        pages.add(TabInfo("",TestFragment(),0))
         pages.add(TabInfo("TAB4",TestFragment(),R.drawable.mine_selector))
         pages.add(TabInfo("TAB5",TestFragment(),R.drawable.report_selector))
         bottomNavigationView.initViewInfo(supportFragmentManager,pages,R.id.fragment_content)
@@ -30,7 +30,11 @@ class BottomNavigationViewActivity : BaseFragmentActivity() {
 
     override fun setListener() {
         bottomNavigationView.setOnTabSelectListener { index,tabText ->
-            (pages[index].fragment as TestFragment).setText("点击Fragment $tabText")
+            var text = "点击Fragment $tabText"
+            if (index==2){
+                text = "点击Fragment TAB3"
+            }
+            (pages[index].fragment as TestFragment).setText(text)
         }
     }
 }
