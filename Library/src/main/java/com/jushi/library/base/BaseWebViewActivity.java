@@ -15,6 +15,8 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.ConsoleMessage;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.SslErrorHandler;
@@ -277,6 +279,25 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
             mWebView.goBack();
         } else {
             super.onBackPressed();
+        }
+    }
+
+    @SuppressLint("NewApi")
+    protected void clearWebView() {
+        mWebView.setWebChromeClient(null);
+        mWebView.setWebViewClient(null);
+        mWebView.getSettings().setJavaScriptEnabled(false);
+        mWebView.clearCache(true);
+        CookieSyncManager.createInstance(this);
+        CookieManager cookieManager = CookieManager.getInstance();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeSessionCookies(null);
+            cookieManager.removeAllCookie();
+            cookieManager.flush();
+        } else {
+            cookieManager.removeSessionCookies(null);
+            cookieManager.removeAllCookie();
+            CookieSyncManager.getInstance().sync();
         }
     }
 
