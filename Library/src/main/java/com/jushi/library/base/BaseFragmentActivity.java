@@ -11,7 +11,9 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -46,8 +48,8 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
         setContentView(getLayoutResId());
         ViewInjecter.inject(this);
         BaseApplication.getInstance().injectManager(this);
-        initView();
         getIntentData(getIntent());
+        initView();
         initData();
         setListener();
         initAnimator();
@@ -165,8 +167,8 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
         ToastUtil.showToast(this, msg);
     }
 
-    public void showToast(String msg,int gravity) {
-        ToastUtil.showToast(this, msg,gravity);
+    public void showToast(String msg, int gravity) {
+        ToastUtil.showToast(this, msg, gravity);
     }
 
     @Override
@@ -298,5 +300,21 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
 
     public <Manager extends BaseManager> Manager getManager(Class<Manager> cls) {
         return BaseApplication.getInstance().getManager(cls);
+    }
+
+    private long lastTime = 0L;
+
+    protected void canFinish() {
+        long pressTime = System.currentTimeMillis();
+        if (pressTime - lastTime > 2000) {
+            showToast("再按一次退出应用", Gravity.CENTER);
+            lastTime = pressTime;
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    protected boolean isEmpty(String str){
+        return TextUtils.isEmpty(str);
     }
 }

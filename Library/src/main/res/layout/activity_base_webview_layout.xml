@@ -37,6 +37,17 @@
             android:progress="0"
             android:progressDrawable="@drawable/webview_loading_progressbar" />
 
+        <TextView
+            android:id="@+id/tv_webview_reload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="点我重新加载"
+            android:padding="5dp"
+            android:textColor="#333333"
+            android:textSize="15sp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
 </LinearLayout>

@@ -7,14 +7,17 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jushi.library.R;
 import com.jushi.library.customView.statusBarView.StatusBarView;
+import com.jushi.library.utils.LogUtil;
 
 /**
  * 自定义页面导航栏
@@ -26,7 +29,7 @@ import com.jushi.library.customView.statusBarView.StatusBarView;
  * 5、右边功能按钮（文字/图标）；
  * create by wyf on 2020/09/07
  */
-public class NavigationBar extends LinearLayout {
+public class NavigationBar extends LinearLayout implements ViewTreeObserver.OnGlobalLayoutListener {
 
     private LinearLayout llBack;
     private ImageView ivBackBtn;
@@ -38,6 +41,7 @@ public class NavigationBar extends LinearLayout {
     private FrameLayout flCloseBtnContainer;
     private FrameLayout flRightBtnContainer;
     private EditText editText;
+    private FrameLayout flTitleContainer;
 
     private int function = -1;
     public static final int NONE = 0;
@@ -88,9 +92,11 @@ public class NavigationBar extends LinearLayout {
         flCloseBtnContainer = findViewById(R.id.fl_navigation_bar_close_container);
         flRightBtnContainer = findViewById(R.id.fl_navigation_bar_right_btn_container);
         editText = findViewById(R.id.et_navigation_bar_text);
+        flTitleContainer = findViewById(R.id.fl_title_container);
     }
 
     private void setClickListener() {
+        getViewTreeObserver().addOnGlobalLayoutListener(this);
         llBack.setOnClickListener(v -> navigationBarBackButtonClick(v));
         flCloseBtnContainer.setOnClickListener(v -> navigationBarCloseButtonClick(v));
         flRightBtnContainer.setOnClickListener(v -> navigationBarRightButtonClick(v));
@@ -123,6 +129,13 @@ public class NavigationBar extends LinearLayout {
         int statusBarColor = array.getColor(R.styleable.NavigationBar_statusBarBackgroundColor, Color.TRANSPARENT);
         initStatusBarView(isImmersiveStatusBar, statusBarColor);
         array.recycle();
+    }
+
+    @Override
+    public void onGlobalLayout() {//让标题居中显示
+        int paddingWidth = Math.max(llBack.getWidth()+flCloseBtnContainer.getWidth(),flRightBtnContainer.getWidth());
+        int offset = ((llBack.getWidth()+flCloseBtnContainer.getWidth())-flRightBtnContainer.getWidth())/2;
+        flTitleContainer.setPadding(paddingWidth+offset,0,paddingWidth-offset,0);
     }
 
     /**
@@ -435,4 +448,5 @@ public class NavigationBar extends LinearLayout {
     public void setOnSearchEditClickListener(OnClickListener searchEditClickListener) {
         this.searchEditClickListener = searchEditClickListener;
     }
+
 }

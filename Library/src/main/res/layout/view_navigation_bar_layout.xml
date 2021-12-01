@@ -4,6 +4,42 @@
     android:layout_height="50dp"
     android:paddingRight="15dp">
 
+    <FrameLayout
+        android:id="@+id/fl_title_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/fl_navigation_bar_search_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:focusable="true">
+
+            <EditText
+                android:id="@+id/et_navigation_bar_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:background="@null"
+                android:singleLine="true"
+                android:lines="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_navigation_bar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1" />
+
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/ll_navigation_bar_back"
         android:layout_width="wrap_content"
@@ -40,42 +76,7 @@
             android:layout_gravity="center_vertical" />
     </FrameLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_toLeftOf="@+id/fl_navigation_bar_right_btn_container"
-        android:layout_toRightOf="@+id/fl_navigation_bar_close_container">
 
-        <FrameLayout
-            android:id="@+id/fl_navigation_bar_search_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:focusableInTouchMode="true"
-            android:focusable="true">
-
-            <EditText
-                android:id="@+id/et_navigation_bar_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="10dp"
-                android:background="@null"
-                android:singleLine="true"
-                android:lines="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/tv_navigation_bar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ellipsize="end"
-            android:lines="1"
-            android:maxLines="1" />
-
-    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/fl_navigation_bar_right_btn_container"

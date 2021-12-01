@@ -8,7 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.jushi.library.R;
 
@@ -129,7 +131,7 @@ public class BottomNavigationView extends LinearLayout {
     }
 
     private void initTabView() {
-        LayoutParams params = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.weight = 1;
         params.gravity = Gravity.CENTER;
         for (TabInfo tabInfo : tabInfos) {

@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jushi.library.manager.UserManager;
 import com.jushi.library.viewinject.ViewInjecter;
 
 public abstract class BaseFragment extends BasePermissionFragment {
     protected View rootView;
+    protected UserManager userManager;
 
     @Nullable
     @Override
@@ -24,6 +26,7 @@ public abstract class BaseFragment extends BasePermissionFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         BaseApplication.getInstance().injectManager(this);
+        userManager = getManager(UserManager.class);
         initViewWidget();
         initData();
         setListener();
@@ -72,5 +75,9 @@ public abstract class BaseFragment extends BasePermissionFragment {
     @Override
     protected void onRecordAudioPermissionOpened() {
 
+    }
+
+    protected <Manager extends BaseManager> Manager getManager(Class<Manager> cls) {
+        return BaseApplication.getInstance().getManager(cls);
     }
 }

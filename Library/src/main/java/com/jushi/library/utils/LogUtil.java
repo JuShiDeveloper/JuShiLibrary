@@ -69,6 +69,6 @@ public class LogUtil {
     }
 
     public static void v(String msg) {
-        w(TAG, msg);
+        v(TAG, msg);
     }
 }

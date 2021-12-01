@@ -12,6 +12,7 @@ import android.view.ViewConfiguration;
 import android.widget.RelativeLayout;
 
 import com.jushi.library.R;
+import com.jushi.library.utils.LogUtil;
 
 
 /**
@@ -101,7 +102,7 @@ public class FloatViewLayout extends RelativeLayout implements View.OnTouchListe
                 clearAnimation();
                 touchX = event.getX();
                 touchY = event.getY();
-                return true;
+                break;
             case MotionEvent.ACTION_MOVE:
                 moveX = Math.abs(event.getRawX() - lastX) + moveX;
                 moveY = Math.abs(event.getRawY() - lastY) + moveY;
@@ -114,21 +115,21 @@ public class FloatViewLayout extends RelativeLayout implements View.OnTouchListe
                 setY(nowY);
                 setX(nowX);
                 invalidate();
-                return true;
+                break;
             case MotionEvent.ACTION_CANCEL:
                 needCallOnClick = false;
-                return true;
+                break;
             case MotionEvent.ACTION_UP:
                 if (needCallOnClick) {
                     notifyOnClick();
                 } else {
                     postDelayed(() -> toCalculateWelt(), 200);
                 }
-                return true;
+                break;
         }
         lastX = event.getRawX();
         lastY = event.getRawY();
-        return super.onTouchEvent(event);
+        return true;
     }
 
     /**

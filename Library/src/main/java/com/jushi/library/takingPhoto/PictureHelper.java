@@ -22,11 +22,10 @@ public class PictureHelper {
      * 打开相机拍照
      *
      * @param activity
-     * @param  pkgName 包名（manifest.xml中配置的android:authorities="${applicationId}.provider"）applicationId值
      * @param requestCode
      * @return
      */
-    public static File gotoCamera(Activity activity,String pkgName, int requestCode) {
+    public static File gotoCamera(Activity activity, String pkgName,int requestCode) {
         SdManager sdManager = BaseApplication.getInstance().getManager(SdManager.class);
         File rootFile = new File(sdManager.getImagePath());
         if (!rootFile.exists()) {

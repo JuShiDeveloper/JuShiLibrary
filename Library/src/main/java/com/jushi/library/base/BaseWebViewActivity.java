@@ -25,6 +25,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.jushi.library.BuildConfig;
 import com.jushi.library.R;
@@ -42,10 +43,13 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
     private WebView mWebView;
     private ProgressBar progressBar;
     protected NavigationBar navigationBar;
+    private TextView tvReload;
 
     private ValueCallback<Uri[]> uploadMessageAboveL;
     private ValueCallback<Uri> uploadMessage;
     private String accept;
+    private String loadUrl;
+    private int errorNum = 0;
 
     @Override
     protected int getLayoutResId() {
@@ -55,6 +59,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
 
     @Override
     protected void initView() {
+        tvReload = findViewById(R.id.tv_webview_reload);
         navigationBar = findViewById(R.id.NavigationBar);
         navigationBar.setVisibility(showNavigationBar() ? View.VISIBLE : View.GONE);
         initWebView();
@@ -67,7 +72,18 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
 
     @Override
     protected void setListener() {
-
+        tvReload.setOnClickListener(v->{
+            if (!networkManager.isNetConect()){
+                showToast("当前网络不可用，请检查网络设置！");
+                return;
+            }
+            if (errorNum>=5){
+                showToast("失败次数过多，请检查网址是否正确！");
+                return;
+            }
+            tvReload.setVisibility(View.GONE);
+            mWebView.loadUrl(loadUrl);
+        });
     }
 
     private void initProgressBar() {
@@ -108,7 +124,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
-
+            loadUrl = url;
         }
 
         @Override
@@ -127,6 +143,8 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             super.onReceivedError(view, errorCode, description, failingUrl);
 //            mWebView.setVisibility(View.GONE);
+            tvReload.setVisibility(View.VISIBLE);
+            errorNum++;
         }
 
         @Override
