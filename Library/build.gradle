@@ -30,6 +30,7 @@ dependencies {
     api rootProject.ext.dependencies["support-v7"]
     api rootProject.ext.dependencies["support-v4"]
     api rootProject.ext.dependencies["glide"]
+    api rootProject.ext.dependencies["glide-okhttp3"]
     api rootProject.ext.dependencies["nineoldandroids"]
     api rootProject.ext.dependencies["okhttp3"]
     api rootProject.ext.dependencies["Java-WebSocket"]

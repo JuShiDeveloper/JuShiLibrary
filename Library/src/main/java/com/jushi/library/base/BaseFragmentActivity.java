@@ -19,6 +19,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.jushi.library.customView.progressDialog.CustomProgressDialog;
 import com.jushi.library.manager.NetworkManager;
+import com.jushi.library.manager.SdManager;
 import com.jushi.library.manager.UserManager;
 import com.jushi.library.systemBarUtils.SystemBarUtil;
 import com.jushi.library.utils.ToastUtil;
@@ -33,6 +34,7 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
     private Boolean isDestroy = false;
     protected UserManager userManager = null;
     protected NetworkManager networkManager;
+    protected SdManager sdManager;
     protected Bundle savedInstanceState;
 
     @Override
@@ -41,6 +43,7 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
         this.savedInstanceState = savedInstanceState;
         userManager = getManager(UserManager.class);
         networkManager = getManager(NetworkManager.class);
+        sdManager = getManager(SdManager.class);
         initialize();
     }
 
@@ -127,6 +130,11 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
 
     @Override
     protected void onNotificationPermissionOpened() {
+
+    }
+
+    @Override
+    protected void onCallPhonePermissionOpened() {
 
     }
 
@@ -316,5 +324,15 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
 
     protected boolean isEmpty(String str){
         return TextUtils.isEmpty(str);
+    }
+
+    protected void reLaunchApp(){
+        showToast("设置成功，3秒后应用将重新启动!", Gravity.CENTER);
+        BaseApplication.getInstance().getHandler().postDelayed(()-> {
+            Intent i = getPackageManager().getLaunchIntentForPackage( getPackageName() );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            Runtime.getRuntime().exit(0);
+        },3000);
     }
 }

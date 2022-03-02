@@ -131,7 +131,7 @@ public class BottomNavigationView extends LinearLayout {
     }
 
     private void initTabView() {
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LayoutParams params = new LayoutParams(0, LayoutParams.WRAP_CONTENT);
         params.weight = 1;
         params.gravity = Gravity.CENTER;
         for (TabInfo tabInfo : tabInfos) {

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+
+    <LinearLayout
+        android:id="@+id/avatardialog_selectorlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="20dip"
+        android:paddingTop="13.33dip">
+
+        <RelativeLayout
+            android:id="@+id/avatardialog_camera"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/avatardialog_camera_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dip"
+                android:drawableTop="@mipmap/camera_icon"
+                android:gravity="center_horizontal"
+                android:text="拍照"
+                android:textColor="#7c7f89"
+                android:textSize="12sp"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/avatardialog_phone_photo"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/avatardialog_phone_photo_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dip"
+                android:drawableTop="@mipmap/album_icon"
+                android:gravity="center_horizontal"
+                android:text="手机相册"
+                android:textColor="#7c7f89"
+                android:textSize="12sp"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/avatardialog_separator"
+        android:layout_width="fill_parent"
+        android:layout_height="0.8dip"
+        android:layout_below="@id/avatardialog_selectorlayout"
+        android:layout_marginLeft="6.67dip"
+        android:layout_marginRight="6.67dip"
+        android:background="#40bff5"/>
+
+    <TextView
+        android:id="@+id/avatardialog_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="60dip"
+        android:layout_below="@+id/avatardialog_separator"
+        android:gravity="center"
+        android:text="取   消"
+        android:textColor="@drawable/avatardialog_cancle_bg"
+        android:textSize="17sp"/>
+
+</RelativeLayout>

@@ -2,6 +2,8 @@ package com.jushi.library.compression.utils;
 
 import android.content.Context;
 
+import com.jushi.library.base.BaseApplication;
+
 import java.lang.ref.WeakReference;
 
 /**
@@ -10,10 +12,8 @@ import java.lang.ref.WeakReference;
  * @author wyf
  */
 public class PATH {
-    private static WeakReference<Context> weakReference;
 
     public static void initialize(Context context) {
-        weakReference = new WeakReference(context);
         FILE.createDir(getImageSaveDir());
     }
 
@@ -23,6 +23,6 @@ public class PATH {
      * @return
      */
     public static String getImageSaveDir() {
-        return weakReference.get().getExternalFilesDir(null).toString() + "/photo/";
+        return BaseApplication.getInstance().getExternalCacheDir().getPath() + "/photo/";
     }
 }

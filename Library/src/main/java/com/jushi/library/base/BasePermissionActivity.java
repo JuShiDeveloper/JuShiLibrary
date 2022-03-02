@@ -33,6 +33,7 @@ abstract class BasePermissionActivity extends AppCompatActivity {
     private final int SYSTEM_ALERT_WINDOW_CODE = 0x05;
     private final int REQUEST_OPEN_BLUETOOTH = 0x06;
     private final int REQUEST_OPEN_NOTICE = 0x07;
+    private final int REQUEST_CODE_PERMISSIONS_CALL_PHONE = 0x08;
 
     protected BluetoothAdapter bluetoothAdapter;
 
@@ -42,9 +43,9 @@ abstract class BasePermissionActivity extends AppCompatActivity {
      * @return
      */
     protected boolean checkCameraPermission() {
-        return PermissionUtil.request(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE_PERMISSIONS_CAMERA);
+        return PermissionUtil.request(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_PERMISSIONS_CAMERA);
 //        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE_PERMISSIONS_CAMERA);
+//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_PERMISSIONS_CAMERA);
 //            return false;
 //        }
 //        return true;
@@ -189,6 +190,14 @@ abstract class BasePermissionActivity extends AppCompatActivity {
         startActivityForResult(intent,REQUEST_OPEN_NOTICE);
     }
 
+    /**
+     * 检查拨打电话权限
+     * @return
+     */
+    protected boolean checkCallPhonePermission(){
+        return PermissionUtil.request(this,new String[]{Manifest.permission.CALL_PHONE},REQUEST_CODE_PERMISSIONS_CALL_PHONE);
+    }
+
     private void showToast(String msg) {
         ToastUtil.showToast(this, msg);
     }
@@ -254,8 +263,20 @@ abstract class BasePermissionActivity extends AppCompatActivity {
                     showToast("通知权限被禁止");
                 }
                 break;
+            case REQUEST_CODE_PERMISSIONS_CALL_PHONE:
+                if (isNotificationEnabled()) {
+                    onCallPhonePermissionOpened();
+                } else {
+                    showToast("拨打电话权限已被禁止");
+                }
+                break;
         }
     }
+
+    /**
+     * 拨打电话权限开启
+     */
+    protected abstract void onCallPhonePermissionOpened();
 
     /**
      * 权限事件传递到fragment

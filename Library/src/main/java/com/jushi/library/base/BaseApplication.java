@@ -9,6 +9,7 @@ import com.jushi.library.BuildConfig;
 import com.jushi.library.crash.ExceptionCaughtHandler;
 import com.jushi.library.database.DatabaseManager;
 import com.jushi.library.bluetooth.BluetoothFuncManager;
+import com.jushi.library.manager.MClipboardManager;
 import com.jushi.library.manager.SdManager;
 import com.jushi.library.manager.UserManager;
 import com.jushi.library.manager.NetworkManager;
@@ -45,7 +46,7 @@ public class BaseApplication extends Application {
         handler = new Handler();
         // 初始化管理器
         initManager();
-        initCrashLog();
+//        initCrashLog();
     }
 
 
@@ -120,6 +121,7 @@ public class BaseApplication extends Application {
         lists.add(new UserManager());
         lists.add(new SdManager());
         lists.add(new BluetoothFuncManager());
+        lists.add(new MClipboardManager());
     }
 
     private void initCrashLog(){

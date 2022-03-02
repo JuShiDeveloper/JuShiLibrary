@@ -16,10 +16,20 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,7 +47,6 @@ import okio.BufferedSink;
  * 文件上传 带上传进度
  */
 public class UploadFileRequester implements Callback {
-    private final String TAG = UploadFileRequester.class.getSimpleName();
     private static final OkHttpClient httpClient;
     private OnUploadListener onUploadListener;
     protected UserManager userManager = BaseApplication.getInstance().getManager(UserManager.class);
@@ -45,6 +54,8 @@ public class UploadFileRequester implements Callback {
 
     static {
         httpClient = new OkHttpClient().newBuilder()
+                .sslSocketFactory(createSSLSocketFactory(),new TrustAllCerts())
+                .hostnameVerifier(new TrustAllHostnameVerifier())
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
                 .writeTimeout(30, TimeUnit.SECONDS)
@@ -60,6 +71,41 @@ public class UploadFileRequester implements Callback {
         }
     });
 
+    //自定义SS验证相关类
+    private static class TrustAllCerts implements X509TrustManager {
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        }
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[]{};
+        }
+    }
+
+    private static class TrustAllHostnameVerifier implements HostnameVerifier {
+        @Override
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    }
+
+    private static SSLSocketFactory createSSLSocketFactory() {
+        SSLSocketFactory ssfFactory = null;
+        try {
+            SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
+//            SSLContext sc = SSLContext.getInstance("TLS");
+//            sc.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
+            ssfFactory = sslContext.getSocketFactory();
+        } catch (Exception e) {
+        }
+        return ssfFactory;
+    }
 
     public void uploadFile(String url, String filePath, OnUploadListener onUploadListener) {
         this.onUploadListener = onUploadListener;
@@ -67,7 +113,7 @@ public class UploadFileRequester implements Callback {
         LogUtil.v("文件上传：" + url);
         RequestBody fileBody = getStreamBody(filePath);
         MultipartBody requestBody = new MultipartBody.Builder()
-                .addFormDataPart("avatar", new File(filePath).getName(),fileBody)
+                .addFormDataPart("file", new File(filePath).getName(),fileBody)
 //                .addFormDataPart("avatar", file.getName(), RequestBody.create(MediaType.parse(getMimeType(file.getName())), file))
                 .build();
         Request request = new Request.Builder()
@@ -86,7 +132,7 @@ public class UploadFileRequester implements Callback {
     private Map<String, String> getHeaders() {
         Map<String, String> headers = new HashMap<>();
         if (userManager.getUserInfo() != null)
-            headers.put("authorization", userManager.getUserInfo().getAuthorization());
+            headers.put("Authorization", userManager.getUserInfo().getToken());
         headers.put("Content-Type", "multipart/form-data");
         return headers;
     }

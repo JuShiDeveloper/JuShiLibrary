@@ -1,5 +1,6 @@
 package com.jushi.library.customView.editText;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.text.method.HideReturnsTransformationMethod;
@@ -33,8 +35,9 @@ import java.util.List;
  * create by wyf on 2019/08/15
  */
 public class CustomEditText extends RelativeLayout implements View.OnClickListener, TextWatcher {
-    public final int VIEW_TYPE_INPUT = 1;
-    public final int VIEW_TYPE_OPTION = 2;
+    public final int VIEW_TYPE_INPUT = 1; //做输入框使用
+    public final int VIEW_TYPE_OPTION = 2; //选项弹窗  需要设置选项数据 setSelectOptions()
+    public final int VIEW_TYPE_ADDRESS = 3; //选择省市区地址弹窗
     private int type = VIEW_TYPE_INPUT;
     /**
      * 输入框
@@ -68,6 +71,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
     private OnAuthCodeButtonClickListener authCodeButtomClickListener;
     private OnTextChangedListener onTextChangedListener;
     private int customEditTextType = -1;
+    private OnAddressSelectedListener addressSelectedListener;
 
     enum PasswordDisplayType {
         HIDDEN, DISPLAY
@@ -80,6 +84,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
     private int defaultTextSize = 42; //输入文字的默认大小,对应xml中设置的 14sp
 
     private WheelViewDialog wheelViewDialog;
+    private AddressDialog addressDialog;
 
     public CustomEditText(Context context) {
         this(context, null);
@@ -221,12 +226,18 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         this.hintText = hintText;
         editText.setHint(hintText);
         textView.setText(hintText);
+        textView.setTextColor(hintTextColor);
     }
 
-    public void setText(String text){
+    public void setText(String text) {
+        if (TextUtils.isEmpty(text)){
+            setHintText(this.hintText);
+            return;
+        }
         editText.setText(text);
         editText.setSelection(text.length());
         textView.setText(text);
+        textView.setTextColor(inputTextColor);
     }
 
     public void setClearButtonDrawable(int resId) {
@@ -383,6 +394,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
      *
      * @param type 1-输入框  2-选项框
      */
+    @SuppressLint("SetTextI18n")
     private void setViewType(int type) {
         this.type = type;
         ivDropDown.setVisibility(type == VIEW_TYPE_INPUT ? GONE : VISIBLE);
@@ -390,15 +402,31 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
         editText.setVisibility(type != VIEW_TYPE_INPUT ? GONE : VISIBLE);
         editText.setEnabled(type == VIEW_TYPE_INPUT);
         if (type == VIEW_TYPE_INPUT) return;
-        wheelViewDialog = new WheelViewDialog(getContext());
-        textView.setOnClickListener(v -> {
-            wheelViewDialog.show();
-        });
-        wheelViewDialog.setOnConfirmClickListener(wheelInfo -> {
-            textView.setTextColor(inputTextColor);
-            textView.setText(wheelInfo.getName());
-            setClearButtonVisible(true);
-        });
+        if (type == VIEW_TYPE_OPTION) {
+            wheelViewDialog = new WheelViewDialog(getContext());
+            textView.setOnClickListener(v -> {
+                wheelViewDialog.show();
+            });
+            wheelViewDialog.setOnConfirmClickListener(wheelInfo -> {
+                textView.setTextColor(inputTextColor);
+                textView.setText(wheelInfo.getName());
+                setClearButtonVisible(true);
+            });
+        }
+        if (type == VIEW_TYPE_ADDRESS) {
+            addressDialog = new AddressDialog(getContext());
+            textView.setOnClickListener(v -> {
+                addressDialog.show();
+            });
+            addressDialog.setOnSelectAddressListener(addressInfo -> {
+                textView.setTextColor(inputTextColor);
+                textView.setText(addressInfo.getProvinceName() + addressInfo.getCityName() + addressInfo.getAreaName());
+                setClearButtonVisible(true);
+                if (addressSelectedListener!=null){
+                    addressSelectedListener.onAddressSelected(addressInfo);
+                }
+            });
+        }
     }
 
     /**
@@ -427,7 +455,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
 //获取验证码按钮点击
         if (i == R.id.iv_clear_btn) {
             editText.setText("");
-            if (type == VIEW_TYPE_OPTION) {
+            if (type == VIEW_TYPE_OPTION || type == VIEW_TYPE_ADDRESS) {
                 textView.setText(hintText);
                 textView.setTextColor(hintTextColor);
                 setClearButtonVisible(false);
@@ -504,6 +532,17 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
      */
     public interface OnTextChangedListener {
         void onTextChanged(String s, int type);
+    }
+
+    /**
+     * 地址选择结构监听  点确定按钮回调
+     */
+    public interface OnAddressSelectedListener {
+        void onAddressSelected(AddressDialog.AddressInfo addressInfo);
+    }
+
+    public void setOnAddressSelectedListener(OnAddressSelectedListener listener) {
+        addressSelectedListener = listener;
     }
 
 }

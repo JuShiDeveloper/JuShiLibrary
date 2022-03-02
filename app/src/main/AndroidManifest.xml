@@ -21,6 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <meta-data
+            android:name="com.library.jushi.jushilibrary.glide.OkHttpAppGlideModule"
+            android:value="GlideModule" />
         <activity
             android:name=".TestActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

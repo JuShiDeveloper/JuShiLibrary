@@ -21,6 +21,7 @@ abstract class BasePermissionFragment extends Fragment {
     private final int REQUEST_CODE_PERMISSIONS_EXTERNAL_STORAGE = 0x02;
     private final int REQUEST_CODE_PERMISSIONS_LOCATION = 0x03;
     private final int REQUEST_CODE_PERMISSIONS_RECORD_AUDIO = 0x04;
+    private final int REQUEST_CODE_PERMISSIONS_CALL_PHONE = 0x05;
 
     /**
      * 检查相机权限
@@ -28,9 +29,9 @@ abstract class BasePermissionFragment extends Fragment {
      * @return
      */
     protected boolean checkCameraPermission() {
-        return PermissionUtil.request(getActivity(),new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},REQUEST_CODE_PERMISSIONS_CAMERA);
+        return PermissionUtil.request(getActivity(),new String[]{Manifest.permission.CAMERA},REQUEST_CODE_PERMISSIONS_CAMERA);
 //        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, REQUEST_CODE_PERMISSIONS_CAMERA);
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, REQUEST_CODE_PERMISSIONS_CAMERA);
 //            return false;
 //        }
 //        return true;
@@ -84,9 +85,22 @@ abstract class BasePermissionFragment extends Fragment {
 //        return true;
     }
 
-    private void showToast(String msg) {
+    /**
+     * 检查拨打电话权限
+     * @return
+     */
+    protected boolean checkCallPhonePermission(){
+        return PermissionUtil.request(getActivity(),new String[]{Manifest.permission.CALL_PHONE},REQUEST_CODE_PERMISSIONS_CALL_PHONE);
+    }
+
+    protected void showToast(String msg) {
         ToastUtil.showToast(getActivity(), msg);
     }
+
+    protected void showToast(String msg,int gravty) {
+        ToastUtil.showToast(getActivity(), msg,gravty);
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -121,8 +135,20 @@ abstract class BasePermissionFragment extends Fragment {
                     showToast("录音权限已被禁止");
                 }
                 break;
+            case REQUEST_CODE_PERMISSIONS_CALL_PHONE:
+                if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    onCallPhonePermissionOpened();
+                } else {
+                    showToast("拨打电话权限已被禁止");
+                }
+                break;
         }
     }
+
+    /**
+     * 拨打电话权限开启
+     */
+    protected abstract void onCallPhonePermissionOpened();
 
     /**
      * 权限事件传递到下一层fragment

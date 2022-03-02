@@ -160,7 +160,7 @@ public class FileUtil {
             }
         }
         FileOutputStream outputStream = new FileOutputStream(jpgFile); // 文件输出流
-        croppedImage.compress(Bitmap.CompressFormat.JPEG, 70, outputStream);
+        croppedImage.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         outputStream.close();
         return jpgFile.getPath();
     }

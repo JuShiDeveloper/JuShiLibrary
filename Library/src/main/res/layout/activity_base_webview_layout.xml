@@ -3,19 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f7f7f7"
+    android:background="#F3F4F7"
     android:orientation="vertical">
 
     <com.jushi.library.customView.navigationbar.NavigationBar
         android:id="@+id/NavigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f1f1f1"
-        app:backButtonIconResource="@drawable/ic_arrow_back_black"
-        app:function="BACK_BUTTON|TITLE"
+        android:background="#F0F1F3"
+        app:backButtonIconResource="@mipmap/back_icon"
+        app:closeButtonIconResource="@mipmap/close_icon"
+        app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_ICON"
         app:isImmersiveStatusBar="true"
-        app:statusBarBackgroundColor="#f1f1f1"
-        app:titleText="WebView"
         app:titleTextColor="#333333"
         app:titleTextSize="16sp" />
 
@@ -32,7 +31,7 @@
             android:id="@+id/webView_progress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="5dp"
+            android:layout_height="2dp"
             android:max="100"
             android:progress="0"
             android:progressDrawable="@drawable/webview_loading_progressbar" />

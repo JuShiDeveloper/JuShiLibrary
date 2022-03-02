@@ -22,13 +22,30 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/item_view_drawable_left" />
 
-    <TextView
-        android:id="@+id/item_view_content"
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
         android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/item_view_drawable_right" />
+        android:layout_toLeftOf="@+id/item_view_drawable_right"
+        android:layout_toRightOf="@+id/item_view_title">
+
+        <TextView
+            android:id="@+id/item_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:lines="1"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/right_content_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"/>
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/item_view_drawable_right"

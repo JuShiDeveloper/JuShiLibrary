@@ -29,6 +29,7 @@ public class ItemView extends RelativeLayout {
     private ImageView ivRightIcon;
     private TextView tvTitle;
     private TextView tvRightText;
+    private ImageView rightContentIcon;
 
     public ItemView(Context context) {
         this(context, null);
@@ -56,6 +57,7 @@ public class ItemView extends RelativeLayout {
         ivRightIcon = findViewById(R.id.item_view_drawable_right);
         tvTitle = findViewById(R.id.item_view_title);
         tvRightText = findViewById(R.id.item_view_content);
+        rightContentIcon = findViewById(R.id.right_content_icon);
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -68,6 +70,7 @@ public class ItemView extends RelativeLayout {
         setItemRightText(array.getString(R.styleable.ItemView_itemRightText));
         setItemRightTextColor(array.getColor(R.styleable.ItemView_itemRightTextColor, Color.parseColor("#333333")));
         setItemRightTextSize(array.getDimensionPixelSize(R.styleable.ItemView_itemRightTextSize, 24));
+        setRightContentIcon(array.getResourceId(R.styleable.ItemView_rightContentIcon, 0));
         array.recycle();
     }
 
@@ -109,6 +112,10 @@ public class ItemView extends RelativeLayout {
 
     public void setLeftIcon(Bitmap bitmap) {
         ivLeftIcon.setImageBitmap(bitmap);
+    }
+
+    public void setRightContentIcon(int resourceId){
+        rightContentIcon.setImageResource(resourceId);
     }
 
 }

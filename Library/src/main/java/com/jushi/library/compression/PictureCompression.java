@@ -56,7 +56,7 @@ public class PictureCompression {
         initialize(context);
         Luban.with(context)
                 .load(path)
-                .ignoreBy(80) //不压缩阈值 80KB
+                .ignoreBy(200) //不压缩阈值 80KB
                 .setTargetDir(getTargetDir())
                 .setFocusAlpha(false)
                 .filter(new CompressionPredicate() {

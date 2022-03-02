@@ -15,22 +15,26 @@ import java.io.File;
  */
 public class SdManager extends BaseManager {
     /**** 主目录 ***/
-    private final String DIR_ROOT = "/YongXing/";
+    private final String DIR_ROOT = "/ShiYongJun/";
     /*** 存放文件 ***/
     private final String FILES = "files/";
     /*** 存放图片 ***/
     private final String IMAGE = "image/";
 
+    private final String APK = "apk/";
+
     private String rootPath;
     private String filePath;
     private String imagePath;
+    private String apkPath;
 
     @Override
     public void onManagerCreate(BaseApplication application) {
         rootPath = getDirectoryPath(application) + DIR_ROOT;
         filePath = rootPath + FILES;
         imagePath = rootPath + IMAGE;
-        mkdir(filePath,imagePath);
+        apkPath = rootPath + APK;
+        mkdir(filePath,imagePath,apkPath);
     }
 
     /**
@@ -69,6 +73,14 @@ public class SdManager extends BaseManager {
      */
     public String getImagePath(){
         return imagePath;
+    }
+
+    /**
+     * 版本更新 安装包下载存放位置
+     * @return
+     */
+    public String getApkPath(){
+        return apkPath;
     }
 
     private final synchronized boolean mkdir(String... filePaths) {

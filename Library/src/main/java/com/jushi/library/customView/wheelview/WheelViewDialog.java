@@ -43,7 +43,6 @@ public class WheelViewDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_bottom_wheel_view);
-        ViewInjecter.inject(this);
         initView();
         setListener();
     }

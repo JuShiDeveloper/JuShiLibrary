@@ -11,12 +11,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -38,10 +48,48 @@ abstract class BaseHttp implements Callback {
 
     static {
         httpClient = new OkHttpClient().newBuilder()
+                .sslSocketFactory(createSSLSocketFactory(),new TrustAllCerts())
+                .hostnameVerifier(new TrustAllHostnameVerifier())
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
                 .build();
+    }
+
+    //自定义SS验证相关类
+    private static class TrustAllCerts implements X509TrustManager {
+        @Override
+        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+        }
+
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[]{};
+        }
+    }
+
+    private static class TrustAllHostnameVerifier implements HostnameVerifier {
+        @Override
+        public boolean verify(String hostname, SSLSession session) {
+            return true;
+        }
+    }
+
+    private static SSLSocketFactory createSSLSocketFactory() {
+        SSLSocketFactory ssfFactory = null;
+        try {
+            SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
+//            SSLContext sc = SSLContext.getInstance("TLS");
+//            sc.init(null, new TrustManager[]{new TrustAllCerts()}, new SecureRandom());
+            ssfFactory = sslContext.getSocketFactory();
+        } catch (Exception e) {
+        }
+        return ssfFactory;
     }
 
     public void get() {
@@ -126,21 +174,11 @@ abstract class BaseHttp implements Callback {
      * @return
      */
     private Map<String, String> getHeaders() {
-//        String time = System.currentTimeMillis() / 1000 + "";
-//        String randomStr = Encoder.encodeByMD5(System.currentTimeMillis() + "" + (int) (Math.random() * 1000000));
         Map<String, String> headers = new HashMap<>();
-        if (userManager.getUserInfo() != null)
-            headers.put("authorization", userManager.getUserInfo().getAuthorization());
-//        headers.put("app-id", "10004");
-//        headers.put("nonce-str", randomStr);
-//        headers.put("Content-Type", "application/json");
-//
-//        Map<String, String> signParams = new HashMap<>(changeParams(getParamsObject()));
-//        signParams.put("app_id", "10004");
-//        signParams.put("nonce_str", randomStr);
-//        signParams.put("timestamp", time);
-//        headers.put("sign", makeSign(signParams, "s5bMpNjp9DePwVZLLzZmrHPP45unpMVu"));
-
+        if (userManager.getUserInfo() != null) {
+            headers.put("authorization", userManager.getUserInfo().getToken());
+            headers.put("bossId", userManager.getBossId());
+        }
         return headers;
     }
 

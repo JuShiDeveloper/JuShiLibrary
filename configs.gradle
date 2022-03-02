@@ -1,11 +1,15 @@
 ext {
+
     android = [
             compileSdkVersion: 28,
             buildToolsVersion: "28.0.3",
-            minSdkVersion    : 19,
-            targetSdkVersion : 26
+            applicationIds   : "com.ibat.edible.truffle",
+            applicationIdsDebug   : "com.ibat.edible.debug",
+            minSdkVersion    : 21,
+            targetSdkVersion : 26,
+            versionCodes     : 104,
+            versionNames     : "1.0.4",
     ]
-
     dependencies = [
             "support-v7"          : "com.android.support:appcompat-v7:28.+",
             "support-v4"          : "com.android.support:support-v4:28.0.0",
@@ -14,6 +18,7 @@ ext {
             "kotlin"              : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version",
             "multidex"            : 'com.android.support:multidex:1.0.1',
             "glide"               : 'com.github.bumptech.glide:glide:4.8.0',
+            "glide-okhttp3"       :'com.github.bumptech.glide:okhttp3-integration:4.8.0',
             "fastjson"            : 'com.alibaba:fastjson:1.2.47',
             /*rxjava*/
             "rxjava"              : 'io.reactivex:rxjava:latest.integration',
@@ -27,9 +32,7 @@ ext {
             "nineoldandroids"     : 'com.nineoldandroids:library:2.4.0',
             "okhttp3"             : 'com.squareup.okhttp3:okhttp:4.9.0',
             "Java-WebSocket"      : 'org.java-websocket:Java-WebSocket:1.4.0',
-            "Umeng-common-sdk"    : 'com.umeng.umsdk:common:9.4.2', //友盟基础sdk  (使用友盟时必须引用)
-            "Umeng-asms-sdk"      : 'com.umeng.umsdk:asms:1.4.1', //友盟基础sdk  (使用友盟时必须引用)
-            "Umeng-push-sdk"      : 'com.umeng.umsdk:push:6.4.0', //友盟推送sdk
+
             /* 华为推送*/
             "huawei-umengaccs"    : 'com.umeng.umsdk:huawei-umengaccs:1.3.5',
             "huawei-hms-push"     : 'com.huawei.hms:push:5.3.0.304',
@@ -51,6 +54,10 @@ ext {
             /* 高德地图 */
             "amap-3dmap"          : 'com.amap.api:3dmap:6.9.2',//3D地图so及jar
             "amap-location"       : 'com.amap.api:location:4.7.0',//定位功能
-            "amap-search"         : 'com.amap.api:search:6.9.2'//搜索功能
+            "amap-search"         : 'com.amap.api:search:6.9.2',//搜索功能
+            /************************************* 友盟相关 推送、社会化分享、登录 ***********************************/
+            "Umeng-common-sdk"    : 'com.umeng.umsdk:common:9.4.4', //友盟基础sdk  (使用友盟时必须引用)
+            "Umeng-asms-sdk"      : 'com.umeng.umsdk:asms:1.4.1', //友盟基础sdk  (使用友盟时必须引用)
+            "Umeng-push-sdk"      : 'com.umeng.umsdk:push:6.4.0', //友盟推送sdk
     ]
 }

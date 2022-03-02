@@ -4,6 +4,7 @@ package com.jushi.library.http;
 import android.view.Gravity;
 
 import com.jushi.library.base.BaseApplication;
+import com.jushi.library.manager.UserManager;
 import com.jushi.library.utils.LogUtil;
 import com.jushi.library.utils.ToastUtil;
 
@@ -16,6 +17,8 @@ import java.io.InputStream;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -27,6 +30,7 @@ import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -37,12 +41,13 @@ import okhttp3.Response;
 public class DownloadFileRequester implements Callback {
     private static final OkHttpClient httpClient;
     private OnDownloadListener downloadListener;
+    protected UserManager userManager = BaseApplication.getInstance().getManager(UserManager.class);
     private String downloadPath;
     private String fileName;
 
     static {
         httpClient = new OkHttpClient().newBuilder()
-                .sslSocketFactory(createSSLSocketFactory(),new TrustAllCerts())
+                .sslSocketFactory(createSSLSocketFactory(), new TrustAllCerts())
                 .hostnameVerifier(new TrustAllHostnameVerifier())
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS)
@@ -57,32 +62,57 @@ public class DownloadFileRequester implements Callback {
      * @param downloadListener
      */
     public void download(String url, String savePath, String fileName, OnDownloadListener downloadListener) {
-        LogUtil.v("****************************开始下载文件*********************");
-        LogUtil.v("url ：" + url);
-        LogUtil.v("savePath ：" + savePath);
-        LogUtil.v("fileName ：" + fileName);
-        LogUtil.v("*************************************************************");
+        log("****************************开始下载文件*********************");
+        log("url ：" + url);
+        log("savePath ：" + savePath);
+        log("fileName ：" + fileName);
         this.downloadListener = downloadListener;
         this.downloadPath = savePath;
         this.fileName = fileName;
+        File file = new File(downloadPath, fileName);
+        if (file.exists() && file.isFile() && file.length() > 10) {
+            if (downloadListener != null)
+                downloadListener.onSuccess(file.getAbsolutePath());
+            log("文件已存在：" + file.getPath());
+            log("*************************************************************");
+            return;
+        }
+        log("*************************************************************");
         Request request = new Request.Builder()
                 .url(url)
+                .headers(Headers.of(getHeaders()))
                 .get()
                 .build();
         httpClient.newCall(request).enqueue(this);
     }
 
+    private void log(String log) {
+//        LogUtil.v(log);
+    }
+
+    /**
+     * 请求头参数
+     *
+     * @return
+     */
+    private Map<String, String> getHeaders() {
+        Map<String, String> headers = new HashMap<>();
+        if (userManager.getUserInfo() != null)
+            headers.put("Authorization", userManager.getUserInfo().getToken());
+        return headers;
+    }
+
     @Override
     public void onFailure(@NotNull Call call, @NotNull IOException e) {
         if (downloadListener != null)
-            downloadListener.onError(-1,e.getMessage());
+            downloadListener.onError(-1, e.getMessage());
     }
 
     @Override
     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
         if (response.code() != 200) {
             if (downloadListener != null)
-                downloadListener.onError(response.code(),"文件下载链接无法访问");
+                downloadListener.onError(response.code(), "文件下载链接无法访问");
             return;
         }
         InputStream is = null;
@@ -111,7 +141,10 @@ public class DownloadFileRequester implements Callback {
         } catch (Exception e) {
             e.printStackTrace();
             if (downloadListener != null)
-                downloadListener.onError(-1,e.getMessage());
+                downloadListener.onError(-1, e.getMessage());
+            File file = new File(downloadPath, fileName);
+            if (file.exists())
+                file.delete();
         } finally {
             try {
                 if (is != null) {
@@ -131,7 +164,7 @@ public class DownloadFileRequester implements Callback {
 
         void onSuccess(String filePath);
 
-        void onError(int code,String msg);
+        void onError(int code, String msg);
     }
 
     //自定义SS验证相关类
