@@ -20,13 +20,16 @@ public class SdManager extends BaseManager {
     private final String FILES = "files/";
     /*** 存放图片 ***/
     private final String IMAGE = "image/";
-
+    /*** 存放安装包 ***/
     private final String APK = "apk/";
+    /*** 存放导出文件 ***/
+    private final String EXPORT = "export";
 
     private String rootPath;
     private String filePath;
     private String imagePath;
     private String apkPath;
+    private String exportPath;
 
     @Override
     public void onManagerCreate(BaseApplication application) {
@@ -34,7 +37,8 @@ public class SdManager extends BaseManager {
         filePath = rootPath + FILES;
         imagePath = rootPath + IMAGE;
         apkPath = rootPath + APK;
-        mkdir(filePath,imagePath,apkPath);
+        exportPath = rootPath + EXPORT;
+        mkdir(filePath,imagePath,apkPath,exportPath);
     }
 
     /**
@@ -81,6 +85,14 @@ public class SdManager extends BaseManager {
      */
     public String getApkPath(){
         return apkPath;
+    }
+
+    /**
+     * 导出文件存放位置
+     * @return
+     */
+    public String getExportFilePath(){
+        return exportPath;
     }
 
     private final synchronized boolean mkdir(String... filePaths) {

@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
@@ -58,7 +59,7 @@ import com.jushi.library.utils.LogUtil;
  * 类似微信发送位置功能
  * created by wyf on 2021-11-17
  */
-public class SelectLocationActivity extends BaseFragmentActivity implements AMapLocationListener, GeocodeSearch.OnGeocodeSearchListener, AMap.OnCameraChangeListener, LocationsAdapter.OnItemClickListener, PoiSearch.OnPoiSearchListener {
+public class SelectLocationActivity extends BaseFragmentActivity implements AMapLocationListener, GeocodeSearch.OnGeocodeSearchListener, AMap.OnCameraChangeListener, LocationsAdapter.OnItemClickListener, PoiSearch.OnPoiSearchListener, AMap.OnMyLocationChangeListener {
     public static final String EXTRA_LOCATION = "extra_location";
     private AppCompatImageView ivLocation;
     private MapView mapView;
@@ -169,6 +170,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
     public void setListener() {
         //地图移动监听
         aMap.setOnCameraChangeListener(this);
+        aMap.setOnMyLocationChangeListener(this);
         locationsAdapter.setOnItemClickListener(this);
         tvMyLocation.setOnClickListener(v -> {
             aMap.moveCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition(moveLatLng,18,0,0)));
@@ -278,7 +280,7 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
             setMapCenter(amapLocation);
         } else {
             //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
-            LogUtil.v("AmapError", "location Error, ErrCode:" + amapLocation.getErrorCode() + ", errInfo:" + amapLocation.getErrorInfo());
+            LogUtil.v("location Error, ErrCode:" + amapLocation.getErrorCode() + ", errInfo:" + amapLocation.getErrorInfo());
         }
         mlocationClient.stopLocation();
         mlocationClient.onDestroy();
@@ -349,5 +351,20 @@ public class SelectLocationActivity extends BaseFragmentActivity implements AMap
         intent.putExtra(EXTRA_LOCATION, locationJson.toJSONString());
         setResult(Activity.RESULT_OK, intent);
         finish();
+    }
+
+    private double myLatitude;
+    private double myLongitude;
+
+    @Override
+    public void onMyLocationChange(Location location) {
+        if(myLatitude==location.getLatitude()&&myLongitude==location.getLongitude()){
+            return;
+        }
+        myLatitude = location.getLatitude();
+        myLongitude = location.getLongitude();
+        latLng = new LatLng(location.getLatitude(),location.getLongitude());
+        setMapCenter(new AMapLocation(location));
+        LogUtil.v(location.getLatitude()+"     "+location.getLongitude());
     }
 }

@@ -1,6 +1,7 @@
 package com.jushi.library.base;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -11,6 +12,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -185,8 +187,22 @@ abstract class BasePermissionActivity extends AppCompatActivity {
      */
     protected void toSystemNoticeSettings(String pkgName){
         Intent intent = new Intent();
-        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
-        intent.putExtra("android.provider.extra.APP_PACKAGE", pkgName);
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+//            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+        }
+        if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){//这种方案适用于 API 26, 即8.0（含8.0）以上可以用
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, pkgName);
+            intent.putExtra(Settings.EXTRA_CHANNEL_ID, getApplicationInfo().uid);
+        }else if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP&&Build.VERSION.SDK_INT<=Build.VERSION_CODES.N_MR1){
+            //这种方案适用于 API21——25，即 5.0——7.1 之间的版本可以使用
+            intent.putExtra("app_package", getPackageName());
+            intent.putExtra("app_uid", getApplicationInfo().uid);
+        }else { //跳转到应用设置界面
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+        }
         startActivityForResult(intent,REQUEST_OPEN_NOTICE);
     }
 

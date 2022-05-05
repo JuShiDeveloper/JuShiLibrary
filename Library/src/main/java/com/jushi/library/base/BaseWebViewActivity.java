@@ -195,7 +195,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
-        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
             uploadMessageAboveL = filePathCallback;
             String[] acceptTypes = fileChooserParams.getAcceptTypes();
             for (int i = 0; i < acceptTypes.length; i++) {

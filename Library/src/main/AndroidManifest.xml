@@ -30,7 +30,7 @@
         <!-- 高德地图-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="0d20333f2e5355bc80ae315f87d9d06c" />
+            android:value="031bbc1b57f8b60860e9cb61510fa34c" />
 
         <activity
             android:name=".crowdout.CrowdOutDialogActivity"
@@ -50,6 +50,8 @@
         <activity android:name=".takingPhoto.view.CameraActivity"
             android:screenOrientation="landscape"/>
         <activity android:name=".takingPhoto.view.CameraPicturePreviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".amap.SelectLocationActivity"
             android:screenOrientation="portrait"/>
 
     </application>

@@ -1,5 +1,6 @@
 package com.jushi.library.utils;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
@@ -120,8 +121,18 @@ public class DeviceUtils {
      *
      * @return 手机型号
      */
-    public static String getPhoneStyle() {
-        return Build.MODEL.replace(" ", "_");
+    public static String getPhoneModel() {
+        return Build.MODEL;
+    }
+
+    /**
+     * 获取手机设备名称 （关于手机--->设备名称）
+     *
+     * @return 手机设备名称
+     */
+    public static String getPhoneDeviceName() {
+        BluetoothAdapter myDevice = BluetoothAdapter.getDefaultAdapter();
+        return myDevice.getName();
     }
 
     /**
@@ -153,5 +164,13 @@ public class DeviceUtils {
             rom = "Smartisan";
         }
         return rom + "+" + Build.BRAND + " " + Build.MODEL.replace(" ", "_");
+    }
+
+    /**
+     * 获取手机厂商
+     * @return
+     */
+    public static String getPhoneManufacturer(){
+        return Build.MANUFACTURER;
     }
 }

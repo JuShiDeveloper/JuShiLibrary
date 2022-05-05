@@ -86,6 +86,29 @@ public class DownloadFileRequester implements Callback {
         httpClient.newCall(request).enqueue(this);
     }
 
+    /**
+     * @param url              文件下载地址
+     * @param savePath         文件保存路径
+     * @param fileName         保存的文件名
+     * @param downloadListener
+     */
+    public void download2(String url, String savePath, String fileName, OnDownloadListener downloadListener) {
+        log("****************************开始下载文件*********************");
+        log("url ：" + url);
+        log("savePath ：" + savePath);
+        log("fileName ：" + fileName);
+        this.downloadListener = downloadListener;
+        this.downloadPath = savePath;
+        this.fileName = fileName;
+        log("*************************************************************");
+        Request request = new Request.Builder()
+                .url(url)
+                .headers(Headers.of(getHeaders()))
+                .get()
+                .build();
+        httpClient.newCall(request).enqueue(this);
+    }
+
     private void log(String log) {
 //        LogUtil.v(log);
     }

@@ -1,15 +1,20 @@
 package com.jushi.library.utils;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 
 
 import com.jushi.library.base.BaseApplication;
@@ -26,6 +31,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+
+import static android.support.v4.content.FileProvider.getUriForFile;
 
 /**
  * 文件工具类
@@ -196,5 +203,72 @@ public class FileUtil {
             }
         });
         return photos;
+    }
+
+    /**
+     * 调用第三方软件打开office文件
+     * @param activity
+     * @param pkgName
+     * @param filePath
+     */
+    public static void openOfficeFile(Activity activity,String pkgName, String filePath) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            File file = new File(filePath);
+            String type = getMIMEType(file);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Uri uri = getUriForFile(activity, pkgName + ".fileprovider", file);
+                // 设置文件类型
+                intent.setDataAndType(uri, type);
+            } else {
+                Uri uri = Uri.fromFile(file);
+                intent.setDataAndType(uri, type);
+            }
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            activity.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            e.printStackTrace();
+            activity.runOnUiThread(() -> ToastUtil.showToast(activity, "附件不能打开，请下载相关软件！", Gravity.CENTER));
+        }
+    }
+
+    /**
+     * 判断文件类型
+     */
+    private static String getMIMEType(File f) {
+        String type = "";
+        String fName = f.getName();
+        /* 取得扩展名 */
+        String end = fName.substring(fName.lastIndexOf(".") + 1, fName.length()).toLowerCase();
+        /* 依扩展名的类型决定MimeType */
+        if (end.equals("pdf")) {
+            type = "application/pdf";
+        } else if (end.equals("m4a") || end.equals("mp3") || end.equals("mid") ||
+                end.equals("xmf") || end.equals("ogg") || end.equals("wav")) {
+            type = "audio/*";
+        } else if (end.equals("3gp") || end.equals("mp4")) {
+            type = "video/*";
+        } else if (end.equals("jpg") || end.equals("gif") || end.equals("png") ||
+                end.equals("jpeg") || end.equals("bmp")) {
+            type = "image/*";
+        } else if (end.equals("apk")) {
+            type = "application/vnd.android.package-archive";
+        } else if (end.equals("pptx") || end.equals("ppt")) {
+            type = "application/vnd.ms-powerpoint";
+        } else if (end.equals("docx") || end.equals("doc")) {
+            type = "application/vnd.ms-word";
+        } else if (end.equals("xlsx") || end.equals("xls")) {
+            type = "application/vnd.ms-excel";
+        } else if (end.equals("txt")) {
+            type = "text/plain";
+        } else if (end.equals("html") || end.equals("htm")) {
+            type = "text/html";
+        } else {
+            //如果无法直接打开，就跳出软件列表给用户选择
+            type = "*/*";
+        }
+        return type;
     }
 }

@@ -29,9 +29,9 @@ dependencies {
     api rootProject.ext.dependencies["kotlin"]
     api rootProject.ext.dependencies["support-v7"]
     api rootProject.ext.dependencies["support-v4"]
+    api rootProject.ext.dependencies["nineoldandroids"]
     api rootProject.ext.dependencies["glide"]
     api rootProject.ext.dependencies["glide-okhttp3"]
-    api rootProject.ext.dependencies["nineoldandroids"]
     api rootProject.ext.dependencies["okhttp3"]
     api rootProject.ext.dependencies["Java-WebSocket"]
     api rootProject.ext.dependencies["recyclerview"]
@@ -44,5 +44,4 @@ dependencies {
     implementation files('libs/zxing.jar')
     //腾讯TBS实现文件预览
     implementation files('libs/tbs_sdk_thirdapp_v4.3.0.215_44115_sharewithdownloadwithfile_withoutGame_obfs_20211019_111112.jar')
-
 }

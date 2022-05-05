@@ -13,6 +13,9 @@ android {
         versionCode versionCodes.toInteger()
         versionName versionNames
         multiDexEnabled true
+        ndk {
+            abiFilters 'armeabi-v7a','arm64-v8a'//,'x86','armeabi', 'x86_64'
+        }
     }
 
     sourceSets {
@@ -21,12 +24,52 @@ android {
             res.srcDirs = ['src/main/res']
         }
     }
-    buildTypes {
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            storeFile file("../JuShi.jks")
+            storePassword "123456"
+            keyAlias "JuShi"
+            keyPassword "123456"
         }
     }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            debuggable true
+            shrinkResources false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            zipAlignEnabled false
+            debuggable true
+            shrinkResources false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        if (variant.buildType.name == "release") {
+            variant.outputs.all { output ->
+                //release包存放位置
+//                variant.getPackageApplication().outputDirectory = new File("${project.rootDir.absolutePath}/apk")
+                variant.getPackageApplication().outputDirectory = new File("${project.rootDir.absolutePath}/app/build/outputs/apk/release")
+                outputFileName = "JuShi_v${defaultConfig.versionName}_release.apk"
+            }
+        } else {
+            variant.outputs.all { output ->
+                //debug包存放位置
+                variant.getPackageApplication().outputDirectory = new File("${project.rootDir.absolutePath}/app/build/outputs/apk/debug")
+                outputFileName = "JuShi_v${defaultConfig.versionName}_debug.apk"
+            }
+        }
+    }
+
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
@@ -37,7 +80,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':Library')
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-//    implementation 'com.android.support:appcompat-v7:28.+'
+    implementation 'com.android.support:appcompat-v7:28.+'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'com.squareup.okhttp3:okhttp:4.8.0'

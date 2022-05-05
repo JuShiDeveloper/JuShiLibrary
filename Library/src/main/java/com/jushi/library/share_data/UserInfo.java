@@ -94,7 +94,7 @@ public class UserInfo {
     private String employeeAuditOpinion;
     private String sellerAuditOpinion;
     private String buyerAuditOpinion;
-    private UserEmployeeRolesBean currentShop;//当前所在店铺
+    private UserInfo.UserEmployeeRolesBean currentShop;//当前所在店铺
 
     public UserEmployeeRolesBean getCurrentShop() {
         return currentShop;
@@ -321,7 +321,7 @@ public class UserInfo {
     }
 
     public String getRealName() {
-        return realName;
+        return realName==null?"":realName;
     }
 
     public void setRealName(String realName) {
@@ -393,7 +393,7 @@ public class UserInfo {
     }
 
     public String getUserCode() {
-        return userCode;
+        return userCode==null?"":userCode;
     }
 
     public void setUserCode(String userCode) {

@@ -55,10 +55,10 @@ public class NavigationBar extends LinearLayout implements ViewTreeObserver.OnGl
 
     private boolean canEditClick = false;
 
-    private OnClickListener backButtonClickListener;
-    private OnClickListener closeButtonClickListener;
-    private OnClickListener rightButtonClickListener;
-    private OnClickListener searchEditClickListener;
+    private View.OnClickListener backButtonClickListener;
+    private View.OnClickListener closeButtonClickListener;
+    private View.OnClickListener rightButtonClickListener;
+    private View.OnClickListener searchEditClickListener;
 
     public NavigationBar(Context context) {
         this(context, null);

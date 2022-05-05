@@ -235,7 +235,7 @@ public class CustomEditText extends RelativeLayout implements View.OnClickListen
             return;
         }
         editText.setText(text);
-        editText.setSelection(text.length());
+//        editText.setSelection(text.length());
         textView.setText(text);
         textView.setTextColor(inputTextColor);
     }

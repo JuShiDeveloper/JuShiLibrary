@@ -42,7 +42,6 @@ public abstract class BaseHttpRequester<Data> extends BaseHttp {
                 if (code == 200) {
                     responseListener.onHttpRequesterResponse(code, onRequestRouter(), message, onDumpData(finalDataObj));
                 } else {
-//                    responseListener.onHttpRequesterResponse(code, onRequestRouter(), message, onDumpDataError(finalDataObj));
                     onError(code, message);
                 }
             } catch (Exception e) {

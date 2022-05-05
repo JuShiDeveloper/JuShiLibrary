@@ -21,7 +21,7 @@ import com.jushi.library.utils.LogUtil;
  * create by jushi on 2020/09/01
  */
 public class FloatViewLayout extends RelativeLayout implements View.OnTouchListener {
-    private OnClickListener onClickListener;
+    private View.OnClickListener onClickListener;
     private boolean needCallOnClick = false;
     private int screenWidth;
     private int screenHeight;

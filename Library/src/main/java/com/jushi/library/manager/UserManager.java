@@ -38,6 +38,7 @@ public class UserManager extends BaseManager {
     private UserInfo.UserEmployeeRolesBean currentShop;//当前所在店铺
     private String currentRoles = "";//当前角色  批发商、采购商、员工其中一种
     private List<String> shopRolesName = new ArrayList<>();
+    private OnUserInfoClearListener userInfoClearListener;
 
     @Override
     public void onManagerCreate(BaseApplication application) {
@@ -63,6 +64,9 @@ public class UserManager extends BaseManager {
         this.userInfo = null;
         this.currentShop = null;
         shareSparse.putValue(ShareSparse.USER, "");
+        if (userInfoClearListener!=null){
+            userInfoClearListener.onUserInfoClear();
+        }
     }
 
     public UserInfo getUserInfo() {
@@ -159,6 +163,14 @@ public class UserManager extends BaseManager {
                 return "企业营业执照";
         }
         return "其他";
+    }
+
+    public void setOnUserInfoClearListener(OnUserInfoClearListener listener){
+        this.userInfoClearListener = listener;
+    }
+
+    public interface OnUserInfoClearListener{
+        void onUserInfoClear();
     }
 
     @IntDef({CER_TYPE_0, CER_TYPE_1, CER_TYPE_2, CER_TYPE_3, CER_TYPE_4, CER_TYPE_5})

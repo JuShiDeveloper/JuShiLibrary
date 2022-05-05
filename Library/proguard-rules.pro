@@ -42,6 +42,7 @@
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
+-keep public class * extends android.app.Dialog
 -keep public class com.android.vending.licensing.ILicensingService
 -keep class android.support.** {*;}
 
@@ -253,3 +254,34 @@
 -keep class com.amap.api.fence.**{*;}
 -keep class com.loc.**{*;}
 -keep class com.autonavi.aps.amapapi.model.**{*;}
+
+-keep class com.jushi.library.customView.editText.AddressDialog$Address{*;}
+-keep class com.jushi.library.customView.editText.AddressDialog$AddressInfo{*;}
+
+#友盟混淆配置
+-keep class com.umeng.** {*;}
+-keep class org.repackage.** {*;}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keep public class com.ibat.edible.truffle.R$*{
+       public static final int *;
+}
+#友盟推送厂商混淆配置
+-keep class org.android.agoo.xiaomi.MiPushBroadcastReceiver {*;}
+-dontwarn com.xiaomi.push.**
+-ignorewarnings
+-keepattributes *Annotation*, Exceptions, InnerClasses, Signature, SourceFile, LineNumberTable
+-keep class com.hianalytics.android.** {*;}
+-keep class com.huawei.updatesdk.** {*;}
+-keep class com.huawei.hms.** {*;}
+-keep class com.meizu.cloud.** {*;}
+-dontwarn com.meizu.cloud.**
+-keep public class * extends android.app.Service
+-dontwarn com.vivo.push.**
+-keep class com.vivo.push.** {*;}
+-keep class com.vivo.vms.** {*;}
