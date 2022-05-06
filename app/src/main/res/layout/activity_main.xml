@@ -336,6 +336,11 @@
             android:layout_height="wrap_content"
             android:text="TEST SELECT LOCATION" />
 
+        <Button
+            android:id="@+id/test_webview_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WEB VIEW FRAGMENT" />
     </LinearLayout>
 
 

@@ -165,6 +165,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button btnCalender;
     @FindViewById(R.id.test_map_view)
     private Button btnMap;
+    @FindViewById(R.id.test_webview_fragment)
+    private Button btnWebFragment;
 
 
     @Override
@@ -379,6 +381,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         btnBottomNav.setOnClickListener(v -> startActivity(new Intent(this, BottomNavigationViewActivity.class)));
         btnCalender.setOnClickListener(v -> startActivity(new Intent(this, CalendarViewActivity.class)));
         btnMap.setOnClickListener(v -> startActivityForResult(new Intent(this, SelectLocationActivity.class), 121));
+        btnWebFragment.setOnClickListener(v->startActivity(new Intent(this, TestWebViewFragmentActivity.class)));
     }
 
     private List<String> getListData(int max) {
