@@ -8,6 +8,7 @@ import com.jushi.library.base.BaseFragmentActivity
  */
 class TestWebViewFragmentActivity: BaseFragmentActivity() {
 
+    val fragment = WebViewFragment()
     override fun getLayoutResId(): Int {
         setSystemBarStatus(true,true,true)
         return R.layout.activity_test_webview_fragment_layout
@@ -15,7 +16,6 @@ class TestWebViewFragmentActivity: BaseFragmentActivity() {
 
     @SuppressLint("CommitTransaction")
     override fun initView() {
-        val fragment = WebViewFragment()
         val tran = supportFragmentManager.beginTransaction()
         tran.add(R.id.frameLayout,fragment)
         tran.commit()
@@ -25,5 +25,11 @@ class TestWebViewFragmentActivity: BaseFragmentActivity() {
     }
 
     override fun setListener() {
+    }
+
+    override fun onBackPressed() {
+        if (fragment.canBackPressed()){
+            super.onBackPressed()
+        }
     }
 }

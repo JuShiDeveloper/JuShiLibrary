@@ -295,11 +295,12 @@ public abstract class BaseWebViewFragment extends BaseFragment implements Downlo
         openImageChooserActivity(accept);
     }
 
-    public void onBackPressed() {
+    public boolean canBackPressed() {
         if (mWebView.canGoBack()) {
             mWebView.goBack();
+            return false;
         } else {
-            Objects.requireNonNull(getActivity()).onBackPressed();
+            return true;
         }
     }
 
