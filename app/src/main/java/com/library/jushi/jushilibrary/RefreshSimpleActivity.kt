@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_refresh_simple_layout.*
 
 class RefreshSimpleActivity : BaseFragmentActivity(), OnRefreshListener, OnLoadMoreListener {
 
+    override fun navigationBar(): Boolean = true
+
     override fun getLayoutResId(): Int = R.layout.activity_refresh_simple_layout
 
     override fun initView() {

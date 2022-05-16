@@ -28,6 +28,7 @@ import com.jushi.library.customView.itemView.ItemView;
 import com.jushi.library.customView.messageInput.MessageInputView;
 import com.jushi.library.customView.mzbanner.MZBannerView;
 import com.jushi.library.customView.mzbanner.holder.MZViewHolder;
+import com.jushi.library.customView.navigationbar.NavigationBar;
 import com.jushi.library.customView.radar.RadarData;
 import com.jushi.library.customView.radar.RadarView;
 import com.jushi.library.customView.slideTabStrip.PagerSlidingTabStrip;
@@ -39,6 +40,7 @@ import com.jushi.library.manager.NetworkManager;
 import com.jushi.library.takingPhoto.PictureHelper;
 import com.jushi.library.takingPhoto.view.CircleImageView;
 import com.jushi.library.utils.LogUtil;
+import com.jushi.library.utils.ScreenUtils;
 import com.jushi.library.viewinject.FindViewById;
 import com.library.jushi.jushilibrary.calculator.CalculatorActivity;
 
@@ -168,6 +170,19 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     @FindViewById(R.id.test_webview_fragment)
     private Button btnWebFragment;
 
+    @Override
+    protected boolean navigationBar() {
+        return true;
+    }
+
+    @Override
+    protected void initNavigationBar(NavigationBar navBar) {
+        navBar.addFunction(NavigationBar.FUNCTION_LEFT_CLOSE_ICON|NavigationBar.FUNCTION_RIGHT_TEXT_BUTTON);
+        navBar.setCloseButtonImageResource(R.drawable.ic_close_black);
+        navBar.setRightButtonText("提交");
+        navBar.setRightButtonTextColor(getResources().getColor(R.color.white));
+        navBar.setRightButtonTextSize(ScreenUtils.sp2px(this,16));
+    }
 
     @Override
     protected int getLayoutResId() {

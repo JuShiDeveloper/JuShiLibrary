@@ -147,7 +147,16 @@ public class NavigationBar extends LinearLayout implements ViewTreeObserver.OnGl
     private void initStatusBarView(boolean isImmersiveStatusBar, int color) {
         if (!isImmersiveStatusBar) return;
         StatusBarView statusBar = new StatusBarView(getContext());
+//        statusBar.setBackgroundColor(color);
         addView(statusBar, 0);
+    }
+
+    /**
+     * 开启状态栏  设置沉浸式状态栏时使用
+     * @param isImmersiveStatusBar
+     */
+    public void enabledStatusBar(boolean isImmersiveStatusBar){
+        initStatusBarView(isImmersiveStatusBar,0);
     }
 
     /**

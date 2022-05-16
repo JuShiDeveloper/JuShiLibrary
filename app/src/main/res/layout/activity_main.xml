@@ -11,25 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.jushi.library.customView.navigationbar.NavigationBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            app:backButtonIconResource="@drawable/ic_arrow_back_black"
-            app:closeButtonIconResource="@drawable/ic_close_black"
-            app:closeButtonText="关闭"
-            app:closeButtonTextColor="#f7f7f7"
-            app:closeButtonTextSize="15sp"
-            app:function="BACK_BUTTON|TITLE|LEFT_CLOSE_ICON|RIGHT_TEXT_BUTTON"
-            app:rightButtonText="提交"
-            app:rightButtonTextColor="#f9f9f9"
-            app:rightButtonTextSize="15sp"
-            app:titleText="自定义导航栏示例4"
-            app:titleTextColor="#333333"
-            app:titleTextSize="16sp"
-            app:isImmersiveStatusBar="true"
-            app:statusBarBackgroundColor="@android:color/holo_green_dark"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
