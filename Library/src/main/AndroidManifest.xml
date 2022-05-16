@@ -53,6 +53,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".amap.SelectLocationActivity"
             android:screenOrientation="portrait"/>
+        <service android:name="com.amap.api.location.APSService"></service>
 
     </application>
 
