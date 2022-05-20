@@ -117,11 +117,11 @@ public class BaseApplication extends Application {
      */
     protected void registerManager(List<BaseManager> lists) {
         lists.add(new NetworkManager());            // 网络管理器
-        lists.add(new DatabaseManager());            // 数据库管理类
-        lists.add(new UserManager());
+//        lists.add(new DatabaseManager());            // 数据库管理类
+//        lists.add(new UserManager());
         lists.add(new SdManager());
-        lists.add(new BluetoothFuncManager());
-        lists.add(new MClipboardManager());
+//        lists.add(new BluetoothFuncManager());
+//        lists.add(new MClipboardManager());
     }
 
     private void initCrashLog(){

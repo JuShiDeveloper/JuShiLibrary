@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
@@ -34,7 +35,7 @@ import com.jushi.library.viewinject.ViewInjecter;
 public abstract class BaseFragmentActivity extends BasePermissionActivity {
     private View baseView;
     private LinearLayout baseLayout;
-    private NavigationBar navigationBar;
+    protected NavigationBar navigationBar;
     private CustomProgressDialog progressDialog;
     private Boolean isDestroy = false;
     protected UserManager userManager = null;
@@ -68,8 +69,15 @@ public abstract class BaseFragmentActivity extends BasePermissionActivity {
         baseView = View.inflate(this, R.layout.activity_base_layout, null);
         baseLayout = baseView.findViewById(R.id.base_layout);
         baseLayout.addView(View.inflate(this, getLayoutResId(), null));
+        if (isNeedFullScreen()){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
         setContentView(baseView);
         initNavigationBar();
+    }
+
+    protected boolean isNeedFullScreen() {
+        return false;
     }
 
     private void initNavigationBar() {

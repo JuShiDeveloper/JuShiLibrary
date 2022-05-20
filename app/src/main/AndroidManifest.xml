@@ -40,7 +40,17 @@
         <activity android:name=".NavigationBarActivity" />
 
         <provider
-            android:name="com.jushi.library.takingPhoto.util.ImageProvider"
+            android:name="com.jushi.library.provider.AppFilesProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepath" />
+        </provider>
+
+        <provider
+            android:name="com.jushi.library.provider.PhotoFileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -48,6 +58,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_path" />
         </provider>
+
         <service android:name=".TestFloatWindowService" />
 
         <activity android:name=".ScanCodeActivity" />

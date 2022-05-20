@@ -75,7 +75,7 @@ public class ScanManager implements SurfaceHolder.Callback {
      * @param scanLine      扫描线
      */
     public ScanManager(Activity activity, SurfaceView scanPreview, View scanContainer,
-                       View scanCropView, ImageView scanLine, @ScanManager.ScanMode int scanMode, ScanListener listener) {
+                       View scanCropView, ImageView scanLine, @ScanMode int scanMode, ScanListener listener) {
         this.activity = activity;
         this.scanPreview = scanPreview;
         this.scanContainer = scanContainer;

@@ -104,4 +104,12 @@ public abstract class BaseFragment extends BasePermissionFragment {
     protected <Manager extends BaseManager> Manager getManager(Class<Manager> cls) {
         return BaseApplication.getInstance().getManager(cls);
     }
+
+    protected void showIndeterminateProgressDialog(){
+        ((BaseFragmentActivity)getActivity()).showIndeterminateProgressDialog();
+    }
+
+    protected void dismissIndeterminateProgressDialog(){
+        ((BaseFragmentActivity)getActivity()).dismissIndeterminateProgressDialog();
+    }
 }

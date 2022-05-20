@@ -64,6 +64,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
         navigationBar.setVisibility(showNavigationBar() ? View.VISIBLE : View.GONE);
         initWebView();
         initProgressBar();
+        initLoadingDialog();
     }
 
     protected boolean showNavigationBar() {
@@ -89,6 +90,11 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
     private void initProgressBar() {
         progressBar = findViewById(R.id.webView_progress);
         progressBar.setVisibility(needShowProgressBar() ? View.VISIBLE : View.GONE);
+    }
+
+    private void initLoadingDialog(){
+        if (!showLoadingDialog())return;
+        showIndeterminateProgressDialog();
     }
 
     @SuppressLint({"ObsoleteSdkInt", "JavascriptInterface", "setJavaScriptEnabled"})
@@ -163,6 +169,9 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
             if (newProgress == 100) {
                 progressBar.setVisibility(View.GONE);
             }
+            if (newProgress == 100&&showLoadingDialog()){
+                dismissIndeterminateProgressDialog();
+            }
         }
 
         @Override
@@ -195,7 +204,7 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
-        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
             uploadMessageAboveL = filePathCallback;
             String[] acceptTypes = fileChooserParams.getAcceptTypes();
             for (int i = 0; i < acceptTypes.length; i++) {
@@ -360,4 +369,8 @@ public abstract class BaseWebViewActivity extends BaseFragmentActivity implement
      * @return
      */
     protected abstract String onJavascriptInterfaceName();
+
+    protected boolean showLoadingDialog(){
+        return false;
+    }
 }

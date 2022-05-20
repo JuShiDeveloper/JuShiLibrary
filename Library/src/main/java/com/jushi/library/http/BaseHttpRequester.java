@@ -28,19 +28,14 @@ public abstract class BaseHttpRequester<Data> extends BaseHttp {
 
     @Override
     protected void onRequestSuccess(int code, String message, JSONObject jsonObject, Response response) throws JSONException {
-        JSONObject dataObj = null;
         if (code == 401) {//未登录或登录信息过期
             loginOverdue(response.request().url().toString());
             return;
         }
-        if (jsonObject.has("data")) {
-            dataObj = jsonObject.getJSONObject("data");
-        }
-        JSONObject finalDataObj = dataObj == null ? jsonObject : dataObj;
         BaseApplication.getInstance().getHandler().post(() -> {
             try {
-                if (code == 200) {
-                    responseListener.onHttpRequesterResponse(code, onRequestRouter(), message, onDumpData(finalDataObj));
+                if (code == 0) {
+                    responseListener.onHttpRequesterResponse(code, onRequestRouter(), message, onDumpData(jsonObject));
                 } else {
                     onError(code, message);
                 }

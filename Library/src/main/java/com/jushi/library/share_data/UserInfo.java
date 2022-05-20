@@ -94,7 +94,7 @@ public class UserInfo {
     private String employeeAuditOpinion;
     private String sellerAuditOpinion;
     private String buyerAuditOpinion;
-    private UserInfo.UserEmployeeRolesBean currentShop;//当前所在店铺
+    private UserEmployeeRolesBean currentShop;//当前所在店铺
 
     public UserEmployeeRolesBean getCurrentShop() {
         return currentShop;

@@ -175,10 +175,6 @@ abstract class BaseHttp implements Callback {
      */
     private Map<String, String> getHeaders() {
         Map<String, String> headers = new HashMap<>();
-        if (userManager.getUserInfo() != null) {
-            headers.put("authorization", userManager.getUserInfo().getToken());
-            headers.put("bossId", userManager.getBossId());
-        }
         return headers;
     }
 
@@ -248,13 +244,9 @@ abstract class BaseHttp implements Callback {
         try {
             jsonObject = new JSONObject(response.body().string());
             LogUtil.v("response url = " + onHttpUrl() + " result = " + jsonObject.toString());
-            if (response.request().url().toString().contains("apis.map.qq.com")){
-                onRequestSuccess(code, message, jsonObject, response);
-            }else {
-                code = jsonObject.getInt("code");
-                message = jsonObject.getString("msg");
-                onRequestSuccess(code, message, jsonObject, response);
-            }
+            code = jsonObject.getInt("code");
+            message = jsonObject.getString("msg");
+            onRequestSuccess(code, message, jsonObject, response);
         } catch (JSONException e) {
             onError(code, e.getMessage());
         }
