@@ -41,6 +41,7 @@ android {
             shrinkResources false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [amap_api_key: "031bbc1b57f8b60860e9cb61510fa34c"]
         }
 
         release {
@@ -50,6 +51,7 @@ android {
             shrinkResources false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [amap_api_key: "031bbc1b57f8b60860e9cb61510fa34c"]
         }
     }
 
@@ -87,4 +89,5 @@ dependencies {
     implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'
     implementation  'com.scwang.smart:refresh-header-classics:2.0.3'
     kapt  'com.github.bumptech.glide:compiler:4.8.0'
+
 }

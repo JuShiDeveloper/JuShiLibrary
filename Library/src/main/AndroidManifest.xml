@@ -28,9 +28,13 @@
         android:allowBackup="true"
         android:supportsRtl="true">
         <!-- 高德地图-->
+<!--        <meta-data-->
+<!--            android:name="com.amap.api.v2.apikey"-->
+<!--            android:value="031bbc1b57f8b60860e9cb61510fa34c" />-->
+        <!--该方式value从build.gradle中获取-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="031bbc1b57f8b60860e9cb61510fa34c" />
+            android:value="${amap_api_key}" />
 
         <activity
             android:name=".crowdout.CrowdOutDialogActivity"
