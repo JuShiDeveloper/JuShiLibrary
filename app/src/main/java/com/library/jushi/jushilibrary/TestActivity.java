@@ -169,6 +169,8 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
     private Button btnMap;
     @FindViewById(R.id.test_webview_fragment)
     private Button btnWebFragment;
+    @FindViewById(R.id.test_echarts)
+    private Button btnEcharts;
 
     @Override
     protected boolean navigationBar() {
@@ -397,6 +399,7 @@ public class TestActivity extends BaseFragmentActivity implements OnHttpResponse
         btnCalender.setOnClickListener(v -> startActivity(new Intent(this, CalendarViewActivity.class)));
         btnMap.setOnClickListener(v -> startActivityForResult(new Intent(this, SelectLocationActivity.class), 121));
         btnWebFragment.setOnClickListener(v->startActivity(new Intent(this, TestWebViewFragmentActivity.class)));
+        btnEcharts.setOnClickListener(v->startActivity(new Intent(this,EchartsViewActivity.class)));
     }
 
     private List<String> getListData(int max) {

@@ -322,6 +322,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="WEB VIEW FRAGMENT" />
+        <Button
+            android:id="@+id/test_echarts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ECharts View" />
     </LinearLayout>
 
 
