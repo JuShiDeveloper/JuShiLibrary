@@ -238,7 +238,7 @@ gravity|输入内容对齐方式value = (left、right、top、bottom、center、
    sriv_right_bottom_corner_radius|右下角圆角半径
    sriv_border_width|描边宽度
    sriv_border_color|描边颜色
-   * 6、scaleImageView目录，基于ImageView自定义的ScaleImageView控件，包含手势缩放图片、放大后单指触摸拖动图片、双击放大缩小等功能。
+   * 6、scaleImageView目录，基于ImageView自定义的ScaleImageView控件，该自定义控件使用Kotlin代码实现，包含手势缩放图片、放大后单指触摸拖动图片、双击放大缩小等功能。
    ```
    布局文件中使用
    <com.jushi.library.customView.scaleImageView.ScaleImageView
@@ -601,9 +601,7 @@ public class TestWebSocketManager extends WSBaseManager {
 ```
 跳转位置选择页面
 startActivityForResult(new Intent(this, SelectLocationActivity.class), 121)
-
 获取到页面返回选择的位置信息
-String location = data.getStringExtra(SelectLocationActivity.EXTRA_LOCATION);
 {"address":"阳关大道XXXX","districtName":"XX区","cityName":"XX市","province":"520000","city":"520100","latitude":26.621906,"district":"520115","provinceName":"贵州省","longitude":106.649174}
 ```
 #### 十六、bluetooth目录，蓝牙服务功能，蓝牙连接状态监听、蓝牙扫描管理、蓝牙连接/断开连接、蓝牙通信(收发消息)。
@@ -637,4 +635,20 @@ SD卡管理，项目中用到SD卡存储时，使用该类统一管理。
 用户信息管理类，根据项目实际需求做相应修改。
 #### 十八、share_data目录,数据缓存工具
 ShareSparse SP数据缓存类，SharedPreferences缓存管理。
+#### 十九、echarts目录，使用echarts.js封装供安卓原生使用的echarts视图
+封装类为：EChartsView，支持显示除3D图之外的[echarts官网示例](https://echarts.apache.org/examples/zh/index.html#chart-type-bar)，目前只做简单显示以及点击事件回调，如有更多需求，请自行修改assets目录下的echarts.html
+使用示例：
 
+```
+xml布局
+<com.jushi.library.echarts.EChartsView
+            android:id="@+id/echartsView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+ 代码：
+ echartsView1.setData(getData1(),400)
+ echartsView1.setOnEChartsClickListener {
+            LogUtil.v("柱状图点击事件：$it")
+            ToastUtil.showToast(this,it.getString("name"))
+        }
+```
