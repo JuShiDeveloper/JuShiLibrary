@@ -9,7 +9,7 @@ import kotlinx.android.synthetic.main.activity_echarts_layout.*
 /**
  * echarts view 示例页面
  */
-class EchartsViewActivity:BaseFragmentActivity() {
+class EchartsViewActivity : BaseFragmentActivity() {
 
     override fun navigationBar(): Boolean {
         return true
@@ -21,14 +21,15 @@ class EchartsViewActivity:BaseFragmentActivity() {
     }
 
     override fun getLayoutResId(): Int {
-        setSystemBarStatus(true,true,true)
+        setSystemBarStatus(true, true, true)
         return R.layout.activity_echarts_layout
     }
 
     override fun initView() {
-        echartsView.setData(getData())
+        echartsView.setData(getData4(), 350)
         echartsView1.setData(getData1(),400)
         echartsView2.setData(getData3(),320)
+        echartsView3.setData(getData())
     }
 
     override fun initData() {
@@ -38,15 +39,15 @@ class EchartsViewActivity:BaseFragmentActivity() {
     override fun setListener() {
         echartsView1.setOnEChartsClickListener {
             LogUtil.v("柱状图点击事件：$it")
-            ToastUtil.showToast(this,it.getString("name"))
+            ToastUtil.showToast(this, it.getString("name"))
         }
         echartsView2.setOnEChartsClickListener {
             LogUtil.v("饼图点击事件：$it")
-            ToastUtil.showToast(this,it.getString("name"))
+            ToastUtil.showToast(this, it.getString("name"))
         }
     }
 
-    private fun getData():String{
+    private fun getData(): String {
         return "{\n" +
                 "  tooltip: {\n" +
                 "    formatter: '{a} <br/>{b} : {c}%'\n" +
@@ -73,7 +74,7 @@ class EchartsViewActivity:BaseFragmentActivity() {
                 "}"
     }
 
-    private fun getData1():String{
+    private fun getData1(): String {
         return "{\n" +
                 "  tooltip: {\n" +
                 "    trigger: 'axis',\n" +
@@ -190,7 +191,7 @@ class EchartsViewActivity:BaseFragmentActivity() {
                 "}"
     }
 
-    private fun getData3():String{
+    private fun getData3(): String {
         return "{\n" +
                 "  legend: {\n" +
                 "    top: 'bottom'\n" +
@@ -227,5 +228,9 @@ class EchartsViewActivity:BaseFragmentActivity() {
                 "    }\n" +
                 "  ]\n" +
                 "}"
+    }
+
+    private fun getData4(): String {
+        return "{\"title\":{\"text\":\"Basic Graph\"},\"tooltip\":{},\"animationDurationUpdate\":1500,\"animationEasingUpdate\":\"quinticInOut\",\"series\":[{\"type\":\"graph\",\"layout\":\"none\",\"symbolSize\":50,\"roam\":true,\"label\":{\"show\":true},\"edgeSymbol\":[\"circle\",\"arrow\"],\"edgeSymbolSize\":[4,10],\"edgeLabel\":{\"fontSize\":20},\"data\":[{\"name\":\"Node 1\",\"x\":300,\"y\":300,\"itemStyle\":{\"color\":\"red\"},\"label\":{\"position\":\"top\"}},{\"name\":\"Node 2\",\"x\":350,\"y\":300,\"label\":{\"position\":\"top\"}},{\"name\":\"Node 3\",\"x\":400,\"y\":300,\"label\":{\"position\":\"top\"}},{\"name\":\"Node 4\",\"x\":450,\"y\":300,\"label\":{\"position\":\"top\"}},{\"name\":\"Node 5\",\"x\":310,\"y\":365,\"label\":{\"position\":\"top\"}},{\"name\":\"Node 6\",\"x\":365,\"y\":365,\"label\":{\"position\":\"top\"}},{\"name\":\"Node 7\",\"x\":410,\"y\":365,\"label\":{\"position\":\"top\"}},{\"name\":\"Node 8\",\"x\":450,\"y\":365,\"label\":{\"position\":\"top\"}}],\"links\":[{\"source\":0,\"target\":1,\"symbolSize\":[5,20],\"label\":{\"show\":true},\"lineStyle\":{\"width\":2,\"curveness\":0.5}},{\"source\":\"Node 1\",\"target\":\"Node 2\"},{\"source\":\"Node 2\",\"target\":\"Node 3\"},{\"source\":\"Node 2\",\"target\":\"Node 4\"},{\"source\":\"Node 1\",\"target\":\"Node 4\"},{\"source\":\"Node 1\",\"target\":\"Node 5\"},{\"source\":\"Node 5\",\"target\":\"Node 6\"},{\"source\":\"Node 5\",\"target\":\"Node 2\"},{\"source\":\"Node 6\",\"target\":\"Node 7\"},{\"source\":\"Node 2\",\"target\":\"Node 7\"},{\"source\":\"Node 7\",\"target\":\"Node 8\"},{\"source\":\"Node 8\",\"target\":\"Node 4\"}],\"lineStyle\":{\"opacity\":0.9,\"width\":2,\"curveness\":0}}]}"
     }
 }

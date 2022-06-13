@@ -82,7 +82,7 @@ public class EChartsView extends WebView {
         this.height = height;
         try {
             JSONObject object = new JSONObject(data);
-            loadData(data);
+            loadData(object.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
